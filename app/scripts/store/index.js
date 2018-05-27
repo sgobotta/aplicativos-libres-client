@@ -8,6 +8,9 @@ import history from 'modules/history';
 import rootSaga from 'sagas';
 import rootReducer from 'reducers';
 
+import { services } from './../modules/socket-client';
+
+
 const sagaMiddleware = createSagaMiddleware();
 
 const reducer = persistReducer(
@@ -17,11 +20,12 @@ const reducer = persistReducer(
     whitelist: ['app', 'user'],
   },
   combineReducers({
+    users: services.users.reducer,
+    messages: services.messages.reducer,
     ...rootReducer,
     router: routerReducer,
   })
 );
-
 
 const middleware = [
   sagaMiddleware,
