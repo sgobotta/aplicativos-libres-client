@@ -1,32 +1,57 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import cx from 'classnames';
 
-import { logOut } from 'actions';
-import Logo from 'components/Logo';
+import { login, logOut } from 'actions';
+// import { login } from "actions";
 
 export default class Header extends React.PureComponent {
   static propTypes = {
     dispatch: PropTypes.func.isRequired,
+    user: PropTypes.object.isRequired,
   };
 
   handleClickLogout = e => {
     e.preventDefault();
-    const { dispatch } = this.props;
 
-    dispatch(logOut());
+    this.props.dispatch(logOut());
+  };
+
+  handleClickLogin = (e) => {
+    e.preventDefault();
+
+    this.props.dispatch(login());
   };
 
   render() {
+    const { user } = this.props;
     return (
       <header className="app__header">
         <div className="app__container">
-          <Logo />
           <div className="app__header__menu">
             <ul className="list-unstyled">
               <li>
-                <a href="#logout" className="app__logout" onClick={this.handleClickLogout}>
-                  <span>logout</span><i className="i-sign-out" />
-                </a>
+                { user.isAuthenticated &&
+                  <a
+                    href="#logout"
+                    className="app__logout"
+                    onClick={this.handleClickLogout}
+                  >
+                    <span>logout</span><i className="i-sign-out" />
+                  </a>
+                }
+                { !user.isAuthenticated &&
+
+                  <a
+                    href="#login"
+                    className={cx('btn btn-md btn-primary btn-icon app__logout', {
+                      'btn-loading': user.status === 'running',
+                    })}
+                    onClick={this.handleClickLogin}
+                  >
+                    <span>login</span><i className="i-sign-in" />
+                  </a>
+                }
               </li>
             </ul>
           </div>
