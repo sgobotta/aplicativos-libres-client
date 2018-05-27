@@ -21,6 +21,12 @@ export default {
         status: { $set: 'idle' },
       });
     },
+    [ActionTypes.USER_LOGIN_FAILURE](state) {
+      return immutable(state, {
+        isAuthenticated: { $set: false },
+        status: { $set: 'idle' },
+      });
+    },
     [ActionTypes.USER_LOGOUT_REQUEST](state) {
       return immutable(state, {
         status: { $set: 'running' },
