@@ -21,6 +21,16 @@ export const ActionTypes = keyMirror({
   GITHUB_GET_REPOS_FAILURE: undefined,
   SHOW_ALERT: undefined,
   HIDE_ALERT: undefined,
+  USERS_LOGIN_REQUEST: undefined,
+  USERS_LOGIN_SUCCESS: undefined,
+  USERS_LOGIN_FAILURE: undefined,
+  USERS_LOGOUT_REQUEST: undefined,
+  USERS_LOGOUT_SUCCESS: undefined,
+  USERS_LOGOUT_FAILURE: undefined,
+  SERVICES_MESSAGES_CREATE: undefined,
+  SERVICES_MESSAGES_CREATE_PENDING: undefined,
+  SERVICES_MESSAGES_CREATE_FULFILLED: undefined,
+  SERVICES_MESSAGES_CREATE_REJECTED: undefined,
 });
 
 /**
@@ -30,4 +40,7 @@ export const ActionTypes = keyMirror({
 export const XHR = keyMirror({
   SUCCESS: undefined,
   FAIL: undefined,
+  PENDING: undefined,
+  FULFILLED: undefined,
+  REJECTED: undefined,
 });
