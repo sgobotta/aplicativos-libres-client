@@ -19,12 +19,15 @@
     "ES6"
   ],
   "dependencies": {
+    "@feathersjs/feathers": "^3.1.5",
+    "@feathersjs/socketio-client": "^1.1.0",
     "bootstrap": "^4.0.0",
     "classlist-polyfill": "^1.2.0",
     "classnames": "^2.2.5",
     "core-js": "^2.5.3",
     "ease-component": "^1.0.0",
     "fbjs": "^0.8.16",
+    "feathers-redux": "^2.1.0",
     "history": "^4.7.2",
     "immutability-helper": "^2.6.6",
     "isomorphic-fetch": "^2.2.1",
@@ -47,6 +50,7 @@
     "sass-mediaqueries": "^1.6.1",
     "scroll": "^2.0.3",
     "scroll-doc": "^0.2.1",
+    "socket.io-client": "^2.1.1",
     "uuid": "^3.2.1"
   },
   "devDependencies": {
