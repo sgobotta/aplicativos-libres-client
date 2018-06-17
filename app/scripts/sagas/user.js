@@ -8,11 +8,14 @@ import { all, call, put, takeLatest } from 'redux-saga/effects';
 
 import { ActionTypes } from 'constants/index';
 
+import { showLoading, hideLoading } from 'react-redux-loading-bar';
+
 /**
  * Login
  */
 export function* login() {
   try {
+    yield put(showLoading());
     yield call(delay, 400);
 
     yield put({
@@ -25,6 +28,9 @@ export function* login() {
       type: ActionTypes.USER_LOGIN_FAILURE,
       payload: err,
     });
+  }
+  finally {
+    yield put(hideLoading());
   }
 }
 
