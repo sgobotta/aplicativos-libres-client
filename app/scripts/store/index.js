@@ -4,6 +4,8 @@ import { routerReducer, routerMiddleware } from 'react-router-redux';
 import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 
+import { loadingBarReducer } from 'react-redux-loading-bar';
+
 import history from 'modules/history';
 import rootSaga from 'sagas';
 import rootReducer from 'reducers';
@@ -24,6 +26,7 @@ const reducer = persistReducer(
     messages: services.messages.reducer,
     ...rootReducer,
     router: routerReducer,
+    loadingBar: loadingBarReducer,
   })
 );
 
