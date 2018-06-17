@@ -1,10 +1,10 @@
+import feathers from '@feathersjs/client';
 import reduxifyServices from 'feathers-redux';
 
 import { call } from 'redux-saga/effects';
 
+
 const io = require('socket.io-client');
-const feathers = require('@feathersjs/feathers');
-const socketio = require('@feathersjs/socketio-client');
 
 const socket = io('http://localhost:3030', {
   transports: ['websocket'],
@@ -12,7 +12,7 @@ const socket = io('http://localhost:3030', {
 });
 
 const feathersClient = feathers();
-feathersClient.configure(socketio(socket));
+feathersClient.configure(feathers.socketio(socket));
 
 const services = reduxifyServices(feathersClient, ['users', 'messages']);
 
