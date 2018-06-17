@@ -9,6 +9,8 @@ import history from 'modules/history';
 import RoutePublic from 'modules/RoutePublic';
 import RoutePrivate from 'modules/RoutePrivate';
 
+import LoadingBar from 'react-redux-loading-bar';
+
 import config from 'config';
 import { showAlert } from 'actions';
 
@@ -19,6 +21,7 @@ import NotFound from 'routes/NotFound';
 import Header from 'components/Header';
 import Footer from 'components/Footer';
 import SystemAlerts from 'components/SystemAlerts';
+
 
 export class App extends React.Component {
   static propTypes = {
@@ -56,6 +59,11 @@ export class App extends React.Component {
             titleAttributes={{ itemprop: 'name', lang: 'pt-br' }}
           />
           <Header dispatch={dispatch} user={user} />
+          <LoadingBar
+            style={{ zIndex: 1000 }}
+            updateTime={50} maxProgress={95} progressIncrease={1}
+            showFastActions
+          />
           <main className="app__main">
             <Switch>
               <RoutePublic isAuthenticated={user.isAuthenticated} path="/" exact component={Home} />
