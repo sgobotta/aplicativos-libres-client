@@ -31,6 +31,10 @@ export const ActionTypes = keyMirror({
   SERVICES_MESSAGES_CREATE_PENDING: undefined,
   SERVICES_MESSAGES_CREATE_FULFILLED: undefined,
   SERVICES_MESSAGES_CREATE_REJECTED: undefined,
+  SERVICES_VOTES_FIND: undefined,
+  SERVICES_VOTES_FIND_PENDING: undefined,
+  SERVICES_VOTES_FIND_FULFILLED: undefined,
+  SERVICES_VOTES_FIND_REJECTED: undefined,
 });
 
 /**
