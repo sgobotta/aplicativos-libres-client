@@ -17,6 +17,7 @@ import { showAlert } from 'actions';
 import Home from 'routes/Home';
 import Private from 'routes/Private';
 import NotFound from 'routes/NotFound';
+import CustomMap from 'routes/CustomMap';
 
 import Header from 'components/Header';
 import Footer from 'components/Footer';
@@ -60,7 +61,7 @@ export class App extends React.Component {
           />
           <Header dispatch={dispatch} user={user} />
           <LoadingBar
-            style={{ zIndex: 1000 }}
+            style={{ zIndex: 1000, backgroundColor: '#384d30' }}
             updateTime={50} maxProgress={95} progressIncrease={1}
             showFastActions
           />
@@ -68,6 +69,7 @@ export class App extends React.Component {
             <Switch>
               <RoutePublic isAuthenticated={user.isAuthenticated} path="/" exact component={Home} />
               <RoutePrivate isAuthenticated={user.isAuthenticated} path="/private" component={Private} />
+              <Route path="/map" component={CustomMap} />
               <Route component={NotFound} />
             </Switch>
           </main>
