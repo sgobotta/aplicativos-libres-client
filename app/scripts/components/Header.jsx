@@ -5,6 +5,9 @@ import cx from 'classnames';
 import { login, logOut } from 'actions';
 // import { login } from "actions";
 
+import { Link } from 'react-router-dom';
+
+
 export default class Header extends React.PureComponent {
   static propTypes = {
     dispatch: PropTypes.func.isRequired,
@@ -31,10 +34,18 @@ export default class Header extends React.PureComponent {
           <div className="app__header__menu">
             <ul className="list-unstyled">
               <li>
+                <Link
+                  to="/map"
+                  className="btn btn-md btn-primary btn-icon"
+                >
+                  <span>map</span><i className="i-map" />
+                </Link>
+              </li>
+              <li>
                 { user.isAuthenticated &&
                   <a
                     href="#logout"
-                    className="app__logout"
+                    className="btn btn-md btn-primary btn-icon app__logout"
                     onClick={this.handleClickLogout}
                   >
                     <span>logout</span><i className="i-sign-out" />
