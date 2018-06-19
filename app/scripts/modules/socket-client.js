@@ -14,7 +14,7 @@ const socket = io('http://localhost:3030', {
 const feathersClient = feathers();
 feathersClient.configure(feathers.socketio(socket));
 
-const services = reduxifyServices(feathersClient, ['users', 'messages']);
+const services = reduxifyServices(feathersClient, ['users', 'messages', 'votes']);
 
 export { services };
 
