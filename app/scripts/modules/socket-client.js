@@ -3,10 +3,10 @@ import reduxifyServices from 'feathers-redux';
 
 import { call } from 'redux-saga/effects';
 
-
 const io = require('socket.io-client');
 
-const socket = io('http://localhost:3030', {
+const url = process.env.API_URL;
+const socket = io(url, {
   transports: ['websocket'],
   forceNew: true,
 });
