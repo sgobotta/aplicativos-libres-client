@@ -11,6 +11,8 @@ const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
 const paths = require('./paths');
 const webpackConfig = require('./webpack.config.base');
 
+const getClientEnvironment = require('./env');
+
 const NPMPackage = require(paths.packageJson);
 
 let GITHASH = '';
@@ -18,6 +20,20 @@ const definePlugin = webpackConfig.plugins.find(d => d.constructor.name === 'Def
 if (definePlugin) {
   GITHASH = definePlugin.definitions.GITHASH ? definePlugin.definitions.GITHASH.replace(/"/g, '') : '';
 }
+
+const env = getClientEnvironment();
+
+const apiUrl = `${process.env.BACKEND_URL}:${process.env.BACKEND_PORT}`;
+
+const customEnv = {
+  API_URL: JSON.stringify(apiUrl),
+  HOST: JSON.stringify(process.env.HOST),
+};
+
+Object.keys(customEnv).forEach((key) => {
+  env.stringified['process.env'][key] = customEnv[key];
+});
+
 
 module.exports = merge.smart(webpackConfig, {
   entry: {
@@ -92,5 +108,7 @@ module.exports = merge.smart(webpackConfig, {
         },
       ],
     }),
+    // Adds custom env variables
+    new webpack.DefinePlugin(env.stringified),
   ],
 });
