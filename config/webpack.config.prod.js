@@ -21,15 +21,10 @@ if (definePlugin) {
   GITHASH = definePlugin.definitions.APP__GITHASH ? definePlugin.definitions.APP__GITHASH.replace(/"/g, '') : '';
 }
 
-console.log('::: define plugin :::', GITHASH);
-
 const env = getClientEnvironment();
 
-const apiUrl = `${process.env.BACKEND_URL}:${process.env.BACKEND_PORT}`;
-
 const customEnv = {
-  API_URL: JSON.stringify(apiUrl),
-  HOST: JSON.stringify(process.env.HOST),
+  REACT_APP_API_URL: JSON.stringify(process.env.REACT_APP_API_URL),
 };
 
 Object.keys(customEnv).forEach((key) => {
