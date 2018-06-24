@@ -30,9 +30,6 @@ const customEnv = {
   HOST: JSON.stringify(process.env.HOST),
 };
 
-console.log('::: PROCESS ENV :::');
-console.log(process.env);
-
 Object.keys(customEnv).forEach((key) => {
   env.stringified['process.env'][key] = customEnv[key];
 });
