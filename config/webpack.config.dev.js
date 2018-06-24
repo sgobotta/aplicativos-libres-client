@@ -19,18 +19,6 @@ const publicUrl = '';
 // Get environment variables to inject into our app.
 const env = getClientEnvironment(publicUrl);
 
-const apiUrl = `${process.env.BACKEND_URL}:${process.env.BACKEND_PORT}`;
-
-const customEnv = {
-  API_URL: JSON.stringify(apiUrl),
-};
-
-Object.keys(customEnv).forEach((key) => {
-  env.stringified['process.env'][key] = customEnv[key];
-});
-
-console.log(env);
-
 
 // This is the development configuration.
 // It is focused on developer experience and fast rebuilds.
