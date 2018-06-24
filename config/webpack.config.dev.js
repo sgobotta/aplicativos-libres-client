@@ -29,8 +29,6 @@ Object.keys(customEnv).forEach((key) => {
   env.stringified['process.env'][key] = customEnv[key];
 });
 
-console.log(env);
-
 
 // This is the development configuration.
 // It is focused on developer experience and fast rebuilds.
@@ -121,3 +119,6 @@ module.exports = merge.smart(webpackConfig, {
     hints: false,
   },
 });
+
+console.log('::: PROCESS ENV :::');
+console.log(process.env);
