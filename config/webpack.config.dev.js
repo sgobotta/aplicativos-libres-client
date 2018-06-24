@@ -119,6 +119,3 @@ module.exports = merge.smart(webpackConfig, {
     hints: false,
   },
 });
-
-console.log('::: PROCESS ENV :::');
-console.log(process.env);

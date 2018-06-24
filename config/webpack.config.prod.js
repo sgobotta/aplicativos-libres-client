@@ -112,3 +112,6 @@ module.exports = merge.smart(webpackConfig, {
     new webpack.DefinePlugin(env.stringified),
   ],
 });
+
+console.log('::: PROCESS ENV :::');
+console.log(process.env);
