@@ -21,8 +21,6 @@ if (definePlugin) {
   GITHASH = definePlugin.definitions.APP__GITHASH ? definePlugin.definitions.APP__GITHASH.replace(/"/g, '') : '';
 }
 
-console.log('::: define plugin :::', GITHASH);
-
 const env = getClientEnvironment();
 
 const apiUrl = `${process.env.BACKEND_URL}:${process.env.BACKEND_PORT}`;
@@ -31,6 +29,9 @@ const customEnv = {
   API_URL: JSON.stringify(apiUrl),
   HOST: JSON.stringify(process.env.HOST),
 };
+
+console.log('::: PROCESS ENV :::');
+console.log(process.env);
 
 Object.keys(customEnv).forEach((key) => {
   env.stringified['process.env'][key] = customEnv[key];
