@@ -5,7 +5,7 @@ import { call } from 'redux-saga/effects';
 
 const io = require('socket.io-client');
 
-const url = process.env.API_URL;
+const url = process.env.REACT_APP_API_URL;
 const socket = io(url, {
   transports: ['websocket'],
   forceNew: true,
