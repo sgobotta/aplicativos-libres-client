@@ -2,7 +2,6 @@
 const crypto = require('crypto');
 const webpack = require('webpack');
 const ExtractText = require('extract-text-webpack-plugin');
-// const GitInfoPlugin = require('git-info-webpack-plugin');
 const CircularDependencyPlugin = require('circular-dependency-plugin');
 const autoprefixer = require('autoprefixer');
 const dateFns = require('date-fns');
@@ -12,12 +11,6 @@ const NPMPackage = require(paths.packageJson);
 
 const { NODE_ENV } = process.env;
 const isProd = process.env.NODE_ENV === 'production';
-
-// const gitInfoPlugin = new GitInfoPlugin({
-//   hashCommand: 'rev-parse --short HEAD',
-// });
-
-// console.log('::: git info plugin :::', gitInfoPlugin);
 
 const current_date = (new Date()).valueOf().toString();
 const random = Math.random().toString();
