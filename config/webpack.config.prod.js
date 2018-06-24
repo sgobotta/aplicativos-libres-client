@@ -18,8 +18,10 @@ const NPMPackage = require(paths.packageJson);
 let GITHASH = '';
 const definePlugin = webpackConfig.plugins.find(d => d.constructor.name === 'DefinePlugin');
 if (definePlugin) {
-  GITHASH = definePlugin.definitions.GITHASH ? definePlugin.definitions.GITHASH.replace(/"/g, '') : '';
+  GITHASH = definePlugin.definitions.APP__GITHASH ? definePlugin.definitions.APP__GITHASH.replace(/"/g, '') : '';
 }
+
+console.log('::: define plugin :::', GITHASH);
 
 const env = getClientEnvironment();
 
@@ -41,8 +43,8 @@ module.exports = merge.smart(webpackConfig, {
     'scripts/app': paths.appIndexJs,
   },
   output: {
-    chunkFilename: 'scripts/[name].[git-hash].js',
-    filename: '[name].[git-hash].js',
+    chunkFilename: `scripts/[name].${GITHASH}.js`,
+    filename: `[name].${GITHASH}.js`,
     path: paths.destination,
     publicPath: '/',
   },
@@ -53,7 +55,7 @@ module.exports = merge.smart(webpackConfig, {
       { from: '../assets/manifest.json' },
       { from: '../app/.htaccess' },
     ]),
-    new ExtractText('styles/app.[git-hash].css'),
+    new ExtractText(`styles/app.${GITHASH}.css`),
     new HtmlPlugin({
       githash: GITHASH,
       inject: false,
