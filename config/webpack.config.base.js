@@ -13,12 +13,6 @@ const NPMPackage = require(paths.packageJson);
 const { NODE_ENV } = process.env;
 const isProd = process.env.NODE_ENV === 'production';
 
-// const gitInfoPlugin = new GitInfoPlugin({
-//   hashCommand: 'rev-parse --short HEAD',
-// });
-
-// console.log('::: git info plugin :::', gitInfoPlugin);
-
 const current_date = (new Date()).valueOf().toString();
 const random = Math.random().toString();
 const generatedHash = crypto.createHash('sha1').update(current_date + random).digest('hex');
@@ -74,7 +68,6 @@ module.exports = {
   },
   plugins: [
     new webpack.NoEmitOnErrorsPlugin(),
-    // gitInfoPlugin,
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify(NODE_ENV || 'development'),
       APP__BUILD_DATE: JSON.stringify(dateFns.format(new Date(), 'DD/MM/YYYY')),

@@ -23,7 +23,7 @@ if (definePlugin) {
 
 const env = getClientEnvironment();
 
-const apiUrl = `${process.env.BACKEND_URL}:${process.env.BACKEND_PORT}`;
+const apiUrl = `${process.env.REACT_APP_BACKEND_URL}:${process.env.REACT_APP_BACKEND_PORT}`;
 
 const customEnv = {
   API_URL: JSON.stringify(apiUrl),
@@ -112,6 +112,3 @@ module.exports = merge.smart(webpackConfig, {
     new webpack.DefinePlugin(env.stringified),
   ],
 });
-
-console.log('::: PROCESS ENV :::');
-console.log(process.env);
