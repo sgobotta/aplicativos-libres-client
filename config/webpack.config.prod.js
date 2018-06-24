@@ -23,11 +23,8 @@ if (definePlugin) {
 
 const env = getClientEnvironment();
 
-const apiUrl = `${process.env.REACT_APP_BACKEND_URL}:${process.env.REACT_APP_BACKEND_PORT}`;
-
 const customEnv = {
-  API_URL: JSON.stringify(apiUrl),
-  HOST: JSON.stringify(process.env.HOST),
+  REACT_APP_API_URL: JSON.stringify(process.env.REACT_APP_API_URL),
 };
 
 Object.keys(customEnv).forEach((key) => {
