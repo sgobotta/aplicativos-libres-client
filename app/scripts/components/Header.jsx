@@ -51,15 +51,14 @@ export default class Header extends React.PureComponent {
                   </a>
                 }
                 { !user.isAuthenticated &&
-                  <a
-                    href="#login"
+                  <Link
+                    to="/login"
                     className={cx('btn btn-md btn-primary btn-icon app__logout', {
                       'btn-loading': user.status === 'running',
                     })}
-                    onClick={this.handleClickLogin}
                   >
                     <span>login</span><i className="i-sign-in" />
-                  </a>
+                  </Link>
                 }
               </li>
             </ul>
