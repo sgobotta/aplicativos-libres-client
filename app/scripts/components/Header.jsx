@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import cx from 'classnames';
 
 import { login, logOut } from 'actions';
-// import { login } from "actions";
 
 import { Link } from 'react-router-dom';
 
@@ -38,7 +37,7 @@ export default class Header extends React.PureComponent {
                   to="/map"
                   className="btn btn-md btn-primary btn-icon"
                 >
-                  <span>map</span><i className="i-map" />
+                  <i className="i-map" /><span>map</span>
                 </Link>
               </li>
               <li>
@@ -52,7 +51,6 @@ export default class Header extends React.PureComponent {
                   </a>
                 }
                 { !user.isAuthenticated &&
-
                   <a
                     href="#login"
                     className={cx('btn btn-md btn-primary btn-icon app__logout', {
