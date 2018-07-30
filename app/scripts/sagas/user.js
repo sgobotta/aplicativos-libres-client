@@ -5,21 +5,27 @@
 
 import { delay } from 'redux-saga';
 import { all, call, put, takeLatest } from 'redux-saga/effects';
-
 import { ActionTypes } from 'constants/index';
-
 import { showLoading, hideLoading } from 'react-redux-loading-bar';
+
+import { request } from './../modules/socket-client';
 
 /**
  * Login
  */
-export function* login() {
+export function* login({ payload }) {
   try {
     yield put(showLoading());
-    yield call(delay, 400);
 
+    const service = {
+      service: 'authentication',
+      action: 'create',
+      query: payload.query,
+    };
+    const data = yield call(request, service);
     yield put({
       type: ActionTypes.USER_LOGIN_SUCCESS,
+      payload: data,
     });
   }
   catch (err) {
