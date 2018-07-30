@@ -17,6 +17,7 @@ import { showAlert } from 'actions';
 import Home from 'routes/Home';
 import Private from 'routes/Private';
 import NotFound from 'routes/NotFound';
+import Login from 'routes/Login';
 import CustomMap from 'routes/CustomMap';
 
 import Header from 'components/Header';
@@ -37,7 +38,10 @@ export class App extends React.Component {
 
     /* istanbul ignore else */
     if (!user.isAuthenticated && nextUser.isAuthenticated) {
-      dispatch(showAlert('Hello! And welcome!', { type: 'success', icon: 'i-trophy' }));
+      dispatch(showAlert('¡Bienvenide!', { type: 'success', icon: 'i-bell' }));
+    }
+    if (user.isAuthenticated && !nextUser.isAuthenticated) {
+      dispatch(showAlert('¡Hasta luego!', { type: 'success', icon: 'i-bell' }));
     }
   }
 
@@ -68,6 +72,7 @@ export class App extends React.Component {
           <main className="app__main">
             <Switch>
               <RoutePublic isAuthenticated={user.isAuthenticated} path="/" exact component={Home} />
+              <RoutePublic isAuthenticated={user.isAuthenticated} path="/login" component={Login} to="/private" />
               <RoutePrivate isAuthenticated={user.isAuthenticated} path="/private" component={Private} />
               <Route path="/map" component={CustomMap} />
               <Route component={NotFound} />
