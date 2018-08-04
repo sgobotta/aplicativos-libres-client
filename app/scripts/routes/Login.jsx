@@ -17,18 +17,23 @@ const styles = {
     display: 'flex',
     justifyContent: 'center',
   },
-  container: {
-    display: 'flex',
-    flexDirection: 'column',
-  },
   card: {
     minWidth: 275,
     maxWidth: 600,
+    borderRadius: '20px',
+  },
+  container: {
+    display: 'flex',
+    flexDirection: 'column',
   },
   title: {
     textAlign: 'center',
     marginBottom: 16,
     fontSize: 30,
+    fontWeight: 'bold',
+  },
+  button: {
+    fontWeight: 'bold',
   },
   pos: {
     marginBottom: 12,
@@ -93,7 +98,10 @@ class SimpleCard extends React.Component {
             <Button
               className={classes.cardAction} size="small"
               onClick={this.handleClickLogin}
-            > Login
+            >
+              <Typography variant="button" style={styles.button}>
+                Login
+              </Typography>
             </Button>
           </CardActions>
         </Card>
