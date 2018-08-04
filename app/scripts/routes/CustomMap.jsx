@@ -6,7 +6,7 @@ import AbortionProject from './../containers/AbortionProject';
 export class CustomMap extends React.PureComponent {
   render() {
     return (
-      <div key="CustomMap" className="app__route">
+      <div key="CustomMap">
         <AbortionProject />
       </div>
     );

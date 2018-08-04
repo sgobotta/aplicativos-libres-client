@@ -32,7 +32,7 @@ export class AbortionProject extends React.Component {
     }
 
     return (
-      <div key="AbortionProject" className="">
+      <div key="AbortionProject">
         {output}
       </div>
     );

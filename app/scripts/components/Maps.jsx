@@ -23,7 +23,7 @@ export default class App extends React.Component {
         <Chart
           chartType="GeoChart"
           width="100%"
-          height="900px"
+          height="100%"
           data={votes}
           graph_id="GeoChart"
           options={options}

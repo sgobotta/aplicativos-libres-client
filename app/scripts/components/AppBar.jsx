@@ -39,21 +39,27 @@ class ButtonAppBar extends React.Component {
             <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
               <MenuIcon />
             </IconButton>
-            <Typography variant="title" color="inherit" className={classes.flex}>
+            <Typography align="left" variant="title" color="inherit" className={classes.flex}>
               <Link to="/">
                 <Button>Home</Button>
               </Link>
             </Typography>
-            <Link to="/map">
-              <Button>Map</Button>
-            </Link>
-            { !user.isAuthenticated &&
-              <Link to="/login">
-                <Button>Login</Button>
+            <Typography variant="title" color="inherit" className={classes.flex}>
+              <Link to="/map">
+                <Button>Maps</Button>
               </Link>
+            </Typography>
+            { !user.isAuthenticated &&
+              <Typography align="right" variant="title" color="inherit" className={classes.flex}>
+                <Link to="/login">
+                  <Button>Login</Button>
+                </Link>
+              </Typography>
             }
             { user.isAuthenticated &&
-              <Button onClick={this.handleClickLogout}>Logout</Button>
+              <Typography align="right" variant="title" color="inherit" className={classes.flex}>
+                <Button onClick={this.handleClickLogout}>Logout</Button>
+              </Typography>
             }
           </Toolbar>
         </AppBar>
