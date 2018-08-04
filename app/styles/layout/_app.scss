@@ -10,7 +10,7 @@
     min-height: 100vh;
 
     @at-root .app--private & {
-      padding: ($header-height + $grid-gutter-width) 0 ($footer-height + $grid-gutter-width);
+      padding: (0 + 0) 0 ($footer-height + $grid-gutter-width);
     }
   }
 
