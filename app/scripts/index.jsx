@@ -72,9 +72,9 @@ export const init = {
       onUpdated: () => {
         store.dispatch(showAlert((
           <div className="app__cache-reload">
-            <p>There's a new version of this app!</p>
+            <p>¡Hay una nueva versión de ésta aplicación!</p>
             <button className="btn btn-sm btn-outline-primary" onClick={() => window.location.reload()}>
-              Reload
+              Recargar
             </button>
           </div>
         ), { id: 'sw-update', type: 'primary', icon: 'i-flash', timeout: 0 }));
