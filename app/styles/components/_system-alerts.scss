@@ -20,6 +20,10 @@
     top: 3rem;
     width: 26rem;
 
+    @media screen and (max-width: 415px) {
+      width: 16rem;
+    }
+
     @include md {
       width: 32rem;
     }
@@ -30,6 +34,10 @@
     right: 3rem;
     top: 3rem;
     width: 26rem;
+
+    @media screen and (max-width: 415px) {
+      width: 16rem;
+    }
 
     @include md {
       width: 32rem;
@@ -53,6 +61,10 @@
     position: fixed;
     width: 26rem;
 
+    @media screen and (max-width: 415px) {
+      width: 16rem;
+    }
+
     @include md {
       width: 32rem;
     }
@@ -64,6 +76,10 @@
     right: 1.5rem;
     width: 26rem;
 
+    @media screen and (max-width: 415px) {
+      width: 16rem;
+    }
+
     @include md {
       width: 32rem;
     }
@@ -74,6 +90,20 @@
 
     + .app__alert {
       margin-top: ($grid-gutter-width / 2);
+    }
+  }
+
+  @media screen and (max-width: 415px) {
+    &__top-left {
+      width: 70%;
+    }
+
+    &__top-right {
+      width: 70%;
+    }
+
+    &__bottom-left {
+      width: 70%;
     }
   }
 }
