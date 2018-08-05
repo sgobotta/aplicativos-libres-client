@@ -6,7 +6,6 @@ import { ActionTypes } from 'constants/index';
 
 export const appState = {
   alerts: [],
-  isDrawerActive: false,
 };
 
 export default {
@@ -26,12 +25,6 @@ export default {
     [ActionTypes.SHOW_ALERT](state, { payload }) {
       return immutable(state, {
         alerts: { $push: [payload] },
-      });
-    },
-    [ActionTypes.TOGGLE_DRAWER](state) {
-      const { isDrawerActive } = state;
-      return immutable(state, {
-        isDrawerActive: { $set: !isDrawerActive },
       });
     },
   }),
