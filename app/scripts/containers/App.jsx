@@ -19,6 +19,7 @@ import Private from 'routes/Private';
 import NotFound from 'routes/NotFound';
 import Login from 'routes/Login';
 import CustomMap from 'routes/CustomMap';
+import Settings from 'routes/Settings';
 
 import Header from 'components/Header';
 import Footer from 'components/Footer';
@@ -85,6 +86,11 @@ export class App extends React.Component {
               <RoutePrivate
                 isAuthenticated={user.isAuthenticated} path="/private"
                 component={Private} store={app}
+                dispatch={dispatch}
+              />
+              <RoutePrivate
+                isAuthenticated={user.isAuthenticated} path="/settings"
+                component={Settings} store={app}
                 dispatch={dispatch}
               />
               <Route path="/map" component={CustomMap} />
