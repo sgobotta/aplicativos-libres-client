@@ -42,9 +42,11 @@ class ButtonAppBar extends React.Component {
       <div className={classes.root}>
         <AppBar position="static">
           <Toolbar>
-            <IconButton className={classes.menuButton} color="inherit" aria-label="Menu" onClick={this.handleDrawerClick}>
-              <MenuIcon />
-            </IconButton>
+            { user.isAuthenticated &&
+              <IconButton className={classes.menuButton} color="inherit" aria-label="Menu" onClick={this.handleDrawerClick}>
+                <MenuIcon />
+              </IconButton>
+            }
             <Typography align="left" variant="title" color="inherit" className={classes.flex}>
               <Link to="/">
                 <Button>Home</Button>

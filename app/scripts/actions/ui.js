@@ -8,8 +8,9 @@ import { ActionTypes } from 'constants/index';
 // export { go, goBack, push, replace };
 
 
-export function toggleDrawer(): Object {
+export function toggleDrawer(options: Object): Object {
   return {
     type: ActionTypes.TOGGLE_DRAWER,
+    payload: options || {},
   };
 }

@@ -42,6 +42,8 @@ export const ActionTypes = keyMirror({
   SERVICES_VOTES_FIND_REJECTED: undefined,
   /** UI ActionTypes */
   TOGGLE_DRAWER: undefined,
+  TOGGLE_DRAWER_FULLFILLED: undefined,
+  TOGGLE_DRAWER_FAILURE: undefined,
 });
 
 /**
