@@ -6,20 +6,15 @@ export default class Private extends React.PureComponent {
       <div key="Private" className="app__private app__route">
         <div className="app__container">
           <div className="app__private__header">
-            <h1>Oh hai!</h1>
-            <p>You can get this boilerplate{' '}
-              <a
-                href="https://github.com/gilbarbara/react-redux-saga-boilerplate/"
-                target="_blank"
-              >
-                here
-              </a>
-            </p>
+            <h3>¿Qué estámo' haciendo?</h3>
+            <div style={{ textAlign: 'center' }} >
+              <img src={require('assets/media/images/monkeydooh_2.gif')} alt="Monkey Dooh" />
+            </div>
           </div>
           <div className="app__private__content">
-            <div className="app__private__intro">
-              <h5>Here's some GitHub data</h5>
-              <small className="text-muted"><i>*Just to have some requests in the sagas...</i></small>
+            <div className="app__private__intro text-center">
+              <h5>It is so fun, so baby come on!</h5>
+              <small className="text-muted"><i>*Do the locomotion...</i></small>
             </div>
           </div>
         </div>
