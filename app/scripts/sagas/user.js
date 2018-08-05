@@ -23,6 +23,7 @@ export function* login({ payload }) {
       query: payload.query,
     };
     const data = yield call(request, service);
+    console.log(data);
     yield put({
       type: ActionTypes.USER_LOGIN_SUCCESS,
       payload: data,

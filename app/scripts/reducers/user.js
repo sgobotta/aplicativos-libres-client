@@ -6,6 +6,7 @@ import { ActionTypes } from 'constants/index';
 export const userState = {
   isAuthenticated: false,
   status: 'idle',
+  user: {},
 };
 
 export default {
@@ -15,10 +16,11 @@ export default {
         status: { $set: 'running' },
       });
     },
-    [ActionTypes.USER_LOGIN_SUCCESS](state) {
+    [ActionTypes.USER_LOGIN_SUCCESS](state, { payload }) {
       return immutable(state, {
         isAuthenticated: { $set: true },
         status: { $set: 'idle' },
+        user: { $set: payload.user },
       });
     },
     [ActionTypes.USER_LOGIN_FAILURE](state) {
