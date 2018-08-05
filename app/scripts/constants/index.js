@@ -44,6 +44,15 @@ export const ActionTypes = keyMirror({
   TOGGLE_DRAWER: undefined,
   TOGGLE_DRAWER_FULLFILLED: undefined,
   TOGGLE_DRAWER_FAILURE: undefined,
+  /** Orders ActionTypes */
+  SERVICES_ORDERS_CREATE: undefined,
+  SERVICES_ORDERS_CREATE_FULFILLED: undefined,
+  SERVICES_ORDERS_CREATE_PENDING: undefined,
+  SERVICES_ORDERS_CREATE_REJECTED: undefined,
+  SERVICES_ORDERS_FIND: undefined,
+  SERVICES_ORDERS_FIND_PENDING: undefined,
+  SERVICES_ORDERS_FIND_FULFILLED: undefined,
+  SERVICES_ORDERS_FIND_REJECTED: undefined,
 });
 
 /**
