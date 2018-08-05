@@ -50,3 +50,9 @@ export function showAlert(message: string, options: Object): Object {
     },
   };
 }
+
+export function toggleDrawer(): Object {
+  return {
+    type: ActionTypes.TOGGLE_DRAWER,
+  };
+}
