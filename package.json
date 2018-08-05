@@ -20,7 +20,7 @@
   ],
   "dependencies": {
     "@feathersjs/client": "^3.4.4",
-    "@material-ui/core": "^1.4.2",
+    "@material-ui/core": "^1.4.3",
     "@material-ui/icons": "^2.0.0",
     "bootstrap": "^4.0.0",
     "classlist-polyfill": "^1.2.0",
@@ -38,7 +38,7 @@
     "prop-types": "^15.6.1",
     "qs": "^6.5.1",
     "react": "^16.3.0",
-    "react-dom": "^16.2.0",
+    "react-dom": "^16.3.0",
     "react-google-charts": "^1.6.6",
     "react-helmet": "^5.2.0",
     "react-inlinesvg": "^0.8.0",
