@@ -23,6 +23,7 @@ import CustomMap from 'routes/CustomMap';
 import Header from 'components/Header';
 import Footer from 'components/Footer';
 import SystemAlerts from 'components/SystemAlerts';
+import Drawer from 'components/Drawer';
 
 
 export class App extends React.Component {
@@ -63,6 +64,7 @@ export class App extends React.Component {
             titleTemplate={`%s | ${config.name}`}
             titleAttributes={{ itemprop: 'name', lang: 'pt-br' }}
           />
+          <Drawer isActive={app.isDrawerActive} dispatch={dispatch} />
           <Header dispatch={dispatch} user={user} />
           <LoadingBar
             style={{ zIndex: 1000, backgroundColor: '#384d30' }}
@@ -71,9 +73,19 @@ export class App extends React.Component {
           />
           <main className="app__main">
             <Switch>
-              <RoutePublic isAuthenticated={user.isAuthenticated} path="/" exact component={Home} />
-              <RoutePublic isAuthenticated={user.isAuthenticated} path="/login" component={Login} to="/private" />
-              <RoutePrivate isAuthenticated={user.isAuthenticated} path="/private" component={Private} />
+              <RoutePublic
+                isAuthenticated={user.isAuthenticated} path="/" exact
+                component={Home}
+              />
+              <RoutePublic
+                isAuthenticated={user.isAuthenticated} path="/login"
+                component={Login} to="/private"
+              />
+              <RoutePrivate
+                isAuthenticated={user.isAuthenticated} path="/private"
+                component={Private} store={app}
+                dispatch={dispatch}
+              />
               <Route path="/map" component={CustomMap} />
               <Route component={NotFound} />
             </Switch>
