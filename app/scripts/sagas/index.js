@@ -4,6 +4,7 @@ import github from './github';
 import user from './user';
 import messages from './messages';
 import votes from './abortion-project';
+import ui from './ui';
 
 /**
  * rootSaga
@@ -14,5 +15,6 @@ export default function* root() {
     fork(user),
     fork(messages),
     fork(votes),
+    fork(ui),
   ]);
 }
