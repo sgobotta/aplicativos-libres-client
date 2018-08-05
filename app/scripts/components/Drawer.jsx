@@ -51,18 +51,18 @@ class SwipeableTemporaryDrawer extends React.Component {
   };
 
   goToSettings = () => {
-    this.toggleDrawer();
+    this.props.dispatch(toggleDrawer({ redirectsTo: () => this.props.history.push('/settings') }));
   }
 
   renderSettings() {
     return (
-      <ListItem button>
+      <ListItem button onClick={this.goToSettings}>
         <ListItemIcon>
-          <IconButton onClick={this.goToSettings()}>
+          <IconButton>
             <SettingsIcon />
           </IconButton>
         </ListItemIcon>
-        <ListItemText primary="Settings" />
+        <ListItemText primary="Configuraciones" />
       </ListItem>
     );
   }
@@ -99,6 +99,7 @@ SwipeableTemporaryDrawer.propTypes = {
   classes: PropTypes.object.isRequired,
   dispatch: PropTypes.func.isRequired,
   drawer: PropTypes.object.isRequired,
+  history: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles)(SwipeableTemporaryDrawer);
