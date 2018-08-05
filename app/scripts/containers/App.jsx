@@ -50,7 +50,6 @@ export class App extends React.Component {
 
   render() {
     const { app, dispatch, user, ui } = this.props;
-
     return (
       <ConnectedRouter history={history}>
         <div
@@ -66,7 +65,7 @@ export class App extends React.Component {
             titleTemplate={`%s | ${config.name}`}
             titleAttributes={{ itemprop: 'name', lang: 'pt-br' }}
           />
-          <Drawer drawer={ui.drawer} dispatch={dispatch} />
+          <Drawer drawer={ui.drawer} dispatch={dispatch} history={history} />
           <Header dispatch={dispatch} user={user} />
           <LoadingBar
             style={{ zIndex: 1000, backgroundColor: '#384d30' }}
