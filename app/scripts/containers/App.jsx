@@ -30,6 +30,7 @@ export class App extends React.Component {
   static propTypes = {
     app: PropTypes.object.isRequired,
     dispatch: PropTypes.func.isRequired,
+    ui: PropTypes.object.isRequired,
     user: PropTypes.object.isRequired,
   };
 
@@ -47,7 +48,7 @@ export class App extends React.Component {
   }
 
   render() {
-    const { app, dispatch, user } = this.props;
+    const { app, dispatch, user, ui } = this.props;
 
     return (
       <ConnectedRouter history={history}>
@@ -64,7 +65,7 @@ export class App extends React.Component {
             titleTemplate={`%s | ${config.name}`}
             titleAttributes={{ itemprop: 'name', lang: 'pt-br' }}
           />
-          <Drawer isActive={app.isDrawerActive} dispatch={dispatch} />
+          <Drawer drawer={ui.drawer} dispatch={dispatch} />
           <Header dispatch={dispatch} user={user} />
           <LoadingBar
             style={{ zIndex: 1000, backgroundColor: '#384d30' }}
@@ -102,6 +103,7 @@ export class App extends React.Component {
 function mapStateToProps(state) {
   return {
     app: state.app,
+    ui: state.ui,
     user: state.user,
   };
 }

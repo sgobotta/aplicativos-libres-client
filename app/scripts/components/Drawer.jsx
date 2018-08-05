@@ -1,14 +1,20 @@
+/** React Imports */
 import React from 'react';
 import PropTypes from 'prop-types';
+/** Redux Imports */
+import { toggleDrawer } from 'actions';
+/** Material UI Imports */
+import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
 import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
 import Divider from '@material-ui/core/Divider';
-import { toggleDrawer } from 'actions';
-import classNames from 'classnames';
 import IconButton from '@material-ui/core/IconButton';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import { mailFolderListItems, otherMailFolderListItems } from './drawerData';
+import SettingsIcon from '@material-ui/icons/SettingsSharp';
 
 
 const styles = {
@@ -29,15 +35,14 @@ const styles = {
 class SwipeableTemporaryDrawer extends React.Component {
   constructor(props) {
     super(props);
-
     this.state = {
-      isActive: props.isActive,
+      isActive: props.drawer.isActive,
     };
   }
 
   componentWillReceiveProps(nextProps) {
     this.setState({
-      isActive: nextProps.isActive,
+      isActive: nextProps.drawer.isActive,
     });
   }
 
@@ -45,19 +50,26 @@ class SwipeableTemporaryDrawer extends React.Component {
     this.props.dispatch(toggleDrawer());
   };
 
+  goToSettings = () => {
+    this.toggleDrawer();
+  }
+
+  renderSettings() {
+    return (
+      <ListItem button>
+        <ListItemIcon>
+          <IconButton onClick={this.goToSettings()}>
+            <SettingsIcon />
+          </IconButton>
+        </ListItemIcon>
+        <ListItemText primary="Settings" />
+      </ListItem>
+    );
+  }
+
   render() {
     const { classes } = this.props;
 
-    // const mailFolderListItems = [1, 2, 3, 4];
-    // const otherMailFolderListItems = ['a', 'b', 'c', 'd'];
-
-    // const sideList = (
-    //   <div className={classes.list}>
-    //     <List>{mailFolderListItems}</List>
-    //     <Divider />
-    //     <List>{otherMailFolderListItems}</List>
-    //   </div>
-    // );
     return (
       <div>
         <SwipeableDrawer
@@ -73,9 +85,10 @@ class SwipeableTemporaryDrawer extends React.Component {
             </IconButton>
           </div>
           <Divider />
-          <List>{mailFolderListItems}</List>
+          <List>
+            { this.renderSettings() }
+          </List>
           <Divider />
-          <List>{otherMailFolderListItems}</List>
         </SwipeableDrawer>
       </div>
     );
@@ -85,16 +98,7 @@ class SwipeableTemporaryDrawer extends React.Component {
 SwipeableTemporaryDrawer.propTypes = {
   classes: PropTypes.object.isRequired,
   dispatch: PropTypes.func.isRequired,
-  isActive: PropTypes.bool.isRequired,
+  drawer: PropTypes.object.isRequired,
 };
-
-// <div
-//   tabIndex={0}
-//   role="button"
-//   onClick={this.toggleDrawer('isActive', false)}
-//   onKeyDown={this.toggleDrawer('isActive', false)}
-// >
-//   {sideList}
-// </div>
 
 export default withStyles(styles)(SwipeableTemporaryDrawer);
