@@ -11,7 +11,7 @@ import { request } from './../modules/socket-client';
 
 
 /**
- * Create Message
+ * Find Deputies Votes
  */
 export function* getDeputiesVotes({ payload }) {
   try {
