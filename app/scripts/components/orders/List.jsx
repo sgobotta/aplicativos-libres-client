@@ -3,7 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 /** Redux Imports */
 import { connect } from 'react-redux';
-import { findOrders, showAlert } from 'actions';
+import { findOrders } from 'actions';
 /** Material UI Imports */
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
@@ -25,30 +25,31 @@ const styles = {
 class OrderList extends React.Component {
   constructor(props) {
     super(props);
-
     this.state = {
     };
   }
 
   componentDidMount() {
-    // const { query } = this.state;
     const { dispatch } = this.props;
-
     dispatch(findOrders());
   }
 
-  componentWillReceiveProps(nextProps) {
-    console.log('list next props', nextProps);
-    // const { dispatch, orders: { orders } } = this.props;
-    // const { github: { repos: nextRepos } } = nextProps;
-    //
-    // if (repos.status === 'running' && nextRepos.status === 'error') {
-    //   dispatch(showAlert(nextRepos.message, { type: 'error' }));
-    // }
+  renderOrders(classes, orders) {
+    if (orders && orders.queryResult && orders.queryResult.data && orders.isFinished) {
+      const output = orders.queryResult.data.map((order) => (
+        <Card key={order._id} className={classes.card}>
+          <Typography variant="body2">
+            order.author
+          </Typography>
+        </Card>
+      ));
+      return output;
+    }
+    return null;
   }
 
   render() {
-    const { classes } = this.props;
+    const { classes, orders } = this.props;
     return (
       <Grid item xs={12}>
         <Card className={classes.card}>
@@ -56,6 +57,7 @@ class OrderList extends React.Component {
             <Typography variant="title">
               Pedidos
             </Typography>
+            { this.renderOrders(orders) }
           </CardContent>
           <CardActions>
             <Button
