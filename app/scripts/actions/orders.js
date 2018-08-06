@@ -15,9 +15,9 @@ export function findOrders(query: string): Object {
   };
 }
 
-export function createOrder(query: string): Object {
+export function createOrder(data: Object): Object {
   return {
     type: ActionTypes.SERVICES_ORDERS_CREATE,
-    payload: { query },
+    payload: data,
   };
 }
