@@ -35,11 +35,34 @@ export function* findOrders({ payload }) {
   }
 }
 
+export function* createOrder({ payload }) {
+  try {
+    const service = {
+      service: 'orders',
+      action: 'create',
+      query: payload,
+    };
+    const data = yield call(request, service);
+    yield put({
+      type: ActionTypes.SERVICES_ORDERS_CREATE_FULFILLED,
+      payload: { data },
+    });
+  }
+  catch (err) {
+    /* istanbul ignore next */
+    yield put({
+      type: ActionTypes.SERVICES_ORDERS_CREATE_REJECTED,
+      payload: err,
+    });
+  }
+}
+
 /**
  * Abortion Project Sagas
  */
 export default function* root() {
   yield all([
     takeLatest(ActionTypes.SERVICES_ORDERS_FIND, findOrders),
+    takeLatest(ActionTypes.SERVICES_ORDERS_CREATE, createOrder),
   ]);
 }
