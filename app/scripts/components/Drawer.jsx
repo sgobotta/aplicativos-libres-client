@@ -15,7 +15,7 @@ import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import SettingsIcon from '@material-ui/icons/SettingsSharp';
-import ShoppingCart from '@material-ui/icons/ShoppingCart';
+import Restaurant from '@material-ui/icons/Restaurant';
 
 
 const styles = {
@@ -60,7 +60,7 @@ class SwipeableTemporaryDrawer extends React.Component {
       <ListItem button onClick={this.goToRoute('/orders')}>
         <ListItemIcon>
           <IconButton>
-            <ShoppingCart />
+            <Restaurant />
           </IconButton>
         </ListItemIcon>
         <ListItemText primary="Pedidos" />
