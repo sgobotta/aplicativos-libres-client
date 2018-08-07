@@ -16,6 +16,7 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 /** Custom Imports */
 import OrderCreate from 'components/orders/Create';
 import OrderList from 'components/orders/List';
+import MyOrders from 'components/orders/MyOrders';
 
 
 const styles = theme => ({
@@ -66,10 +67,12 @@ class Orders extends React.Component {
           >
             <Tab label="Pedidos Activos" icon={<Restaurant />} />
             <Tab label="Crear Pedido" icon={<FavoriteIcon />} />
+            <Tab label="Mis Pedidos" icon={<FavoriteIcon />} />
           </Tabs>
         </AppBar>
         {value === 0 && this.renderActiveOrders()}
         {value === 1 && this.renderOrderCreate()}
+        {value === 2 && this.renderMyOrders()}
       </div>
     );
   }
@@ -83,6 +86,12 @@ class Orders extends React.Component {
   renderOrderCreate() {
     return (
       <OrderCreate user={this.props.user} />
+    );
+  }
+
+  renderMyOrders() {
+    return (
+      <MyOrders />
     );
   }
 
@@ -105,12 +114,13 @@ class Orders extends React.Component {
 Orders.propTypes = {
   classes: PropTypes.object.isRequired,
   orders: PropTypes.object.isRequired,
+  ui: PropTypes.object.isRequired,
   user: PropTypes.object.isRequired,
 };
 
 /* istanbul ignore next */
 function mapStateToProps(state) {
-  return { orders: state.orders, user: state.user };
+  return { orders: state.orders, ui: state.ui, user: state.user };
 }
 
 export default connect(mapStateToProps)(withStyles(styles)(Orders));
