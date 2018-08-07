@@ -22,6 +22,13 @@ const styles = {
   button: {
     fontWeight: 'bold',
   },
+  container: {
+    display: 'inline-grid',
+    flexDirection: 'column',
+    '@media (max-width: 415px)': {
+      display: 'flex',
+    },
+  },
 };
 
 class OrderCreate extends React.Component {
@@ -29,13 +36,20 @@ class OrderCreate extends React.Component {
     super(props);
     this.state = {
       username: props.user.user.username,
+      title: '',
     };
   }
 
   handleCreate = () => {
     const { dispatch } = this.props;
-    dispatch(createOrder({ author: this.props.user.user.id }));
+    dispatch(createOrder({ author: this.props.user.user.id, title: this.state.title }));
   }
+
+  handleChange = name => event => {
+    this.setState({
+      [name]: event.target.value,
+    });
+  };
 
   render() {
     const { classes } = this.props;
@@ -55,6 +69,15 @@ class OrderCreate extends React.Component {
                 margin="normal"
                 value={this.state.username}
                 InputProps={{ readOnly: true }}
+              />
+              <TextField
+                name="title"
+                label="Título"
+                className={classes.textField}
+                type="text"
+                margin="normal"
+                onChange={this.handleChange('title')}
+                value={this.state.title}
               />
             </form>
           </CardContent>
