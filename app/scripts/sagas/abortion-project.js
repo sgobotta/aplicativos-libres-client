@@ -13,12 +13,12 @@ import { request } from './../modules/socket-client';
 /**
  * Find Deputies Votes
  */
-export function* getDeputiesVotes({ payload }) {
+export function* getVotes({ payload }) {
   try {
     const service = {
       service: 'votes',
       action: 'find',
-      query: payload.query,
+      query: payload,
     };
     const data = yield call(request, service);
     yield put({
@@ -40,6 +40,6 @@ export function* getDeputiesVotes({ payload }) {
  */
 export default function* root() {
   yield all([
-    takeLatest(ActionTypes.SERVICES_VOTES_FIND, getDeputiesVotes),
+    takeLatest(ActionTypes.SERVICES_VOTES_FIND, getVotes),
   ]);
 }
