@@ -3,7 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 /** Redux Imports */
 import { connect } from 'react-redux';
-import { createOrder } from 'actions';
+import { createOrder, goToOrderTab, showAlert } from 'actions';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
@@ -38,6 +38,16 @@ class OrderCreate extends React.Component {
       username: props.user.user.username,
       title: '',
     };
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { dispatch, orders } = nextProps;
+    if (orders.isFinished && !orders.isError) {
+      dispatch(showAlert('¡Pedido Creado :{D!', { type: 'success', icon: 'i-bell' }));
+    }
+    else if (orders.isError) {
+      dispatch(showAlert('Hubo un error al crear el pedido D}: ...', { type: 'error', icon: 'i-bell' }));
+    }
   }
 
   handleCreate = () => {
@@ -100,12 +110,14 @@ class OrderCreate extends React.Component {
 OrderCreate.propTypes = {
   classes: PropTypes.object.isRequired,
   dispatch: PropTypes.func.isRequired,
+  orders: PropTypes.object,
+  ui: PropTypes.object,
   user: PropTypes.object.isRequired,
 };
 
 /* istanbul ignore next */
 function mapStateToProps(state) {
-  return { dispatch: state.dispatch };
+  return { dispatch: state.dispatch, orders: state.orders, ui: state.ui };
 }
 
 export default connect(mapStateToProps)(withStyles(styles)(OrderCreate));
