@@ -78,12 +78,13 @@ class OrderList extends React.Component {
 OrderList.propTypes = {
   classes: PropTypes.object.isRequired,
   dispatch: PropTypes.func.isRequired,
-  orders: PropTypes.object,
+  orders: PropTypes.object.isRequired,
+  ui: PropTypes.object.isRequired,
 };
 
 /* istanbul ignore next */
 function mapStateToProps(state) {
-  return { orders: state.orders };
+  return { orders: state.orders, ui: state.ui };
 }
 
 export default connect(mapStateToProps)(withStyles(styles)(OrderList));
