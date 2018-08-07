@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getDeputiesVotes } from 'actions';
+import { getVotes } from 'actions';
 import Loader from 'components/Loader';
 import MapChart from './../components/Maps';
 
@@ -14,7 +14,7 @@ export class AbortionProject extends React.Component {
 
   componentDidMount() {
     const { dispatch } = this.props;
-    dispatch(getDeputiesVotes());
+    dispatch(getVotes());
   }
 
   render() {
