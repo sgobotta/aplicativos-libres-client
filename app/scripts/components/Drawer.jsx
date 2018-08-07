@@ -15,6 +15,7 @@ import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import SettingsIcon from '@material-ui/icons/SettingsSharp';
+import Restaurant from '@material-ui/icons/Restaurant';
 
 
 const styles = {
@@ -50,13 +51,26 @@ class SwipeableTemporaryDrawer extends React.Component {
     this.props.dispatch(toggleDrawer());
   };
 
-  goToSettings = () => {
-    this.props.dispatch(toggleDrawer({ redirectsTo: () => this.props.history.push('/settings') }));
+  goToRoute = (path) => () => {
+    this.props.dispatch(toggleDrawer({ redirectsTo: () => this.props.history.push(path) }));
+  }
+
+  renderOrders() {
+    return (
+      <ListItem button onClick={this.goToRoute('/orders')}>
+        <ListItemIcon>
+          <IconButton>
+            <Restaurant />
+          </IconButton>
+        </ListItemIcon>
+        <ListItemText primary="Pedidos" />
+      </ListItem>
+    );
   }
 
   renderSettings() {
     return (
-      <ListItem button onClick={this.goToSettings}>
+      <ListItem button onClick={this.goToRoute('/settings')}>
         <ListItemIcon>
           <IconButton>
             <SettingsIcon />
@@ -86,6 +100,8 @@ class SwipeableTemporaryDrawer extends React.Component {
           </div>
           <Divider />
           <List>
+            { this.renderOrders() }
+            <Divider />
             { this.renderSettings() }
           </List>
           <Divider />

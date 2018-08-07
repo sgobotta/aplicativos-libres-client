@@ -14,3 +14,10 @@ export function toggleDrawer(options: Object): Object {
     payload: options || {},
   };
 }
+
+export function goToOrderTab(tabName: number): Object {
+  return {
+    type: ActionTypes.SWAP_ORDERS_TABS,
+    payload: tabName,
+  };
+}

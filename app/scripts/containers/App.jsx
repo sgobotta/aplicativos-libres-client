@@ -20,6 +20,8 @@ import NotFound from 'routes/NotFound';
 import Login from 'routes/Login';
 import CustomMap from 'routes/CustomMap';
 import Settings from 'routes/Settings';
+import Orders from 'routes/Orders';
+
 
 import Header from 'components/Header';
 import Footer from 'components/Footer';
@@ -41,7 +43,7 @@ export class App extends React.Component {
 
     /* istanbul ignore else */
     if (!user.isAuthenticated && nextUser.isAuthenticated) {
-      dispatch(showAlert('¡Bienvenide!', { type: 'success', icon: 'i-bell' }));
+      dispatch(showAlert('¡Bienvenidx!', { type: 'success', icon: 'i-bell' }));
     }
     if (user.isAuthenticated && !nextUser.isAuthenticated) {
       dispatch(showAlert('¡Hasta luego!', { type: 'success', icon: 'i-bell' }));
@@ -90,6 +92,11 @@ export class App extends React.Component {
               <RoutePrivate
                 isAuthenticated={user.isAuthenticated} path="/settings"
                 component={Settings} store={app}
+                dispatch={dispatch}
+              />
+              <RoutePrivate
+                isAuthenticated={user.isAuthenticated} path="/orders"
+                component={Orders}
                 dispatch={dispatch}
               />
               <Route path="/map" component={CustomMap} />

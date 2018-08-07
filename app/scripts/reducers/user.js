@@ -21,6 +21,7 @@ export default {
         isAuthenticated: { $set: true },
         status: { $set: 'idle' },
         user: { $set: payload.user },
+        'feathers-jwt': { $set: payload.accessToken },
       });
     },
     [ActionTypes.USER_LOGIN_FAILURE](state) {

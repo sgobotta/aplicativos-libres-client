@@ -19,12 +19,13 @@ const reducer = persistReducer(
   {
     key: 'rrsb', // key is required
     storage, // storage is now required
-    whitelist: ['app', 'ui', 'user', 'votes'],
+    whitelist: ['app', 'ui', 'user', 'votes', 'orders'],
   },
   combineReducers({
     users: services.users.reducer,
     messages: services.messages.reducer,
     votes: services.votes.reducer,
+    orders: services.orders.reducer,
     ...rootReducer,
     router: routerReducer,
     loadingBar: loadingBarReducer,

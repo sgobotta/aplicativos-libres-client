@@ -19,8 +19,10 @@ feathersClient
   .configure(feathers.socketio(socket))
   .configure(auth(authOptions));
 
-const services = reduxifyServices(feathersClient, ['authentication', 'users', 'messages', 'votes']);
-
+const services = reduxifyServices(
+  feathersClient,
+  ['authentication', 'users', 'messages', 'votes', 'orders'],
+);
 export { services };
 
 export function* request({ service, action, query }) {

@@ -8,6 +8,9 @@ export const uiState = {
   drawer: {
     isActive: false,
   },
+  orderTabs: {
+    tabName: 0,
+  },
 };
 
 export default {
@@ -21,6 +24,11 @@ export default {
       const { drawer } = state;
       return immutable(state, {
         drawer: { isActive: { $set: !drawer.isActive } },
+      });
+    },
+    [ActionTypes.SWAP_ORDERS_TABS](state, { payload }) {
+      return immutable(state, {
+        orderTabs: { tabName: { $set: payload } },
       });
     },
   }),

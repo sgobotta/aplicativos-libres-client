@@ -20,7 +20,7 @@ export class AbortionProject extends React.Component {
   render() {
     const { votes } = this.props;
     let output;
-    if (votes.queryResult.data && votes.isFinished) {
+    if (votes.queryResult && votes.queryResult.data && votes.isFinished) {
       output = (
         <MapChart
           votes={votes.queryResult.data}
