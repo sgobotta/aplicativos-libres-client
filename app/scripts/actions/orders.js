@@ -8,7 +8,7 @@ import { ActionTypes } from 'constants/index';
 // export { go, goBack, push, replace };
 
 
-export function findOrders(query: string): Object {
+export function findOrders(query: Object): Object {
   return {
     type: ActionTypes.SERVICES_ORDERS_FIND,
     payload: { query },
