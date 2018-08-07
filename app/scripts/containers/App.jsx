@@ -22,6 +22,7 @@ import CustomMap from 'routes/CustomMap';
 import Settings from 'routes/Settings';
 import Orders from 'routes/Orders';
 
+
 import Header from 'components/Header';
 import Footer from 'components/Footer';
 import SystemAlerts from 'components/SystemAlerts';
@@ -42,7 +43,7 @@ export class App extends React.Component {
 
     /* istanbul ignore else */
     if (!user.isAuthenticated && nextUser.isAuthenticated) {
-      dispatch(showAlert('¡Bienvenide!', { type: 'success', icon: 'i-bell' }));
+      dispatch(showAlert('¡Bienvenidx!', { type: 'success', icon: 'i-bell' }));
     }
     if (user.isAuthenticated && !nextUser.isAuthenticated) {
       dispatch(showAlert('¡Hasta luego!', { type: 'success', icon: 'i-bell' }));
