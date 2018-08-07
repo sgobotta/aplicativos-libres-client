@@ -7,7 +7,7 @@
 import { ActionTypes } from 'constants/index';
 
 
-export function getDeputiesVotes(query: string): Object {
+export function getVotes(query: string): Object {
   return {
     type: ActionTypes.SERVICES_VOTES_FIND,
     payload: { query },
