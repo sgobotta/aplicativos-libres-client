@@ -12,7 +12,6 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 
-import AbortionProject from './../containers/AbortionProject';
 import DeputiesVotes from './../containers/abortion-project/DeputiesVotes';
 import SenatorsVotes from './../containers/abortion-project/SenatorsVotes';
 
@@ -20,6 +19,7 @@ import SenatorsVotes from './../containers/abortion-project/SenatorsVotes';
 const styles = {
   card: {
     minWidth: '100%',
+    minHeigth: '100%',
     borderRadius: '3px',
   },
 };
