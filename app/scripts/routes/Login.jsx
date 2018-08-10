@@ -70,7 +70,7 @@ class SimpleCard extends React.Component {
         <Card className={classes.card}>
           <CardContent>
             <Typography className={classes.title} color="textSecondary">
-              Login
+              Acceder
             </Typography>
             <form className={classes.container}>
               <TextField
@@ -85,7 +85,7 @@ class SimpleCard extends React.Component {
               />
               <TextField
                 name="password"
-                label="Password"
+                label="Contraseña"
                 className={classes.textField}
                 type="password"
                 margin="normal"
@@ -100,7 +100,7 @@ class SimpleCard extends React.Component {
               onClick={this.handleClickLogin}
             >
               <Typography variant="button" style={styles.button}>
-                Login
+                Ingresar
               </Typography>
             </Button>
           </CardActions>
