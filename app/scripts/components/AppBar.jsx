@@ -15,7 +15,7 @@ const styles = {
   root: {
     flexGrow: 1,
   },
-  flex: {
+  menuItem: {
     flexGrow: 1,
   },
   menuButton: {
@@ -50,25 +50,25 @@ class ButtonAppBar extends React.Component {
                 <MenuIcon />
               </IconButton>
             }
-            <Typography align="left" variant="title" color="inherit" className={classes.flex}>
+            <Typography align="left" variant="title" color="inherit" className={classes.menuItem}>
               <Link to="/">
                 <Button>Portada</Button>
               </Link>
             </Typography>
-            <Typography variant="title" color="inherit" className={classes.flex}>
+            <Typography align="center" variant="title" color="inherit" className={classes.menuItem}>
               <Link to="/map">
-                <Button>Ola Verde</Button>
+                <Button>Derecho al Aborto Legal, Seguro y Gratuito</Button>
               </Link>
             </Typography>
             { !user.isAuthenticated &&
-              <Typography align="right" variant="title" color="inherit" className={classes.flex}>
+              <Typography align="right" variant="title" color="inherit" className={classes.menuItem}>
                 <Link to="/login">
                   <Button>Ingresar</Button>
                 </Link>
               </Typography>
             }
             { user.isAuthenticated &&
-              <Typography align="right" variant="title" color="inherit" className={classes.flex}>
+              <Typography align="right" variant="title" color="inherit" className={classes.menuItem}>
                 <Button onClick={this.handleClickLogout}>Cerrar Sesión</Button>
               </Typography>
             }
