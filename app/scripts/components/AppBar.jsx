@@ -22,6 +22,9 @@ const styles = {
     marginLeft: -12,
     marginRight: 20,
   },
+  appBar: {
+    color: '#00a152',
+  },
 };
 
 class ButtonAppBar extends React.Component {
@@ -40,7 +43,7 @@ class ButtonAppBar extends React.Component {
     const { classes, user } = this.props;
     return (
       <div className={classes.root}>
-        <AppBar position="static">
+        <AppBar position="static" style={{ backgroundColor: 'green' }}>
           <Toolbar>
             { user.isAuthenticated &&
               <IconButton className={classes.menuButton} color="inherit" aria-label="Menu" onClick={this.handleDrawerClick}>
