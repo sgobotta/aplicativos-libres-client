@@ -1,14 +1,14 @@
 {
-  "name": "react-redux-saga-boilerplate",
-  "title": "react-redux-saga-boilerplate",
-  "description": "React-Redux-Saga Boilerplate",
-  "version": "2018.3.0",
-  "author": "Gil Barbara <gilbarbara@gmail.com>",
+  "name": "Aplicativos-Publicos-Argentinos",
+  "title": "Aplicativos Públicos Argentinos",
+  "description": "Aplicativos Públicos Argentinos",
+  "version": "2018.1.0",
+  "author": "Santiago Botta <santiago@camba.coop>",
   "repository": {
     "type": "git",
-    "url": "https://github.com/gilbarbara/react-redux-saga-boilerplate"
+    "url": "https://github.com/sgobotta/react-redux-saga-boilerplate"
   },
-  "bugs": "https://github.com/gilbarbara/react-redux-saga-boilerplate/issues",
+  "bugs": "https://github.com/sgobotta/react-redux-saga-boilerplate/issues",
   "license": "MIT",
   "keywords": [
     "React",
