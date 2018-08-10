@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { withStyles } from '@material-ui/core/styles';
 
 import AppBar from '@material-ui/core/AppBar';
 import Grid from '@material-ui/core/Grid';
@@ -11,9 +10,24 @@ import CardHeader from '@material-ui/core/CardHeader';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import FavoriteIcon from '@material-ui/icons/Favorite';
+import {
+  createMuiTheme,
+  MuiThemeProvider,
+  withStyles,
+} from '@material-ui/core/styles';
+import green from '@material-ui/core/colors/green';
+import purple from '@material-ui/core/colors/purple';
 
 import DeputiesVotes from './../containers/abortion-project/DeputiesVotes';
 import SenatorsVotes from './../containers/abortion-project/SenatorsVotes';
+
+
+const theme = createMuiTheme({
+  palette: {
+    primary: green,
+    secondary: purple,
+  },
+});
 
 
 const styles = {
@@ -21,6 +35,9 @@ const styles = {
     minWidth: '100%',
     minHeigth: '100%',
     borderRadius: '3px',
+  },
+  cardHeader: {
+    textAlign: 'center',
   },
 };
 
@@ -32,11 +49,14 @@ export class CustomMap extends React.PureComponent {
     };
   }
 
-  renderVotes(renderMap) {
+  renderVotes(renderMap, title) {
     const { classes } = this.props;
     return (
       <Grid item xs={12}>
-        <CardHeader title="Porcentaje de Votos de Diputados por Provincia" />
+        <CardHeader
+          title={`Porcentaje de Votos de ${title} por Provincia`}
+          className={classes.cardHeader}
+        />
         <CardContent>
           <Card className={classes.card}>
             <div key="CustomMap">
@@ -64,22 +84,24 @@ export class CustomMap extends React.PureComponent {
     const { value } = this.state;
 
     return (
-      <div key="Orders">
-        <AppBar position="static" color="default">
-          <Tabs
-            value={value}
-            onChange={this.handleChange}
-            scrollable
-            indicatorColor="primary"
-            textColor="primary"
-          >
-            <Tab label="Diputados" icon={<FavoriteIcon />} />
-            <Tab label="Senadores" icon={<FavoriteIcon />} />
-          </Tabs>
-        </AppBar>
-        {value === 0 && this.renderVotes(this.renderDeputiesVotes)}
-        {value === 1 && this.renderVotes(this.renderSenatorsVotes)}
-      </div>
+      <MuiThemeProvider theme={theme}>
+        <div key="Orders">
+          <AppBar position="static" color="default" className={theme}>
+            <Tabs
+              value={value}
+              onChange={this.handleChange}
+              scrollable
+              indicatorColor="primary"
+              textColor="primary"
+            >
+              <Tab label="Diputados" icon={<FavoriteIcon />} />
+              <Tab label="Senadores" icon={<FavoriteIcon />} />
+            </Tabs>
+          </AppBar>
+          {value === 0 && this.renderVotes(this.renderDeputiesVotes, 'Diputados')}
+          {value === 1 && this.renderVotes(this.renderSenatorsVotes, 'Senadores')}
+        </div>
+      </MuiThemeProvider>
     );
   }
 }
