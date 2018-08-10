@@ -52,24 +52,24 @@ class ButtonAppBar extends React.Component {
             }
             <Typography align="left" variant="title" color="inherit" className={classes.flex}>
               <Link to="/">
-                <Button>Home</Button>
+                <Button>Portada</Button>
               </Link>
             </Typography>
             <Typography variant="title" color="inherit" className={classes.flex}>
               <Link to="/map">
-                <Button>Maps</Button>
+                <Button>Ola Verde</Button>
               </Link>
             </Typography>
             { !user.isAuthenticated &&
               <Typography align="right" variant="title" color="inherit" className={classes.flex}>
                 <Link to="/login">
-                  <Button>Login</Button>
+                  <Button>Ingresar</Button>
                 </Link>
               </Typography>
             }
             { user.isAuthenticated &&
               <Typography align="right" variant="title" color="inherit" className={classes.flex}>
-                <Button onClick={this.handleClickLogout}>Logout</Button>
+                <Button onClick={this.handleClickLogout}>Cerrar Sesión</Button>
               </Typography>
             }
           </Toolbar>
