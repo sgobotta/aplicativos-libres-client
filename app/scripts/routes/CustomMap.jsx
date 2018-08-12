@@ -86,7 +86,7 @@ export class CustomMap extends React.PureComponent {
     return (
       <MuiThemeProvider theme={theme}>
         <div key="Orders">
-          <AppBar position="static" color="default" className={theme}>
+          <AppBar position="static" color="default">
             <Tabs
               value={value}
               onChange={this.handleChange}
