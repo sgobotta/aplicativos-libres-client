@@ -7,6 +7,14 @@ describe('store', () => {
       app: {
         alerts: [],
       },
+      ui: {
+        drawer: {
+          isActive: false,
+        },
+        orderTabs: {
+          tabName: 0,
+        },
+      },
       github: {
         repos: {
           data: {},
@@ -19,6 +27,7 @@ describe('store', () => {
       user: {
         isAuthenticated: false,
         status: 'idle',
+        user: {},
       },
     });
   });
