@@ -4,9 +4,8 @@
  */
 
 import { all, call, put, takeLatest } from 'redux-saga/effects';
-
 import { ActionTypes } from 'constants/index';
-
+import { showAlert } from 'actions';
 import { request } from './../modules/socket-client';
 
 
@@ -27,7 +26,6 @@ export function* findOrders({ payload }) {
     });
   }
   catch (err) {
-    /* istanbul ignore next */
     yield put({
       type: ActionTypes.SERVICES_ORDERS_FIND_REJECTED,
       payload: err,
@@ -36,6 +34,8 @@ export function* findOrders({ payload }) {
 }
 
 export function* createOrder({ payload }) {
+  const { dispatch } = payload;
+  delete payload.dispatch;
   try {
     const service = {
       service: 'orders',
@@ -47,13 +47,24 @@ export function* createOrder({ payload }) {
       type: ActionTypes.SERVICES_ORDERS_CREATE_FULFILLED,
       payload: { data },
     });
+    dispatch(
+      showAlert(
+        '¡Pedido Creado :{D!',
+        { type: 'success', icon: 'i-bell' }
+      )
+    );
   }
   catch (err) {
-    /* istanbul ignore next */
     yield put({
       type: ActionTypes.SERVICES_ORDERS_CREATE_REJECTED,
       payload: err,
     });
+    dispatch(
+      showAlert(
+        'Algo salió mal al crear tu pedido',
+        { type: 'error', icon: 'i-bell' }
+      )
+    );
   }
 }
 
