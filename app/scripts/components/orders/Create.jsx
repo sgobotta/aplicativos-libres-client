@@ -36,7 +36,7 @@ class OrderCreate extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: props.user.user.username,
+      username: props.user.data.username,
       title: '',
     };
   }
@@ -45,7 +45,7 @@ class OrderCreate extends React.Component {
     const { dispatch } = this.props;
     dispatch(
       createOrder(
-        { author: this.props.user.user.id, title: this.state.title, dispatch }
+        { author: this.props.user.data.id, title: this.state.title, dispatch }
       )
     );
   }

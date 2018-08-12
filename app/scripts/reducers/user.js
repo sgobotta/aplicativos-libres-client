@@ -6,7 +6,7 @@ import { ActionTypes } from 'constants/index';
 export const userState = {
   isAuthenticated: false,
   status: 'idle',
-  user: {},
+  data: {},
 };
 
 export default {
@@ -20,7 +20,7 @@ export default {
       return immutable(state, {
         isAuthenticated: { $set: true },
         status: { $set: 'idle' },
-        user: { $set: payload.user },
+        data: { $set: payload.user },
         'feathers-jwt': { $set: payload.accessToken },
       });
     },
@@ -33,6 +33,7 @@ export default {
     [ActionTypes.USER_LOGOUT_REQUEST](state) {
       return immutable(state, {
         status: { $set: 'running' },
+        data: {},
       });
     },
     [ActionTypes.USER_LOGOUT_SUCCESS](state) {
