@@ -3,7 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 /** Redux Imports */
 import { connect } from 'react-redux';
-import { findOrders } from 'actions';
+import { findOrders, deleteOrder } from 'actions';
 /** Material UI Imports */
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
@@ -43,11 +43,23 @@ class OrderList extends React.Component {
     };
   }
 
+
   componentDidMount() {
     const { dispatch } = this.props;
     dispatch(findOrders());
   }
 
+  /**
+   * Actions
+   * */
+  handleRemove(orderId) {
+    const { dispatch } = this.props;
+    dispatch(
+      deleteOrder(
+        { id: orderId, dispatch }
+      )
+    );
+  }
 
   /**
    * Render Methods
@@ -71,13 +83,13 @@ class OrderList extends React.Component {
     );
   }
 
-  renderDeleteAction(authorId) {
+  renderDeleteAction(order) {
     const { classes, user } = this.props;
-    if (authorId === user.data.id) {
+    if (order.author.id === user.data.id) {
       return (
         <Button
           size="small"
-          onClick={this.handleClickLogin}
+          onClick={() => { this.handleRemove(order.id); }}
         >
           <DeleteIcon className={classes.cardIcon} />
         </Button>
@@ -92,7 +104,7 @@ class OrderList extends React.Component {
       const output = orders.queryResult.data.map((order) => (
         <Card key={order.id} className={classes.itemCard}>
           <Grid container direction="row">
-            <Grid item xs={11} md={10}>
+            <Grid item xs={10} md={10}>
               <Typography variant="title">
                 {order.title}
               </Typography>
@@ -100,8 +112,8 @@ class OrderList extends React.Component {
                 {this.renderUsername(order.author)}
               </Typography>
             </Grid>
-            <Grid item xs={1} md={2} align="right">
-              { this.renderDeleteAction(order.author.id) }
+            <Grid item xs={2} md={2} align="right">
+              { this.renderDeleteAction(order) }
             </Grid>
             <Grid item xs={12}>
               <Typography variant="body2" align="right">
