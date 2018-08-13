@@ -61,12 +61,14 @@ utils.getElapsedTime = (creationDate) => {
 
   const parse = (indicator, unit, helper, anotherUnit) => {
     let pUnit;
-    pUnit = indicator !== 1 ? `${unit}s` : unit;
-    pUnit = unit === 'mes' ? `${unit}es` : pUnit;
+    pUnit = (indicator !== 1) ? `${unit}s` : unit;
+    pUnit = (indicator !== 1 && unit === 'mes') ? `${unit}es` : pUnit;
     if (helper !== undefined && anotherUnit !== undefined && helper !== 0) {
       let pAnotherUnit;
-      pAnotherUnit = anotherUnit !== 1 ? `${anotherUnit}s` : anotherUnit;
-      pAnotherUnit = anotherUnit === 'mes' ? `${anotherUnit}es` : pAnotherUnit;
+      pAnotherUnit = (anotherUnit !== 1) ? `${anotherUnit}s` : anotherUnit;
+      pAnotherUnit = (helper !== 1 && anotherUnit === 'mes')
+        ? `${anotherUnit}es`
+        : pAnotherUnit;
       return `Hace ${indicator} ${pUnit} y ${helper} ${pAnotherUnit}.`;
     }
     return `Hace ${indicator} ${pUnit}.`;
