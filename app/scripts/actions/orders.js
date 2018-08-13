@@ -21,3 +21,10 @@ export function createOrder(data: Object): Object {
     payload: data,
   };
 }
+
+export function deleteOrder(query: Object): Object {
+  return {
+    type: ActionTypes.SERVICES_ORDERS_REMOVE,
+    payload: query,
+  };
+}

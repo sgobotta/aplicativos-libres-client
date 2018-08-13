@@ -68,6 +68,47 @@ export function* createOrder({ payload }) {
   }
 }
 
+export function* deleteOrder({ payload }) {
+  const { dispatch, id } = payload;
+  try {
+    const service = {
+      service: 'orders',
+      action: 'remove',
+      query: id,
+    };
+    const response = yield call(request, service);
+    const removeService = {
+      service: 'orders',
+      action: 'onRemoved',
+      query: response,
+      dispatch,
+    };
+    yield call(request, removeService);
+    yield put({
+      type: ActionTypes.SERVICES_ORDERS_REMOVE_FULFILLED,
+      payload: response,
+    });
+    dispatch(
+      showAlert(
+        'El pedido fue borrado',
+        { type: 'success', icon: 'i-bell' }
+      )
+    );
+  }
+  catch (err) {
+    yield put({
+      type: ActionTypes.SERVICES_ORDERS_REMOVE_REJECTED,
+      payload: err,
+    });
+    dispatch(
+      showAlert(
+        'Algo salió mal al borrar tu pedido',
+        { type: 'error', icon: 'i-bell' }
+      )
+    );
+  }
+}
+
 /**
  * Abortion Project Sagas
  */
@@ -75,5 +116,6 @@ export default function* root() {
   yield all([
     takeLatest(ActionTypes.SERVICES_ORDERS_FIND, findOrders),
     takeLatest(ActionTypes.SERVICES_ORDERS_CREATE, createOrder),
+    takeLatest(ActionTypes.SERVICES_ORDERS_REMOVE, deleteOrder),
   ]);
 }
