@@ -11,6 +11,9 @@ export const uiState = {
   orderTabs: {
     tabName: 0,
   },
+  modal: {
+    isOpened: false,
+  },
 };
 
 export default {
@@ -29,6 +32,16 @@ export default {
     [ActionTypes.SWAP_ORDERS_TABS](state, { payload }) {
       return immutable(state, {
         orderTabs: { tabName: { $set: payload } },
+      });
+    },
+    [ActionTypes.OPEN_MODAL](state) {
+      return immutable(state, {
+        modal: { isOpened: { $set: true } },
+      });
+    },
+    [ActionTypes.CLOSE_MODAL](state) {
+      return immutable(state, {
+        modal: { isOpened: { $set: false } },
       });
     },
   }),
