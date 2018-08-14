@@ -21,3 +21,16 @@ export function goToOrderTab(tabName: number): Object {
     payload: tabName,
   };
 }
+
+export function openModal(options: Object): Object {
+  return {
+    type: ActionTypes.OPEN_MODAL,
+    payload: options,
+  };
+}
+
+export function closeModal(): Object {
+  return {
+    type: ActionTypes.CLOSE_MODAL,
+  };
+}
