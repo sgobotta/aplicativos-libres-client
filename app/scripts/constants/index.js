@@ -44,9 +44,13 @@ export const ActionTypes = keyMirror({
   TOGGLE_DRAWER: undefined,
   TOGGLE_DRAWER_FULFILLED: undefined,
   TOGGLE_DRAWER_FAILURE: undefined,
+
   SWAP_ORDERS_TABS: undefined,
   SWAP_ORDERS_TABS_FULFILLED: undefined,
   SWAP_ORDERS_TABS_FAILURE: undefined,
+
+  OPEN_MODAL: undefined,
+  CLOSE_MODAL: undefined,
   /** Orders ActionTypes */
   SERVICES_ORDERS_CREATE: undefined,
   SERVICES_ORDERS_CREATE_FULFILLED: undefined,
