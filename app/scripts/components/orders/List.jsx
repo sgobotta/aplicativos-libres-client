@@ -10,20 +10,29 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import DeleteIcon from '@material-ui/icons/Delete';
 /** Miscellaneous Imports */
 import { DateUtils } from 'utils';
 
+const query = {
+  isActive: true,
+};
+
 const styles = {
   mainCard: {
     minWidth: '100%',
     borderRadius: '3px',
+    maxWidth: '100%',
   },
   itemCard: {
     padding: '12px 12px 12px 12px',
     borderRadius: '0px',
+    '&:hover': {
+      backgroundColor: 'rgb(205, 205, 231)',
+      marginBottom: '2px',
+      borderBottomLeftRadius: '7px',
+    },
   },
   cardIcon: {
     color: 'red',
@@ -46,7 +55,7 @@ class OrderList extends React.Component {
 
   componentDidMount() {
     const { dispatch } = this.props;
-    dispatch(findOrders());
+    dispatch(findOrders(query));
   }
 
   /**
@@ -55,9 +64,9 @@ class OrderList extends React.Component {
   handleRemove(orderId) {
     const { dispatch } = this.props;
     dispatch(
-      deleteOrder(
-        { id: orderId, dispatch }
-      )
+      deleteOrder({
+        id: orderId, dispatch,
+      })
     );
   }
 
@@ -136,16 +145,6 @@ class OrderList extends React.Component {
           <CardContent>
             { this.renderOrders() }
           </CardContent>
-          <CardActions>
-            <Button
-              size="small"
-              onClick={this.handleClickLogin}
-            >
-              <Typography variant="button" style={styles.button}>
-                Confirmar
-              </Typography>
-            </Button>
-          </CardActions>
         </Card>
       </Grid>
     );

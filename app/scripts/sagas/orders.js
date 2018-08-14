@@ -17,7 +17,7 @@ export function* findOrders({ payload }) {
     const service = {
       service: 'orders',
       action: 'find',
-      query: payload.query,
+      query: payload,
     };
     const data = yield call(request, service);
     yield put({
