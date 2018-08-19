@@ -48,7 +48,7 @@ class OrderCreate extends React.Component {
     super(props);
     this.state = {
       username: props.user.data.username,
-      type: '',
+      kind: '',
       title: '',
     };
   }
@@ -60,7 +60,7 @@ class OrderCreate extends React.Component {
         {
           author: this.props.user.data.id,
           title: this.state.title,
-          type: this.state.type,
+          kind: this.state.kind,
           dispatch,
         }
       )
@@ -84,11 +84,11 @@ class OrderCreate extends React.Component {
         <FormControl className={classes.formControl} margin="normal">
           <InputLabel htmlFor="orderType">Tipo de Pedido</InputLabel>
           <Select
-            value={this.state.type}
+            value={this.state.kind}
             onChange={this.handleSelect}
             inputProps={{
-              name: 'type',
-              id: 'orderType',
+              name: 'kind',
+              id: 'orderKind',
             }}
           >
             <MenuItem value="nicolo">Nicolo</MenuItem>
