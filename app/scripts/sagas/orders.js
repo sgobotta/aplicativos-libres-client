@@ -17,7 +17,7 @@ export function* findOrders({ payload }) {
     const service = {
       service: 'orders',
       action: 'find',
-      query: payload,
+      payload,
     };
     const data = yield call(request, service);
     yield put({
@@ -34,18 +34,18 @@ export function* findOrders({ payload }) {
 }
 
 export function* createOrder({ payload }) {
-  const { dispatch } = payload;
-  delete payload.dispatch;
+  const { dispatch } = payload.data;
   try {
+    delete payload.data.dispatch;
     const service = {
       service: 'orders',
       action: 'create',
-      query: payload,
+      payload,
     };
     const data = yield call(request, service);
     yield put({
       type: ActionTypes.SERVICES_ORDERS_CREATE_FULFILLED,
-      payload: { data },
+      payload: data,
     });
     dispatch(
       showAlert(
@@ -69,18 +69,18 @@ export function* createOrder({ payload }) {
 }
 
 export function* deleteOrder({ payload }) {
-  const { dispatch, id } = payload;
+  const { dispatch } = payload.query;
   try {
     const service = {
       service: 'orders',
       action: 'remove',
-      query: id,
+      payload,
     };
     const response = yield call(request, service);
     const removeService = {
       service: 'orders',
       action: 'onRemoved',
-      query: response,
+      payload: response,
       dispatch,
     };
     yield call(request, removeService);

@@ -18,13 +18,13 @@ export function findOrders(query: Object): Object {
 export function createOrder(data: Object): Object {
   return {
     type: ActionTypes.SERVICES_ORDERS_CREATE,
-    payload: data,
+    payload: { data },
   };
 }
 
 export function deleteOrder(query: Object): Object {
   return {
     type: ActionTypes.SERVICES_ORDERS_REMOVE,
-    payload: query,
+    payload: { query },
   };
 }

@@ -18,7 +18,7 @@ export function* getVotes({ payload }) {
     const service = {
       service: 'votes',
       action: 'find',
-      query: payload,
+      payload,
     };
     const data = yield call(request, service);
     yield put({

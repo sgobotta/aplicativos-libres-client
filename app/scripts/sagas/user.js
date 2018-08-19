@@ -16,17 +16,17 @@ import { request } from './../modules/socket-client';
 export function* login({ payload }) {
   try {
     yield put(showLoading());
-
     const service = {
       service: 'authentication',
       action: 'create',
-      query: payload.query,
+      payload: payload.query,
     };
     const data = yield call(request, service);
     yield put({
       type: ActionTypes.USER_LOGIN_SUCCESS,
       payload: data,
     });
+    localStorage.setItem('feathers-jwt', data.accessToken);
   }
   catch (err) {
     /* istanbul ignore next */
