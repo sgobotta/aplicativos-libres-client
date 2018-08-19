@@ -13,12 +13,23 @@ import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import TextField from '@material-ui/core/TextField';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
 
 
 const styles = {
+  formControl: {
+    minWidth: 300,
+    maxWidth: '100%',
+  },
   card: {
     minWidth: '100%',
-    borderRadius: '3px',
+    borderBottomRadius: '3px',
+  },
+  menuCard: {
+
   },
   button: {
     fontWeight: 'bold',
@@ -37,6 +48,7 @@ class OrderCreate extends React.Component {
     super(props);
     this.state = {
       username: props.user.data.username,
+      kind: '',
       title: '',
     };
   }
@@ -45,58 +57,122 @@ class OrderCreate extends React.Component {
     const { dispatch } = this.props;
     dispatch(
       createOrder(
-        { author: this.props.user.data.id, title: this.state.title, dispatch }
+        {
+          author: this.props.user.data.id,
+          title: this.state.title,
+          kind: this.state.kind,
+          dispatch,
+        }
       )
     );
   }
 
-  handleChange = name => event => {
+  handleSelect = event => {
+    this.setState({ [event.target.name]: event.target.value });
+  };
+
+  handleChange = () => event => {
     this.setState({
-      [name]: event.target.value,
+      [event.target.name]: event.target.value,
     });
   };
 
-  render() {
+  renderSelect() {
     const { classes } = this.props;
     return (
       <Grid item xs={12}>
-        <Card className={classes.card}>
-          <CardContent>
-            <Typography variant="title">
-              Crear Pedido
-            </Typography>
-            <form className={classes.container}>
-              <TextField
-                name="username"
-                label="Usuario"
-                className={classes.textField}
-                type="text"
-                margin="normal"
-                value={this.state.username}
-                InputProps={{ readOnly: true }}
-              />
-              <TextField
-                name="title"
-                label="Título"
-                className={classes.textField}
-                type="text"
-                margin="normal"
-                onChange={this.handleChange('title')}
-                value={this.state.title}
-              />
-            </form>
-          </CardContent>
-          <CardActions>
-            <Button
-              size="small"
-              onClick={this.handleCreate}
-            >
-              <Typography variant="button" style={styles.button}>
-                Confirmar
+        <FormControl className={classes.formControl} margin="normal">
+          <InputLabel htmlFor="orderType">Tipo de Pedido</InputLabel>
+          <Select
+            value={this.state.kind}
+            onChange={this.handleSelect}
+            inputProps={{
+              name: 'kind',
+              id: 'orderKind',
+            }}
+          >
+            <MenuItem value="nicolo">Nicolo</MenuItem>
+          </Select>
+        </FormControl>
+      </Grid>
+    );
+  }
+
+  renderLeftGrid() {
+    const { classes } = this.props;
+    return (
+      <Grid item xs={12} md={12}>
+        <Grid container direction="column">
+          <Card className={classes.card}>
+            <CardContent>
+              <Grid item xs={12}>
+                <Typography variant="title">
+                  Crear Pedido
+                </Typography>
+              </Grid>
+              <Grid item xs={12}>
+                <FormControl className={classes.formControl} margin="normal">
+                  <TextField
+                    name="username"
+                    label="Usuario"
+                    className={classes.textField}
+                    type="text"
+                    margin="normal"
+                    value={this.state.username}
+                    InputProps={{ readOnly: true }}
+                  />
+                  <TextField
+                    name="title"
+                    label="Título"
+                    className={classes.textField}
+                    type="text"
+                    margin="normal"
+                    onChange={this.handleChange()}
+                    value={this.state.title}
+                  />
+                </FormControl>
+              </Grid>
+              <Grid item xs={12}>
+                {this.renderSelect()}
+              </Grid>
+            </CardContent>
+            <CardActions>
+              <Button
+                size="small"
+                onClick={this.handleCreate}
+              >
+                <Typography variant="button" style={styles.button}>
+                  Confirmar
+                </Typography>
+              </Button>
+            </CardActions>
+          </Card>
+        </Grid>
+      </Grid>
+    );
+  }
+
+  renderRightGrid() {
+    const { classes } = this.props;
+    return (
+      <Grid item xs={12} md={6}>
+        <Grid container direction="column">
+          <Card className={classes.menuCard}>
+            <CardContent>
+              <Typography variant="title">
+                Menu!
               </Typography>
-            </Button>
-          </CardActions>
-        </Card>
+            </CardContent>
+          </Card>
+        </Grid>
+      </Grid>
+    );
+  }
+
+  render() {
+    return (
+      <Grid container direction="row">
+        { this.renderLeftGrid() }
       </Grid>
     );
   }
