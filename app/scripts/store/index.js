@@ -22,6 +22,7 @@ const reducer = persistReducer(
     whitelist: ['app', 'ui', 'user', 'votes', 'orders'],
   },
   combineReducers({
+    authentication: services.authentication.reducer,
     users: services.users.reducer,
     messages: services.messages.reducer,
     votes: services.votes.reducer,
