@@ -1,5 +1,5 @@
 import feathers from '@feathersjs/client';
-import auth from '@feathersjs/authentication-client';
+import auth from '@feathersjs/client/authentication';
 import reduxifyServices from 'feathers-redux';
 
 import { call } from 'redux-saga/effects';
@@ -7,7 +7,6 @@ import { call } from 'redux-saga/effects';
 import { SocketDispatcher } from './socket-dispatcher';
 
 const io = require('socket.io-client');
-const socketio = require('@feathersjs/socketio-client');
 
 const authOptions = {
   jwtStrategy: 'jwt',
@@ -19,11 +18,12 @@ const authOptions = {
 const url = process.env.REACT_APP_API_URL;
 const socket = io(url, {
   transports: ['websocket'],
+  forceNew: true,
 });
 
 const feathersClient = feathers();
 feathersClient
-  .configure(socketio(socket))
+  .configure(feathers.socketio(socket))
   .configure(auth(authOptions));
 
 const services = reduxifyServices(
