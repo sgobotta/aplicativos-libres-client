@@ -55,8 +55,7 @@ export function* request({ service, action, payload, dispatch }) {
   }
 
   if (action === 'onPatched') {
-    console.log('The Patch Response', payload);
-    dispatch(services[service][action](payload));
+    dispatch(services[service][action](newPayload));
     return response;
   }
 
