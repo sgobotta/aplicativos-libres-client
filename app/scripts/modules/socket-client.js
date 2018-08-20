@@ -40,10 +40,23 @@ export function* request({ service, action, payload, dispatch }) {
     payload,
     dispatch
   );
-  const response = services[service][action](newPayload);
+
+  let response;
+  if (service === 'orders' && action === 'patch') {
+    response = services[service][action](newPayload.id, newPayload.data);
+  }
+  else {
+    response = services[service][action](newPayload);
+  }
 
   if (action === 'onRemoved') {
     dispatch(services[service][action](newPayload));
+    return response;
+  }
+
+  if (action === 'onPatched') {
+    console.log('The Patch Response', payload);
+    dispatch(services[service][action](payload));
     return response;
   }
 
