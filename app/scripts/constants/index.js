@@ -66,6 +66,11 @@ export const ActionTypes = keyMirror({
   SERVICES_ORDERS_REMOVE_PENDING: undefined,
   SERVICES_ORDERS_REMOVE_FULFILLED: undefined,
   SERVICES_ORDERS_REMOVE_REJECTED: undefined,
+
+  SERVICES_ORDERS_PATCH: undefined,
+  SERVICES_ORDERS_PATCH_FULFILLED: undefined,
+  SERVICES_ORDERS_PATCH_PENDING: undefined,
+  SERVICES_ORDERS_PATCH_REJECTED: undefined,
 });
 
 /**
