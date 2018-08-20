@@ -30,7 +30,7 @@ function Transition(props) {
 class FullScreenDialog extends React.Component {
   state = {
     open: false,
-    checkedOptions: [],
+    checkedOptions: this.props.selection || [],
   };
 
   handleClickOpen = () => {
@@ -46,19 +46,10 @@ class FullScreenDialog extends React.Component {
     this.handleClose();
   }
 
-  handleCheck = (event) => {
-    if (event.target.checked) {
-      this.setState({
-        checkedOptions: [...this.state.checkedOptions, event.target.value],
-      });
-    }
-    else {
-      const newList = this.state.checkedOptions
-        .filter((name) => name !== event.target.value);
-      this.setState({
-        checkedOptions: newList,
-      });
-    }
+  handleCheck = (checkedOptions) => {
+    this.setState({
+      checkedOptions,
+    });
   }
 
   render() {
@@ -89,6 +80,7 @@ class FullScreenDialog extends React.Component {
             <OptionsForm
               options={this.props.options}
               handleCheck={this.handleCheck}
+              selection={this.props.selection}
             />
           </Card>
         </Dialog>
@@ -103,8 +95,9 @@ FullScreenDialog.propTypes = {
   confirmText: PropTypes.string.isRequired,
   handleSave: PropTypes.func.isRequired,
   options: PropTypes.array.isRequired,
-  title: PropTypes.string.isRequired,
   orderId: PropTypes.string.isRequired,
+  selection: PropTypes.array.isRequired,
+  title: PropTypes.string.isRequired,
 };
 
 function mapStateToProps(state) {
