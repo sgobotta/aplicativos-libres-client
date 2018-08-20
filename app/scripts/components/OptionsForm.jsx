@@ -25,29 +25,48 @@ const styles = {
 };
 
 class CheckboxLabels extends React.Component {
-  state = {
-    checkedG: true,
-    checkedOptions: [],
-  };
+  constructor(props) {
+    super(props);
 
-  handleChange = (event) => {
-    if (event.target.checked) {
-      this.setState({
-        checkedOptions: [...this.state.checkedOptions, event.target.value],
+    const { selection } = this.props;
+
+    const newState = {};
+    if (selection !== []) {
+      selection.forEach((option) => {
+        newState[option] = true;
       });
+    }
+
+    this.state = {
+      ...newState,
+      checkedOptions: this.props.selection || [],
+    };
+  }
+
+  handleChange = (event, callback) => {
+    if (event.target.checked) {
+      const options = [...this.state.checkedOptions, event.target.value];
+      this.setState({
+        [event.target.name]: event.target.checked,
+        checkedOptions: options,
+      });
+      callback(options);
     }
     else {
       const newList = this.state.checkedOptions
         .filter((name) => name !== event.target.value);
       this.setState({
+        [event.target.name]: event.target.checked,
         checkedOptions: newList,
       });
+      callback(newList);
     }
   };
 
   handleCheck = (event) => {
-    this.handleChange(event);
-    this.props.handleCheck(event);
+    this.handleChange(event, (checkedOptions) => {
+      this.props.handleCheck(checkedOptions);
+    });
   }
 
   shouldDisable = (optionName) => {
@@ -65,7 +84,8 @@ class CheckboxLabels extends React.Component {
         key={index}
         control={
           <Checkbox
-            checked={this.state[`checkbox${option.name}`]}
+            name={option.name}
+            checked={this.state[option.name]}
             onChange={this.handleCheck}
             value={option.name}
             disabled={this.shouldDisable(option.name)}
@@ -90,6 +110,7 @@ CheckboxLabels.propTypes = {
   classes: PropTypes.object.isRequired,
   handleCheck: PropTypes.func.isRequired,
   options: PropTypes.array.isRequired,
+  selection: PropTypes.array.isRequired,
 };
 
 export default withStyles(styles)(CheckboxLabels);
