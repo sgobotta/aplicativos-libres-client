@@ -27,15 +27,28 @@ function dispatchTokenById(payload) {
   return newPayload;
 }
 
+function dispatchTokenByIdWithData(payload) {
+  const { data } = payload;
+  data['feathers-jwt'] = window.localStorage['feathers-jwt'];
+  delete data.dispatch;
+
+  const newPayload = {};
+  newPayload.id = data.id;
+  delete data.id;
+  newPayload.data = { ...data };
+  return newPayload;
+}
+
 function dispatchOrders(service, action, payload) {
   const actions = {
     find: () => dispatchTokenByQuery(payload),
     get: () => dispatchTokenByQuery(payload),
     create: () => dispatchTokenByData(payload),
     update: () => dispatchTokenByQuery(payload),
-    patch: () => dispatchTokenByQuery(payload),
+    patch: () => dispatchTokenByIdWithData(payload),
     remove: () => dispatchTokenById(payload),
     onRemoved: () => payload,
+    onPatched: () => payload,
   };
   return actions[action](payload);
 }
