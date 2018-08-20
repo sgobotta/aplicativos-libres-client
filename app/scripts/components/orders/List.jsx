@@ -3,7 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 /** Redux Imports */
 import { connect } from 'react-redux';
-import { findOrders, deleteOrder } from 'actions';
+import { findOrders, deleteOrder, patchOrder } from 'actions';
 /** Material UI Imports */
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
@@ -12,21 +12,56 @@ import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import DeleteIcon from '@material-ui/icons/Delete';
+import ExpansionPanel from '@material-ui/core/ExpansionPanel';
+import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
+import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
+import ExpansionPanelActions from '@material-ui/core/ExpansionPanelActions';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import Divider from '@material-ui/core/Divider';
+
 /** Miscellaneous Imports */
 import { DateUtils } from 'utils';
+import FullDialog from 'components/FullDialog';
+
 
 const query = {
   isActive: true,
 };
 
-const styles = {
+const styles = theme => ({
+  root: {
+    width: '100%',
+  },
+  heading: {
+    fontSize: theme.typography.pxToRem(18),
+  },
+  secondaryHeading: {
+    fontSize: theme.typography.pxToRem(15),
+    color: theme.palette.text.secondary,
+    alignText: 'right',
+  },
+  details: {
+    alignItems: 'center',
+  },
+  column: {
+    flexBasis: '100.00%',
+  },
+  link: {
+    color: theme.palette.primary.main,
+    textDecoration: 'none',
+    '&:hover': {
+      textDecoration: 'underline',
+    },
+  },
+  panelActions: {
+    padding: '5px 5px 5px 5px',
+  },
   mainCard: {
     minWidth: '100%',
-    borderRadius: '3px',
     maxWidth: '100%',
   },
   itemCard: {
-    padding: '12px 12px 12px 12px',
+    padding: '5px 5px 5px 5px',
     borderRadius: '0px',
     '&:hover': {
       backgroundColor: 'rgb(205, 205, 231)',
@@ -41,14 +76,29 @@ const styles = {
     fontWeight: 'bold',
   },
   creationDate: {
+    fontSize: '12px',
     fontStyle: 'italic',
   },
-};
+});
+
+const options = [
+  { name: 'Dulce de leche' },
+  { name: 'Chocolate' },
+  { name: 'Dulce de leche Zarpado' },
+  { name: 'Vainilla' },
+  { name: 'Cereza' },
+  { name: 'Crema Americana' },
+  { name: 'Banana' },
+  { name: 'Limón' },
+  { name: 'Menta Granizada' },
+  { name: 'Chocolate Caruso' },
+];
 
 class OrderList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      expanded: null,
     };
   }
 
@@ -61,6 +111,7 @@ class OrderList extends React.Component {
   /**
    * Actions
    * */
+
   handleRemove(orderId) {
     const { dispatch } = this.props;
     dispatch(
@@ -68,7 +119,28 @@ class OrderList extends React.Component {
         id: orderId, dispatch,
       })
     );
+    this.setState({
+      expanded: '',
+    });
   }
+
+  handleSave = (orderId, checkedOptions) => {
+    const { dispatch } = this.props;
+    dispatch(
+      patchOrder({
+        id: orderId,
+        checkedOptions,
+        service: 'addParticipant',
+        dispatch,
+      })
+    );
+  }
+
+  handlePanelToggling = panel => (event, expanded) => {
+    this.setState({
+      expanded: expanded ? panel : false,
+    });
+  };
 
   /**
    * Render Methods
@@ -92,6 +164,67 @@ class OrderList extends React.Component {
     );
   }
 
+  renderParticipant(participant) {
+    return (
+      <Typography variant="body2">
+        {participant.username}: { participant.selection }
+      </Typography>
+    );
+  }
+
+  renderParticipants(order) {
+    const { participants } = order;
+    let output;
+    if (order.participants.length > 0) {
+      output = participants.map((participant) => (
+        this.renderParticipant(participant)
+      ));
+      return output;
+    }
+    return (
+      <Typography variant="body2">Todavía no hay golosxs</Typography>
+    );
+  }
+
+  renderOptions(orderId) {
+    return (
+      <FullDialog
+        buttonText="Elegí gustos!"
+        title="Saborrrr"
+        confirmText="Guardar"
+        options={options}
+        handleSave={this.handleSave}
+        orderId={orderId}
+      />
+    );
+  }
+
+  renderSaveAction() {
+    return (
+      <Button
+        size="small"
+        color="primary"
+        align="left"
+        onClick={() => { this.handleSave(this.state.order); }}
+      >
+        Guardar
+      </Button>
+    );
+  }
+
+  renderCancelAction() {
+    return (
+      <Button
+        size="small"
+        color="primary"
+        align="left"
+        onClick={this.handlePanelToggling()}
+      >
+        Cancelar
+      </Button>
+    );
+  }
+
   renderDeleteAction(order) {
     const { classes, user } = this.props;
     if (order.author.id === user.data.id) {
@@ -107,30 +240,64 @@ class OrderList extends React.Component {
     return null;
   }
 
+  renderOrder(order, index) {
+    const { classes } = this.props;
+    const { expanded } = this.state;
+    return (
+      <div className={classes.root} key={index}>
+        <ExpansionPanel
+          className={classes.itemCard}
+          expanded={expanded === `panel${index}`}
+          onChange={this.handlePanelToggling(`panel${index}`)}
+        >
+          <ExpansionPanelSummary
+            style={{ padding: '0 4px 0 4px' }}
+            expandIcon={<ExpandMoreIcon />}
+          >
+            <Grid container direction="row">
+              <Grid item xs={6}>
+                <div className={classes.column}>
+                  <Typography className={classes.heading}>
+                    {order.title}
+                  </Typography>
+                  <Typography variant="body2">
+                    {this.renderUsername(order.author)}
+                  </Typography>
+                </div>
+              </Grid>
+              <Grid item xs={6}>
+                <div className={classes.column} style={{ padding: '0 4px 0 4px' }}>
+                  <Typography align="right" className={classes.secondaryHeading}>
+                    {this.renderCreationDate(order.creationDate)}
+                  </Typography>
+                </div>
+              </Grid>
+              <Grid item xs={12}>
+                { this.renderParticipants(order) }
+              </Grid>
+            </Grid>
+          </ExpansionPanelSummary>
+          <ExpansionPanelDetails className={classes.details} style={{ padding: '0 4px 0 4px' }}>
+            <div className={classes.column}>
+              { this.renderOptions(order.id) }
+            </div>
+          </ExpansionPanelDetails>
+          <Divider />
+          <ExpansionPanelActions className={classes.panelActions}>
+            { this.renderSaveAction(order) }
+            { this.renderCancelAction() }
+            { this.renderDeleteAction(order) }
+          </ExpansionPanelActions>
+        </ExpansionPanel>
+      </div>
+    );
+  }
+
   renderOrders() {
-    const { classes, orders } = this.props;
+    const { orders } = this.props;
     if (orders && orders.queryResult && orders.queryResult.data && orders.isFinished) {
-      const output = orders.queryResult.data.map((order) => (
-        <Card key={order.id} className={classes.itemCard}>
-          <Grid container direction="row">
-            <Grid item xs={10} md={10}>
-              <Typography variant="title">
-                {order.title}
-              </Typography>
-              <Typography variant="body2">
-                {this.renderUsername(order.author)}
-              </Typography>
-            </Grid>
-            <Grid item xs={2} md={2} align="right">
-              { this.renderDeleteAction(order) }
-            </Grid>
-            <Grid item xs={12}>
-              <Typography variant="body2" align="right">
-                {this.renderCreationDate(order.creationDate)}
-              </Typography>
-            </Grid>
-          </Grid>
-        </Card>
+      const output = orders.queryResult.data.map((order, index) => (
+        this.renderOrder(order, index)
       ));
       return output;
     }
