@@ -36,7 +36,8 @@ const styles = theme => ({
     fontSize: theme.typography.pxToRem(18),
   },
   secondaryHeading: {
-    fontSize: theme.typography.pxToRem(15),
+    paddingTop: '5px',
+    fontSize: theme.typography.pxToRem(13),
     color: theme.palette.text.secondary,
     alignText: 'right',
   },
@@ -164,6 +165,58 @@ class OrderList extends React.Component {
     );
   }
 
+  renderOrderInfo(order) {
+    const { classes, user } = this.props;
+
+    const currentUserId = user.data.id;
+    const { participants } = order;
+    const quantity = participants.length;
+
+    const participantIds = order.participants.map((p) => p.participantId);
+    if (participantIds.indexOf(currentUserId) >= 0) {
+      if (quantity === 2) {
+        return (
+          <Typography align="left" className={classes.secondaryHeading}>
+            Vos y otro muertx de hambre están esperando el helado...
+          </Typography>
+        );
+      }
+      if (quantity === 1) {
+        return (
+          <Typography align="left" className={classes.secondaryHeading}>
+            Sos el único muertx de hambre que se anotó
+          </Typography>
+        );
+      }
+      if (quantity > 2) {
+        return (
+          <Typography align="left" className={classes.secondaryHeading}>
+            Vos y otros {quantity - 1} muertxs de hambre que están esperando el helado...
+          </Typography>
+        );
+      }
+    }
+    if (quantity === 1) {
+      return (
+        <Typography align="left" className={classes.secondaryHeading}>
+          Hay 1 muertx de hambre esperando el helado...
+        </Typography>
+      );
+    }
+    if (quantity > 1) {
+      return (
+        <Typography align="left" className={classes.secondaryHeading}>
+          Hay {quantity} muertxs de hambre que están esperando el helado...
+        </Typography>
+      );
+    }
+    return (
+      <Typography align="left" className={classes.secondaryHeading}>
+        Todavía no hay golosxs
+      </Typography>
+    );
+  }
+
   renderParticipant(participant, index) {
     return (
       <Typography variant="body2" key={index}>
@@ -181,9 +234,7 @@ class OrderList extends React.Component {
       ));
       return output;
     }
-    return (
-      <Typography variant="body2">Todavía no hay golosxs</Typography>
-    );
+    return null;
   }
 
   renderOptions(order) {
@@ -278,14 +329,19 @@ class OrderList extends React.Component {
                 </div>
               </Grid>
               <Grid item xs={12}>
-                { this.renderParticipants(order) }
+                { this.renderOrderInfo(order) }
               </Grid>
             </Grid>
           </ExpansionPanelSummary>
           <ExpansionPanelDetails className={classes.details} style={{ padding: '0 4px 0 4px' }}>
-            <div className={classes.column}>
-              { this.renderOptions(order) }
-            </div>
+            <Grid container direction="row">
+              <Grid item xs={12}>
+                { this.renderParticipants(order) }
+              </Grid>
+              <Grid item xs={12}>
+                { this.renderOptions(order) }
+              </Grid>
+            </Grid>
           </ExpansionPanelDetails>
           <Divider />
           <ExpansionPanelActions className={classes.panelActions}>
