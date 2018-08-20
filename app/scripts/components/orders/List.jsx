@@ -156,17 +156,17 @@ class OrderList extends React.Component {
     return author.username;
   }
 
-  renderCreationDate(creationDate) {
+  renderCreationDate(order) {
     const { classes } = this.props;
-    const date = DateUtils.getElapsedTime(creationDate);
+    const date = DateUtils.getElapsedTime(order.creationDate);
     return (
       <span className={classes.creationDate}>{date}</span>
     );
   }
 
-  renderParticipant(participant) {
+  renderParticipant(participant, index) {
     return (
-      <Typography variant="body2">
+      <Typography variant="body2" key={index}>
         {participant.username}: { participant.selection }
       </Typography>
     );
@@ -176,8 +176,8 @@ class OrderList extends React.Component {
     const { participants } = order;
     let output;
     if (order.participants.length > 0) {
-      output = participants.map((participant) => (
-        this.renderParticipant(participant)
+      output = participants.map((participant, index) => (
+        this.renderParticipant(participant, index)
       ));
       return output;
     }
@@ -186,7 +186,11 @@ class OrderList extends React.Component {
     );
   }
 
-  renderOptions(orderId) {
+  renderOptions(order) {
+    const { user } = this.props;
+    const currentParticipant = order.participants
+      .find((participant) => user.data.id === participant.participantId);
+    const selection = (currentParticipant && currentParticipant.selection) || [];
     return (
       <FullDialog
         buttonText="Elegí gustos!"
@@ -194,7 +198,8 @@ class OrderList extends React.Component {
         confirmText="Guardar"
         options={options}
         handleSave={this.handleSave}
-        orderId={orderId}
+        orderId={order.id}
+        selection={selection}
       />
     );
   }
@@ -268,7 +273,7 @@ class OrderList extends React.Component {
               <Grid item xs={6}>
                 <div className={classes.column} style={{ padding: '0 4px 0 4px' }}>
                   <Typography align="right" className={classes.secondaryHeading}>
-                    {this.renderCreationDate(order.creationDate)}
+                    {this.renderCreationDate(order)}
                   </Typography>
                 </div>
               </Grid>
@@ -279,7 +284,7 @@ class OrderList extends React.Component {
           </ExpansionPanelSummary>
           <ExpansionPanelDetails className={classes.details} style={{ padding: '0 4px 0 4px' }}>
             <div className={classes.column}>
-              { this.renderOptions(order.id) }
+              { this.renderOptions(order) }
             </div>
           </ExpansionPanelDetails>
           <Divider />
