@@ -56,7 +56,7 @@ const styles = theme => ({
     },
   },
   panelActions: {
-    padding: '5px 5px 5px 5px',
+    padding: '5px 5px 5px 10px',
   },
   mainCard: {
     minWidth: '100%',
@@ -231,14 +231,14 @@ class OrderList extends React.Component {
       if (quantity === 1) {
         return (
           <Typography align="left" className={classes.secondaryHeading}>
-            Sos el único muertx de hambre que se anotó
+            Sos le únicx muertx de hambre que se anotó
           </Typography>
         );
       }
       if (quantity > 2) {
         return (
           <Typography align="left" className={classes.secondaryHeading}>
-            Vos y otros {quantity - 1} muertxs de hambre que están esperando el helado...
+            Vos y otrxs {quantity - 1} muertxs de hambre que están esperando el helado...
           </Typography>
         );
       }
