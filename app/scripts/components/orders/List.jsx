@@ -137,6 +137,18 @@ class OrderList extends React.Component {
     );
   }
 
+  handleLeave = (orderId, participantId) => () => {
+    const { dispatch } = this.props;
+    dispatch(
+      patchOrder({
+        id: orderId,
+        participantId,
+        service: 'removeParticipant',
+        dispatch,
+      })
+    );
+  }
+
   handlePanelToggling = panel => (event, expanded) => {
     this.setState({
       expanded: expanded ? panel : false,
@@ -242,9 +254,17 @@ class OrderList extends React.Component {
     const currentParticipant = order.participants
       .find((participant) => user.data.id === participant.participantId);
     const selection = (currentParticipant && currentParticipant.selection) || [];
+
+    let buttonText;
+    if (selection.length > 0) {
+      buttonText = 'Cambiar gustos';
+    }
+    else {
+      buttonText = 'Elegí gustos!';
+    }
     return (
       <FullDialog
-        buttonText="Elegí gustos!"
+        buttonText={buttonText}
         title="Saborrrr"
         confirmText="Guardar"
         options={options}
@@ -253,6 +273,27 @@ class OrderList extends React.Component {
         selection={selection}
       />
     );
+  }
+
+  renderLeaveButton(order) {
+    const { user } = this.props;
+
+    const currentUserId = user.data.id;
+    const participantIds = order.participants.map((p) => p.participantId);
+    if (participantIds.indexOf(currentUserId) >= 0) {
+      return (
+        <Button
+          mini={true}
+          size="small"
+          color="primary"
+          align="right"
+          onClick={this.handleLeave(order.id, currentUserId)}
+        >
+          Me arrepentí...
+        </Button>
+      );
+    }
+    return null;
   }
 
   renderSaveAction() {
@@ -338,8 +379,11 @@ class OrderList extends React.Component {
               <Grid item xs={12}>
                 { this.renderParticipants(order) }
               </Grid>
-              <Grid item xs={12}>
+              <Grid item xs={6}>
                 { this.renderOptions(order) }
+              </Grid>
+              <Grid item xs={6}>
+                { this.renderLeaveButton(order) }
               </Grid>
             </Grid>
           </ExpansionPanelDetails>

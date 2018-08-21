@@ -7,6 +7,7 @@ import { all, call, put, takeLatest } from 'redux-saga/effects';
 import { ActionTypes } from 'constants/index';
 import { showAlert } from 'actions';
 import { request } from './../modules/socket-client';
+import { messages } from './../utils/notifications/alert-messages';
 
 
 /**
@@ -110,6 +111,7 @@ export function* deleteOrder({ payload }) {
 }
 
 export function* patchOrder({ payload }) {
+  const alertNotification = messages.services[payload.data.service];
   const { dispatch } = payload.data;
   try {
     const service = {
@@ -131,8 +133,8 @@ export function* patchOrder({ payload }) {
     });
     dispatch(
       showAlert(
-        'Hmmmmmmmmmm ya están los gustitos...',
-        { type: 'success', icon: 'i-bell' }
+        alertNotification.message,
+        { type: alertNotification.type, icon: alertNotification.icon }
       )
     );
   }
