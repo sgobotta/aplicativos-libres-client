@@ -123,7 +123,7 @@ class OrderCreate extends React.Component {
                   />
                   <TextField
                     name="title"
-                    label="Título"
+                    label="Un título decente par favar"
                     className={classes.textField}
                     type="text"
                     margin="normal"

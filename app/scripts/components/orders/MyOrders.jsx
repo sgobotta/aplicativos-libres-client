@@ -3,7 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 /** Redux Imports */
 import { connect } from 'react-redux';
-import { findOrders } from 'actions';
+// import { findOrders } from 'actions';
 /** Material UI Imports */
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
@@ -29,11 +29,11 @@ class MyOrders extends React.Component {
     };
   }
 
-  componentWillReceiveProps(nextProps) {
-    const { dispatch, user } = nextProps;
-    if (user && user._id) { // fix to only get current user's id
-      dispatch(findOrders({ author: user._id }));
-    }
+  componentDidMount() {
+    // const { dispatch, user } = this.props;
+    // if (user && user.data.id) { // fix to only get current user's id
+    // dispatch(findOrders({ author: user.data.id }));
+    // }
   }
 
   renderOrders(classes, orders) {
@@ -57,7 +57,7 @@ class MyOrders extends React.Component {
         <Card className={classes.card}>
           <CardContent>
             <Typography variant="title">
-              Pedidos
+              Acá no hay nada que ver, ¿quiacé?
             </Typography>
             { this.renderOrders(orders) }
           </CardContent>
@@ -79,10 +79,10 @@ class MyOrders extends React.Component {
 
 MyOrders.propTypes = {
   classes: PropTypes.object.isRequired,
-  dispatch: PropTypes.func.isRequired,
+  // dispatch: PropTypes.func.isRequired,
   orders: PropTypes.object,
-  ui: PropTypes.object,
-  user: PropTypes.object.isRequired,
+  // ui: PropTypes.object,
+  // user: PropTypes.object.isRequired,
 };
 
 /* istanbul ignore next */

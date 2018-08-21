@@ -23,6 +23,8 @@ import Divider from '@material-ui/core/Divider';
 /** Miscellaneous Imports */
 import { DateUtils } from 'utils';
 import FullDialog from 'components/FullDialog';
+import Avatar from 'components/Avatar';
+import { options } from './options';
 
 
 const query = {};
@@ -32,11 +34,11 @@ const styles = theme => ({
     width: '100%',
   },
   heading: {
-    fontSize: theme.typography.pxToRem(18),
+    fontSize: theme.typography.pxToRem(12),
   },
   secondaryHeading: {
     paddingTop: '5px',
-    fontSize: theme.typography.pxToRem(13),
+    fontSize: theme.typography.pxToRem(12),
     color: theme.palette.text.secondary,
     alignText: 'right',
   },
@@ -85,20 +87,19 @@ const styles = theme => ({
     fontSize: '12px',
     fontStyle: 'italic',
   },
+  participantUser: {
+    marginTop: '10px',
+    fontWeight: 'bold',
+  },
+  participantInfo: {
+    padding: '0px 0 12px 0',
+    marginTop: '8px',
+    marginBottom: '0px',
+  },
+  participantSelection: {
+    padding: '4px 0 4px 0',
+  },
 });
-
-const options = [
-  { name: 'Dulce de leche' },
-  { name: 'Chocolate' },
-  { name: 'Dulce de leche Zarpado' },
-  { name: 'Vainilla' },
-  { name: 'Cereza' },
-  { name: 'Crema Americana' },
-  { name: 'Banana' },
-  { name: 'Limón' },
-  { name: 'Menta Granizada' },
-  { name: 'Chocolate Caruso' },
-];
 
 class OrderList extends React.Component {
   constructor(props) {
@@ -263,11 +264,51 @@ class OrderList extends React.Component {
     );
   }
 
+  renderParticipantSelection(selection) {
+    if (selection.length === 1) {
+      return selection[0];
+    }
+    if (selection.length === 2) {
+      return `${selection[0]} y ${selection[1]}`;
+    }
+    return 'Se hizo le vivx y no eligió sabores...';
+  }
+
   renderParticipant(participant, index) {
+    const { classes } = this.props;
+    const initial = participant.username.charAt(0);
     return (
-      <Typography variant="body2" key={index}>
-        {participant.username}: { participant.selection }
-      </Typography>
+      <Grid
+        container
+        direction="row"
+        key={index}
+        className={classes.participantInfo}
+      >
+        <Grid item xs={2} md={1}>
+          <Avatar initials={initial} />
+        </Grid>
+        <Grid item xs={10} md={11}>
+          <Typography
+            variant="body2"
+            align="left"
+            className={classes.participantUser}
+          >
+            { participant.username }
+          </Typography>
+        </Grid>
+        <Grid item xs={12}>
+          <Typography
+            variant="body2"
+            align="center"
+            className={classes.participantSelection}
+          >
+            { this.renderParticipantSelection(participant.selection) }
+          </Typography>
+        </Grid>
+        <Grid item xs={12}>
+          <Divider />
+        </Grid>
+      </Grid>
     );
   }
 
@@ -411,14 +452,12 @@ class OrderList extends React.Component {
           >
             <Grid container direction="row">
               <Grid item xs={6}>
-                <div className={classes.column}>
-                  <Typography className={classes.heading}>
-                    {order.title}
-                  </Typography>
-                  <Typography variant="body2">
-                    {this.renderUsername(order.author)}
-                  </Typography>
-                </div>
+                <Typography className={classes.heading}>
+                  Responsable: {this.renderUsername(order.author)}
+                </Typography>
+                <Typography>
+                  {order.title}
+                </Typography>
               </Grid>
               <Grid item xs={6}>
                 <div className={classes.column} style={{ padding: '0 4px 0 4px' }}>
