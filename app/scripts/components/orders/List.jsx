@@ -1,6 +1,7 @@
 /** React Imports */
 import React from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 /** Redux Imports */
 import { connect } from 'react-redux';
 import { findOrders, deleteOrder, patchOrder } from 'actions';
@@ -24,9 +25,7 @@ import { DateUtils } from 'utils';
 import FullDialog from 'components/FullDialog';
 
 
-const query = {
-  isActive: true,
-};
+const query = {};
 
 const styles = theme => ({
   root: {
@@ -69,6 +68,12 @@ const styles = theme => ({
       marginBottom: '2px',
       borderBottomLeftRadius: '7px',
     },
+  },
+  orderFinished: {
+    border: 'solid brown 1px',
+    borderRadius: '4  px',
+    borderBottomLeftRadius: '7px',
+    backgroundColor: 'red',
   },
   cardIcon: {
     color: 'red',
@@ -149,6 +154,28 @@ class OrderList extends React.Component {
     );
   }
 
+  handleFinish = (orderId) => () => {
+    const { dispatch } = this.props;
+    dispatch(
+      patchOrder({
+        id: orderId,
+        service: 'finishOrder',
+        dispatch,
+      })
+    );
+  }
+
+  handleRestart = (orderId) => () => {
+    const { dispatch } = this.props;
+    dispatch(
+      patchOrder({
+        id: orderId,
+        service: 'restartOrder',
+        dispatch,
+      })
+    );
+  }
+
   handlePanelToggling = panel => (event, expanded) => {
     this.setState({
       expanded: expanded ? panel : false,
@@ -171,9 +198,16 @@ class OrderList extends React.Component {
 
   renderCreationDate(order) {
     const { classes } = this.props;
-    const date = DateUtils.getElapsedTime(order.creationDate);
+    let date;
+    if (order.isActive) {
+      date = DateUtils.getElapsedTime(order.creationDate);
+      return (
+        <span className={classes.creationDate}>Creado {date}</span>
+      );
+    }
+    date = DateUtils.getElapsedTime(order.updatedDate);
     return (
-      <span className={classes.creationDate}>{date}</span>
+      <span className={classes.creationDate}>Cerrado {date}</span>
     );
   }
 
@@ -250,29 +284,32 @@ class OrderList extends React.Component {
   }
 
   renderOptions(order) {
-    const { user } = this.props;
-    const currentParticipant = order.participants
-      .find((participant) => user.data.id === participant.participantId);
-    const selection = (currentParticipant && currentParticipant.selection) || [];
+    if (order.isActive) {
+      const { user } = this.props;
+      const currentParticipant = order.participants
+        .find((participant) => user.data.id === participant.participantId);
+      const selection = (currentParticipant && currentParticipant.selection) || [];
 
-    let buttonText;
-    if (selection.length > 0) {
-      buttonText = 'Cambiar gustos';
+      let buttonText;
+      if (selection.length > 0) {
+        buttonText = 'Cambiar gustos';
+      }
+      else {
+        buttonText = 'Elegí gustos!';
+      }
+      return (
+        <FullDialog
+          buttonText={buttonText}
+          title="Saborrrr"
+          confirmText="Guardar"
+          options={options}
+          handleSave={this.handleSave}
+          orderId={order.id}
+          selection={selection}
+        />
+      );
     }
-    else {
-      buttonText = 'Elegí gustos!';
-    }
-    return (
-      <FullDialog
-        buttonText={buttonText}
-        title="Saborrrr"
-        confirmText="Guardar"
-        options={options}
-        handleSave={this.handleSave}
-        orderId={order.id}
-        selection={selection}
-      />
-    );
+    return null;
   }
 
   renderLeaveButton(order) {
@@ -296,17 +333,33 @@ class OrderList extends React.Component {
     return null;
   }
 
-  renderSaveAction() {
-    return (
-      <Button
-        size="small"
-        color="primary"
-        align="left"
-        onClick={() => { this.handleSave(this.state.order); }}
-      >
-        Guardar
-      </Button>
-    );
+  renderFinishAction(order) {
+    const { user } = this.props;
+    if (user.data.id === order.author.id) {
+      if (order.isActive) {
+        return (
+          <Button
+            size="small"
+            color="primary"
+            align="left"
+            onClick={this.handleFinish(order.id)}
+          >
+            Cerrar Pedido
+          </Button>
+        );
+      }
+      return (
+        <Button
+          size="small"
+          color="primary"
+          align="left"
+          onClick={this.handleRestart(order.id)}
+        >
+          Reabrir Pedido
+        </Button>
+      );
+    }
+    return null;
   }
 
   renderCancelAction() {
@@ -317,7 +370,7 @@ class OrderList extends React.Component {
         align="left"
         onClick={this.handlePanelToggling()}
       >
-        Cancelar
+        Esconder
       </Button>
     );
   }
@@ -341,7 +394,12 @@ class OrderList extends React.Component {
     const { classes } = this.props;
     const { expanded } = this.state;
     return (
-      <div className={classes.root} key={index}>
+      <div
+        className={
+          classNames(classes.root, order.isActive ? '' : classes.orderFinished)
+        }
+        key={index}
+      >
         <ExpansionPanel
           className={classes.itemCard}
           expanded={expanded === `panel${index}`}
@@ -389,7 +447,7 @@ class OrderList extends React.Component {
           </ExpansionPanelDetails>
           <Divider />
           <ExpansionPanelActions className={classes.panelActions}>
-            { this.renderSaveAction(order) }
+            { this.renderFinishAction(order) }
             { this.renderCancelAction() }
             { this.renderDeleteAction(order) }
           </ExpansionPanelActions>
