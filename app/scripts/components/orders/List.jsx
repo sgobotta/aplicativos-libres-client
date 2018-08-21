@@ -24,6 +24,7 @@ import Divider from '@material-ui/core/Divider';
 import { DateUtils } from 'utils';
 import FullDialog from 'components/FullDialog';
 import Avatar from 'components/Avatar';
+import { options } from './options';
 
 
 const query = {};
@@ -99,19 +100,6 @@ const styles = theme => ({
     padding: '4px 0 4px 0',
   },
 });
-
-const options = [
-  { name: 'Dulce de leche' },
-  { name: 'Chocolate' },
-  { name: 'Dulce de leche Zarpado' },
-  { name: 'Vainilla' },
-  { name: 'Cereza' },
-  { name: 'Crema Americana' },
-  { name: 'Banana' },
-  { name: 'Limón' },
-  { name: 'Menta Granizada' },
-  { name: 'Chocolate Caruso' },
-];
 
 class OrderList extends React.Component {
   constructor(props) {
