@@ -29,14 +29,15 @@ class MyOrders extends React.Component {
     };
   }
 
-  componentWillReceiveProps(nextProps) {
-    const { dispatch, user } = nextProps;
-    if (user && user._id) { // fix to only get current user's id
-      dispatch(findOrders({ author: user._id }));
+  componentDidMount() {
+    const { dispatch, user } = this.props;
+    if (user && user.data.id) { // fix to only get current user's id
+      // dispatch(findOrders({ author: user.data.id }));
     }
   }
 
   renderOrders(classes, orders) {
+    console.log(orders);
     if (orders && orders.queryResult && orders.queryResult.data && orders.isFinished) {
       const output = orders.queryResult.data.map((order) => (
         <Card key={order._id} className={classes.card}>
@@ -57,7 +58,7 @@ class MyOrders extends React.Component {
         <Card className={classes.card}>
           <CardContent>
             <Typography variant="title">
-              Pedidos
+              Acá no hay nada que ver, ¿quiacé?
             </Typography>
             { this.renderOrders(orders) }
           </CardContent>
