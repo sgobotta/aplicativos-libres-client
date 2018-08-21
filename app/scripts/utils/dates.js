@@ -65,7 +65,7 @@ utils.getElapsedTime = (creationDate) => {
     pUnit = (indicator !== 1 && unit === 'mes') ? `${unit}es` : pUnit;
     if (helper !== undefined && anotherUnit !== undefined && helper !== 0) {
       let pAnotherUnit;
-      pAnotherUnit = (anotherUnit !== 1) ? `${anotherUnit}s` : anotherUnit;
+      pAnotherUnit = (helper !== 1) ? `${anotherUnit}s` : anotherUnit;
       pAnotherUnit = (helper !== 1 && anotherUnit === 'mes')
         ? `${anotherUnit}es`
         : pAnotherUnit;

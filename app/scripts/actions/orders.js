@@ -28,3 +28,10 @@ export function deleteOrder(query: Object): Object {
     payload: { query },
   };
 }
+
+export function patchOrder(data: Object): Object {
+  return {
+    type: ActionTypes.SERVICES_ORDERS_PATCH,
+    payload: { data },
+  };
+}
