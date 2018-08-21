@@ -11,6 +11,16 @@ const messages = {
       type: 'success',
       icon: 'i-bell',
     },
+    finishOrder: {
+      message: 'Se cierra el pedido!',
+      type: 'success',
+      icon: 'i-bell',
+    },
+    restartOrder: {
+      message: 'Se abrió el pedido!',
+      type: 'success',
+      icon: 'i-bell',
+    },
   },
 };
 

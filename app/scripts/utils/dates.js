@@ -69,9 +69,9 @@ utils.getElapsedTime = (creationDate) => {
       pAnotherUnit = (helper !== 1 && anotherUnit === 'mes')
         ? `${anotherUnit}es`
         : pAnotherUnit;
-      return `Hace ${indicator} ${pUnit} y ${helper} ${pAnotherUnit}.`;
+      return `hace ${indicator} ${pUnit} y ${helper} ${pAnotherUnit}.`;
     }
-    return `Hace ${indicator} ${pUnit}.`;
+    return `hace ${indicator} ${pUnit}.`;
   };
 
   if (elapsedSeconds < 60) return parse(elapsedSeconds, 'segundo');
