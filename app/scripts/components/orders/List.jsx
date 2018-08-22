@@ -293,7 +293,7 @@ class OrderList extends React.Component {
             align="left"
             className={classes.participantUser}
           >
-            { participant.username }
+            { index + 1 }. { participant.username }
           </Typography>
         </Grid>
         <Grid item xs={12}>
