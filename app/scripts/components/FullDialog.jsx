@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
+import { createMuiTheme, withStyles, MuiThemeProvider } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import Card from '@material-ui/core/Card';
@@ -14,9 +14,36 @@ import Slide from '@material-ui/core/Slide';
 import OptionsForm from 'components/OptionsForm';
 
 
+const theme = createMuiTheme({
+  '@media (max-width: 695.95px)': {
+    overrides: {
+      MuiDialog: {
+        paperWidthXs: {
+          margin: '0px',
+          backgroundColor: 'yellow',
+        },
+        paperScrollBody: {
+          margin: '0px',
+          backgroundColor: 'yellow',
+        },
+      },
+    },
+  },
+  overrides: {
+    MuiDialog: {
+      paper: {
+        borderRadius: '20px',
+      },
+    },
+  },
+});
+
 const styles = {
   appBar: {
     position: 'relative',
+    backgroundColor: 'green',
+  },
+  toolBar: {
   },
   flex: {
     flex: 1,
@@ -24,7 +51,7 @@ const styles = {
 };
 
 function Transition(props) {
-  return <Slide direction="up" {...props} />;
+  return <Slide direction="down" {...props} />;
 }
 
 class FullScreenDialog extends React.Component {
@@ -55,23 +82,35 @@ class FullScreenDialog extends React.Component {
   render() {
     const { classes } = this.props;
     return (
-      <div>
+      <MuiThemeProvider theme={theme}>
         <Button size="small" color="primary" onClick={this.handleClickOpen}>{this.props.buttonText}</Button>
         <Dialog
-          fullScreen
+          scroll="body"
           open={this.state.open}
           onClose={this.handleClose}
           TransitionComponent={Transition}
+          disableBackdropClick={true}
+          maxWidth="xs"
         >
           <AppBar className={classes.appBar}>
-            <Toolbar style={{ backgroundColor: 'green' }}>
-              <IconButton color="inherit" onClick={this.handleClose} aria-label="Close">
+            <Toolbar className={classes.toolBar}>
+              <IconButton
+                color="inherit"
+                onClick={this.handleClose}
+                aria-label="Cerrar"
+              >
                 <CloseIcon />
               </IconButton>
-              <Typography variant="title" color="inherit" className={classes.flex}>
+              <Typography
+                variant="title"
+                color="inherit"
+                className={classes.flex}
+                align="center"
+              >
                 { this.props.title }
               </Typography>
               <Button color="inherit" onClick={this.handleSave}>
+                { this.props.confirmIcon }
                 { this.props.confirmText }
               </Button>
             </Toolbar>
@@ -84,7 +123,7 @@ class FullScreenDialog extends React.Component {
             />
           </Card>
         </Dialog>
-      </div>
+      </MuiThemeProvider>
     );
   }
 }
@@ -92,6 +131,7 @@ class FullScreenDialog extends React.Component {
 FullScreenDialog.propTypes = {
   buttonText: PropTypes.string.isRequired,
   classes: PropTypes.object.isRequired,
+  confirmIcon: PropTypes.object,
   confirmText: PropTypes.string.isRequired,
   handleSave: PropTypes.func.isRequired,
   options: PropTypes.array.isRequired,
