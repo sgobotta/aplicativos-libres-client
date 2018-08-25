@@ -1,5 +1,7 @@
 import React from 'react';
 
+const rndNumber = parseInt(Math.random() * 3, 3) + 1;
+
 export default class Private extends React.PureComponent {
   render() {
     return (
@@ -8,7 +10,7 @@ export default class Private extends React.PureComponent {
           <div className="app__private__header">
             <h3>¿Qué estámo' haciendo?</h3>
             <div style={{ textAlign: 'center' }} >
-              <img src={require('assets/media/images/monkeydooh_2.gif')} alt="Monkey Dooh" />
+              <img src={require(`assets/media/images/gif_${rndNumber}.gif`)} alt="Monkey Dooh" />
             </div>
           </div>
           <div className="app__private__content">
