@@ -19,6 +19,7 @@ import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpansionPanelActions from '@material-ui/core/ExpansionPanelActions';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Divider from '@material-ui/core/Divider';
+import SaveIcon from '@material-ui/icons/Save';
 
 /** Miscellaneous Imports */
 import { DateUtils } from 'utils';
@@ -341,11 +342,12 @@ class OrderList extends React.Component {
         <FullDialog
           buttonText={buttonText}
           title="Saborrrr"
-          confirmText="Guardar"
+          confirmText=""
           options={options}
           handleSave={this.handleSave}
           orderId={order.id}
           selection={selection}
+          confirmIcon={<SaveIcon />}
         />
       );
     }
