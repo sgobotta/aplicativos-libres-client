@@ -189,12 +189,11 @@ class OrderList extends React.Component {
 
   renderUsername(author) {
     const { user, classes } = this.props;
+    let userName = author.username;
     if (author.id === user.data.id) {
-      return (
-        <span className={classes.username}>Yo</span>
-      );
+      userName = 'yo';
     }
-    return author.username;
+    return <span className={classes.username}>Responsable: {userName}</span>;
   }
 
   renderCreationDate(order) {
@@ -238,7 +237,7 @@ class OrderList extends React.Component {
       if (quantity > 2) {
         return (
           <Typography align="left" className={classes.secondaryHeading}>
-            Vos y otrxs {quantity - 1} muertxs de hambre que están esperando el helado...
+            Vos y otrxs {quantity - 1} muertxs de hambre están esperando el helado...
           </Typography>
         );
       }
@@ -271,7 +270,7 @@ class OrderList extends React.Component {
     if (selection.length === 2) {
       return `${selection[0]} y ${selection[1]}`;
     }
-    return 'Se hizo le vivx y no eligió sabores...';
+    return 'No eligió sabores... solo quiere figurar.';
   }
 
   renderParticipant(participant, index) {
@@ -453,7 +452,7 @@ class OrderList extends React.Component {
             <Grid container direction="row">
               <Grid item xs={6}>
                 <Typography className={classes.heading}>
-                  Responsable: {this.renderUsername(order.author)}
+                  {this.renderUsername(order.author)}
                 </Typography>
                 <Typography>
                   {order.title}
