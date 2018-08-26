@@ -106,7 +106,6 @@ class Orders extends React.Component {
         <SwipeableViews
           index={index}
           onChangeIndex={this.handleChangeIndex}
-          style={{}}
         >
           { this.renderActiveOrders() }
           { this.renderOrderCreate() }
