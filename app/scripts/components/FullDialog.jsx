@@ -41,7 +41,7 @@ const theme = createMuiTheme({
 const styles = {
   appBar: {
     position: 'relative',
-    backgroundColor: 'green',
+    backgroundColor: 'rgb(30, 120, 235)',
   },
   toolBar: {
   },

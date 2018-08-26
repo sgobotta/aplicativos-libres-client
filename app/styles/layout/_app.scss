@@ -5,12 +5,14 @@
   opacity: 1 !important;
   position: relative;
   transition: opacity 0.5s;
-
+  color: white;
   &__main {
     min-height: 100vh;
 
     @at-root .app--private & {
       padding: (0 + 0) 0 ($footer-height + $grid-gutter-width);
+      background-color: rgb(205, 205, 231);
+      background-image: url($media-path+ '/images/background_space.png')
     }
   }
 

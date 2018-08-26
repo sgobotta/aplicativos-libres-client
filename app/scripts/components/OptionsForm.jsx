@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import green from '@material-ui/core/colors/green';
+import purple from '@material-ui/core/colors/deepPurple';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
@@ -9,9 +9,9 @@ import Checkbox from '@material-ui/core/Checkbox';
 
 const styles = {
   root: {
-    color: green[600],
+    color: purple[600],
     '&$checked': {
-      color: green[500],
+      color: purple[500],
     },
     marginLeft: '60px',
   },

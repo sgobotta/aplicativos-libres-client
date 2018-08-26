@@ -8,7 +8,7 @@ export default class Private extends React.PureComponent {
       <div key="Private" className="app__private app__route">
         <div className="app__container">
           <div className="app__private__header">
-            <h3>¿Qué estámo' haciendo?</h3>
+            <h6>¿Qué estámo' haciendo?</h6>
             <div style={{ textAlign: 'center' }} >
               <img src={require(`assets/media/images/gif_${rndNumber}.gif`)} alt="Monkey Dooh" />
             </div>

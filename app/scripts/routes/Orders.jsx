@@ -144,7 +144,6 @@ class Orders extends React.Component {
 Orders.propTypes = {
   classes: PropTypes.object.isRequired,
   orders: PropTypes.object.isRequired,
-  ui: PropTypes.object.isRequired,
   user: PropTypes.object.isRequired,
 };
 
