@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createOrder } from 'actions';
 /** Material UI Imports */
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles, createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
@@ -17,19 +17,25 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+import Divider from '@material-ui/core/Divider';
 
+
+const cardTheme = createMuiTheme({
+  overrides: {
+    MuiCard: {
+      root: {
+        backgroundColor: 'rgb(205, 205, 231)',
+        borderRadius: '3px',
+        margin: '16px',
+        maxWidth: '100%',
+      },
+    },
+  },
+});
 
 const styles = {
   formControl: {
     minWidth: 300,
-    maxWidth: '100%',
-  },
-  card: {
-    minWidth: '100%',
-    borderBottomRadius: '3px',
-  },
-  menuCard: {
-
   },
   button: {
     fontWeight: 'bold',
@@ -103,13 +109,8 @@ class OrderCreate extends React.Component {
     return (
       <Grid item xs={12} md={12}>
         <Grid container direction="column">
-          <Card className={classes.card}>
+          <Card>
             <CardContent>
-              <Grid item xs={12}>
-                <Typography variant="title">
-                  Crear Pedido
-                </Typography>
-              </Grid>
               <Grid item xs={12}>
                 <FormControl className={classes.formControl} margin="normal">
                   <TextField
@@ -136,6 +137,7 @@ class OrderCreate extends React.Component {
                 {this.renderSelect()}
               </Grid>
             </CardContent>
+            <Divider />
             <CardActions>
               <Button
                 size="small"
@@ -171,9 +173,11 @@ class OrderCreate extends React.Component {
 
   render() {
     return (
-      <Grid container direction="row">
-        { this.renderLeftGrid() }
-      </Grid>
+      <MuiThemeProvider theme={cardTheme}>
+        <Grid container direction="row">
+          { this.renderLeftGrid() }
+        </Grid>
+      </MuiThemeProvider>
     );
   }
 }

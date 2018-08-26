@@ -13,6 +13,9 @@ const styles = {
     '&$checked': {
       color: green[500],
     },
+    marginLeft: '60px',
+  },
+  form: {
   },
   checked: {},
   size: {
@@ -81,6 +84,7 @@ class CheckboxLabels extends React.Component {
     const { classes, options } = this.props;
     const output = options.map((option, index) => (
       <FormControlLabel
+        className={classes.form}
         key={index}
         control={
           <Checkbox
@@ -99,7 +103,7 @@ class CheckboxLabels extends React.Component {
       />
     ));
     return (
-      <FormGroup row>
+      <FormGroup row={false}>
         {output}
       </FormGroup>
     );
