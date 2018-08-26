@@ -67,7 +67,12 @@ export class App extends React.Component {
             titleTemplate={`%s | ${config.name}`}
             titleAttributes={{ itemprop: 'name', lang: 'pt-br' }}
           />
-          <Drawer drawer={ui.drawer} dispatch={dispatch} history={history} />
+          <Drawer
+            drawer={ui.drawer}
+            dispatch={dispatch}
+            history={history}
+            user={user}
+          />
           <Header dispatch={dispatch} user={user} />
           <LoadingBar
             style={{ zIndex: 1000, backgroundColor: '#384d30' }}
