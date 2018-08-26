@@ -6,11 +6,10 @@ import classNames from 'classnames';
 import { connect } from 'react-redux';
 import { findOrders, deleteOrder, patchOrder } from 'actions';
 /** Material UI Imports */
-import { withStyles } from '@material-ui/core/styles';
+import { createMuiTheme, withStyles, MuiThemeProvider } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import DeleteIcon from '@material-ui/icons/Delete';
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
@@ -29,6 +28,19 @@ import { options } from './options';
 
 
 const query = {};
+
+const expansionPanelTheme = createMuiTheme({
+  overrides: {
+    MuiExpansionPanel: {
+      root: {
+        backgroundColor: 'rgb(205, 205, 231)',
+      },
+      expanded: {
+        backgroundColor: 'rgb(180, 205, 231)',
+      },
+    },
+  },
+});
 
 const styles = theme => ({
   root: {
@@ -59,22 +71,17 @@ const styles = theme => ({
   panelActions: {
     padding: '5px 5px 5px 10px',
   },
-  mainCard: {
-    minWidth: '100%',
-    maxWidth: '100%',
-  },
   itemCard: {
     padding: '5px 5px 5px 5px',
     borderRadius: '0px',
     '&:hover': {
-      backgroundColor: 'rgb(205, 205, 231)',
-      marginBottom: '2px',
+      backgroundColor: 'rgb(180, 205, 231)',
+      marginBottom: '12px',
       borderBottomLeftRadius: '7px',
     },
   },
   orderFinished: {
     border: 'solid brown 1px',
-    borderRadius: '4  px',
     borderBottomLeftRadius: '7px',
     backgroundColor: 'red',
   },
@@ -106,7 +113,7 @@ class OrderList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      expanded: null,
+      expanded: false,
     };
   }
 
@@ -404,19 +411,6 @@ class OrderList extends React.Component {
     return null;
   }
 
-  renderCancelAction() {
-    return (
-      <Button
-        size="small"
-        color="primary"
-        align="left"
-        onClick={this.handlePanelToggling()}
-      >
-        Esconder
-      </Button>
-    );
-  }
-
   renderDeleteAction(order) {
     const { classes, user } = this.props;
     if (order.author.id === user.data.id) {
@@ -442,56 +436,52 @@ class OrderList extends React.Component {
         }
         key={index}
       >
-        <ExpansionPanel
-          className={classes.itemCard}
-          expanded={expanded === `panel${index}`}
-          onChange={this.handlePanelToggling(`panel${index}`)}
-        >
-          <ExpansionPanelSummary
-            style={{ padding: '0 4px 0 4px' }}
-            expandIcon={<ExpandMoreIcon />}
+        <MuiThemeProvider theme={expansionPanelTheme}>
+          <ExpansionPanel
+            className={classes.itemCard}
+            expanded={expanded === `panel${index}`}
+            onChange={this.handlePanelToggling(`panel${index}`)}
           >
-            <Grid container direction="row">
-              <Grid item xs={6}>
-                <Typography className={classes.heading}>
-                  {this.renderUsername(order.author)}
-                </Typography>
-                <Typography>
-                  {order.title}
-                </Typography>
-              </Grid>
-              <Grid item xs={6}>
-                <div className={classes.column} style={{ padding: '0 4px 0 4px' }}>
-                  <Typography align="right" className={classes.secondaryHeading}>
-                    {this.renderCreationDate(order)}
+            <ExpansionPanelSummary
+              style={{ padding: '0 4px 0 4px' }}
+              expandIcon={<ExpandMoreIcon />}
+            >
+              <Grid container direction="row">
+                <Grid item xs={6}>
+                  <Typography className={classes.heading}>
+                    {this.renderUsername(order.author)}
                   </Typography>
-                </div>
+                  <Typography>
+                    {order.title}
+                  </Typography>
+                </Grid>
+                <Grid item xs={6}>
+                  <div className={classes.column} style={{ padding: '0 4px 0 4px' }}>
+                    <Typography align="right" className={classes.secondaryHeading}>
+                      {this.renderCreationDate(order)}
+                    </Typography>
+                  </div>
+                </Grid>
+                <Grid item xs={12}>
+                  { this.renderOrderInfo(order) }
+                </Grid>
               </Grid>
-              <Grid item xs={12}>
-                { this.renderOrderInfo(order) }
+            </ExpansionPanelSummary>
+            <ExpansionPanelDetails className={classes.details} style={{ padding: '0 4px 0 4px' }}>
+              <Grid container direction="row">
+                <Grid item xs={12}>
+                  { this.renderParticipants(order) }
+                </Grid>
               </Grid>
-            </Grid>
-          </ExpansionPanelSummary>
-          <ExpansionPanelDetails className={classes.details} style={{ padding: '0 4px 0 4px' }}>
-            <Grid container direction="row">
-              <Grid item xs={12}>
-                { this.renderParticipants(order) }
-              </Grid>
-              <Grid item xs={6}>
-                { this.renderOptions(order) }
-              </Grid>
-              <Grid item xs={6}>
-                { this.renderLeaveButton(order) }
-              </Grid>
-            </Grid>
-          </ExpansionPanelDetails>
-          <Divider />
-          <ExpansionPanelActions className={classes.panelActions}>
-            { this.renderFinishAction(order) }
-            { this.renderCancelAction() }
-            { this.renderDeleteAction(order) }
-          </ExpansionPanelActions>
-        </ExpansionPanel>
+            </ExpansionPanelDetails>
+            <ExpansionPanelActions className={classes.panelActions}>
+              { this.renderOptions(order) }
+              { this.renderLeaveButton(order) }
+              { this.renderFinishAction(order) }
+              { this.renderDeleteAction(order) }
+            </ExpansionPanelActions>
+          </ExpansionPanel>
+        </MuiThemeProvider>
       </div>
     );
   }
@@ -508,14 +498,11 @@ class OrderList extends React.Component {
   }
 
   render() {
-    const { classes } = this.props;
     return (
       <Grid>
-        <Card className={classes.mainCard}>
-          <CardContent>
-            { this.renderOrders() }
-          </CardContent>
-        </Card>
+        <CardContent>
+          { this.renderOrders() }
+        </CardContent>
       </Grid>
     );
   }
