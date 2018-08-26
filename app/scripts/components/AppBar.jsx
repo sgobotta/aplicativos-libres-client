@@ -45,19 +45,12 @@ class ButtonAppBar extends React.Component {
       <div className={classes.root}>
         <AppBar position="static" style={{ backgroundColor: 'green' }}>
           <Toolbar>
-            { user.isAuthenticated &&
-              <IconButton className={classes.menuButton} color="inherit" aria-label="Menu" onClick={this.handleDrawerClick}>
-                <MenuIcon />
-              </IconButton>
-            }
+            <IconButton className={classes.menuButton} color="inherit" aria-label="Menu" onClick={this.handleDrawerClick}>
+              <MenuIcon />
+            </IconButton>
             <Typography align="left" variant="title" color="inherit" className={classes.menuItem}>
               <Link to="/">
                 <Button>Portada</Button>
-              </Link>
-            </Typography>
-            <Typography align="center" variant="title" color="inherit" className={classes.menuItem}>
-              <Link to="/map">
-                <Button>Derecho al Aborto Legal, Seguro y Gratuito</Button>
               </Link>
             </Typography>
             { !user.isAuthenticated &&
@@ -65,11 +58,6 @@ class ButtonAppBar extends React.Component {
                 <Link to="/login">
                   <Button>Ingresar</Button>
                 </Link>
-              </Typography>
-            }
-            { user.isAuthenticated &&
-              <Typography align="right" variant="title" color="inherit" className={classes.menuItem}>
-                <Button onClick={this.handleClickLogout}>Cerrar Sesión</Button>
               </Typography>
             }
           </Toolbar>
