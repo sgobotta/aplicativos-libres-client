@@ -7,7 +7,7 @@
   transition: opacity 0.5s;
   background-color: rgb(205, 205, 231);
   background-image: url($media-path+ '/images/background_space.png');
-  
+
   &__main {
     min-height: 100vh;
 
@@ -19,7 +19,7 @@
   }
 
   &__container {
-    @include app-container();
+    // @include app-container();
   }
 
   &__route {
@@ -27,6 +27,7 @@
     flex-direction: column;
     justify-content: flex-start;
     min-height: 100vh;
+    color: white;
   }
 
   &__logout {
