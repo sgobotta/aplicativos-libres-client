@@ -1,9 +1,11 @@
 .app__footer {
-  border-top: 0.1rem solid #ddd;
+  border-top: 0.1rem solid #000;
 
   .app__container {
     padding-bottom: $grid-gutter-width / 2;
     padding-top: $grid-gutter-width / 2;
+    background-color: black;
+    color: 'rgb(30, 120, 235)'
   }
 
   &__github {
