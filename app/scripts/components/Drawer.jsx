@@ -77,7 +77,7 @@ class SwipeableTemporaryDrawer extends React.Component {
 
   renderStatistics() {
     return (
-      <ListItem button onClick={this.goToRoute('/map')}>
+      <ListItem button onClick={this.goToRoute('/statistics')}>
         <ListItemIcon>
           <IconButton>
             <Assessment />
