@@ -8,7 +8,6 @@ import {
   createMuiTheme, withStyles, MuiThemeProvider,
 } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
@@ -16,6 +15,7 @@ import deepPurple from '@material-ui/core/colors/deepPurple';
 import Restaurant from '@material-ui/icons/Restaurant';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import AddShoppingCart from '@material-ui/icons/AddShoppingCart';
+import SwipeableViews from 'react-swipeable-views';
 
 /** Custom Imports */
 import OrderCreate from 'components/orders/Create';
@@ -29,6 +29,7 @@ const appBarTheme = createMuiTheme({
       root: {
         backgroundColor: 'transparent',
         border: '0px',
+        padding: '0px',
       },
     },
   },
@@ -58,10 +59,6 @@ const styles = theme => ({
     display: 'flex',
     justifyContent: 'center',
   },
-  submenu: {
-    minWidth: '80%',
-    backgroundColor: '#000',
-  },
 });
 
 
@@ -69,41 +66,53 @@ class Orders extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      value: 0,
+      index: 0,
     };
   }
 
   handleChange = (event, value) => {
-    this.setState({ value });
+    this.setState({
+      index: value,
+    });
+  };
+
+  handleChangeIndex = index => {
+    this.setState({
+      index,
+    });
   };
 
   renderTabs() {
-    const { value } = this.state;
+    const { index } = this.state;
 
     return (
-      <div key="Orders">
-        <MuiThemeProvider theme={appBarTheme}>
-          <AppBar
-            position="static"
-            color="primary"
+      <MuiThemeProvider key="Orders" theme={appBarTheme}>
+        <AppBar
+          position="static"
+          color="primary"
+        >
+          <Tabs
+            value={index}
+            onChange={this.handleChange}
+            scrollable
+            indicatorColor="secondary"
+            textColor="secondary"
           >
-            <Tabs
-              value={value}
-              onChange={this.handleChange}
-              scrollable
-              indicatorColor="secondary"
-              textColor="secondary"
-            >
-              <Tab label="Pedidos" icon={<Restaurant />} />
-              <Tab label="Nuevo Pedido" icon={<AddShoppingCart />} />
-              <Tab label="Mis Pedidos" icon={<FavoriteIcon />} />
-            </Tabs>
-          </AppBar>
-          {value === 0 && this.renderActiveOrders()}
-          {value === 1 && this.renderOrderCreate()}
-          {value === 2 && this.renderMyOrders()}
-        </MuiThemeProvider>
-      </div>
+            <Tab label="Pedidos" icon={<Restaurant />} />
+            <Tab label="Nuevo Pedido" icon={<AddShoppingCart />} />
+            <Tab label="Mis Pedidos" icon={<FavoriteIcon />} />
+          </Tabs>
+        </AppBar>
+        <SwipeableViews
+          index={index}
+          onChangeIndex={this.handleChangeIndex}
+          style={{}}
+        >
+          { this.renderActiveOrders() }
+          { this.renderOrderCreate() }
+          { this.renderMyOrders() }
+        </SwipeableViews>
+      </MuiThemeProvider>
     );
   }
 
@@ -128,14 +137,12 @@ class Orders extends React.Component {
   render() {
     const { classes } = this.props;
     return (
-      <div className={classes.body}>
-        <Paper className={classes.root}>
-          <Grid container>
-            <Grid item xs={12}>
-              { this.renderTabs() }
-            </Grid>
+      <div className={classes.body} style={{ backgroundColor: 'transparent', boxShadow: '0px' }}>
+        <Grid container>
+          <Grid item xs={12} style={{ padding: '0px' }} >
+            { this.renderTabs() }
           </Grid>
-        </Paper>
+        </Grid>
       </div>
     );
   }

@@ -24,10 +24,16 @@ const cardTheme = createMuiTheme({
   overrides: {
     MuiCard: {
       root: {
+        padding: '0px',
         backgroundColor: 'rgb(205, 205, 231)',
-        borderRadius: '3px',
-        margin: '16px',
+        borderBottomLeftRadius: '3px',
+        borderBottomRightRadius: '3px',
         maxWidth: '100%',
+      },
+    },
+    MuiPaper: {
+      rounded: {
+        borderRadius: '0px',
       },
     },
   },
@@ -174,7 +180,10 @@ class OrderCreate extends React.Component {
   render() {
     return (
       <MuiThemeProvider theme={cardTheme}>
-        <Grid container direction="row">
+        <Grid
+          container
+          direction="row"
+        >
           { this.renderLeftGrid() }
         </Grid>
       </MuiThemeProvider>

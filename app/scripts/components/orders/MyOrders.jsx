@@ -18,7 +18,9 @@ import CardContent from '@material-ui/core/CardContent';
 const styles = {
   card: {
     minWidth: '100%',
-    borderRadius: '3px',
+    backgroundColor: 'rgb(205, 205, 231)',
+    borderTopLeftRadius: '0px',
+    borderTopRightRadius: '0px',
   },
 };
 
@@ -27,13 +29,6 @@ class MyOrders extends React.Component {
     super(props);
     this.state = {
     };
-  }
-
-  componentDidMount() {
-    // const { dispatch, user } = this.props;
-    // if (user && user.data.id) { // fix to only get current user's id
-    // dispatch(findOrders({ author: user.data.id }));
-    // }
   }
 
   renderOrders(classes, orders) {
@@ -56,7 +51,7 @@ class MyOrders extends React.Component {
       <Grid item xs={12}>
         <Card className={classes.card}>
           <CardContent>
-            <Typography variant="title">
+            <Typography variant="body2">
               Acá no hay nada que ver, ¿quiacé?
             </Typography>
             { this.renderOrders(orders) }
@@ -79,10 +74,7 @@ class MyOrders extends React.Component {
 
 MyOrders.propTypes = {
   classes: PropTypes.object.isRequired,
-  // dispatch: PropTypes.func.isRequired,
   orders: PropTypes.object,
-  // ui: PropTypes.object,
-  // user: PropTypes.object.isRequired,
 };
 
 /* istanbul ignore next */
