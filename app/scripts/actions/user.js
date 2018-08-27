@@ -28,3 +28,15 @@ export function logOut(): Object {
     payload: {},
   };
 }
+
+/**
+ * Patch User
+ *
+ * @returns {Object}
+ */
+export function patchUser(data: Object): Object {
+  return {
+    type: ActionTypes.SERVICES_USERS_PATCH,
+    payload: { data },
+  };
+}
