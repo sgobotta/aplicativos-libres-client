@@ -42,7 +42,7 @@ export function* request({ service, action, payload, dispatch }) {
   );
 
   let response;
-  if (service === 'orders' && action === 'patch') {
+  if (action === 'patch') {
     response = services[service][action](newPayload.id, newPayload.data);
   }
   else {

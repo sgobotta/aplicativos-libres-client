@@ -23,6 +23,11 @@ export const ActionTypes = keyMirror({
   USERS_LOGOUT_REQUEST: undefined,
   USERS_LOGOUT_SUCCESS: undefined,
   USERS_LOGOUT_FAILURE: undefined,
+
+  SERVICES_USERS_PATCH: undefined,
+  SERVICES_USERS_PATCH_FULFILLED: undefined,
+  SERVICES_USERS_PATCH_PENDING: undefined,
+  SERVICES_USERS_PATCH_REJECTED: undefined,
   /** Github Example ActionTypes */
   GITHUB_GET_REPOS_REQUEST: undefined,
   GITHUB_GET_REPOS_SUCCESS: undefined,
