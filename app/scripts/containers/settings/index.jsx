@@ -94,7 +94,7 @@ class SettingsContainer extends React.Component {
 
 /* istanbul ignore next */
 function mapStateToProps(state) {
-  return { state };
+  return { user: state.user, users: state.users };
 }
 
 export default connect(mapStateToProps)(SettingsContainer);
