@@ -44,7 +44,6 @@ export function* createOrder({ payload }) {
       payload,
     };
     const data = yield call(request, service);
-    console.log(data);
     const removeService = {
       service: 'orders',
       action: 'onCreated',
