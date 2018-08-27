@@ -53,11 +53,19 @@ function dispatchOrders(service, action, payload) {
   return actions[action](payload);
 }
 
+function dispatchUsers(service, action, payload) {
+  const actions = {
+    patch: () => dispatchTokenByIdWithData(payload),
+    onPatched: () => payload,
+  };
+  return actions[action]();
+}
 
 SocketDispatcher.dispatchByService = (service, action, payload, dispatch) => {
   const clientServices = {
     authentication: () => dispatchAuthentication(service, action, payload, dispatch),
     orders: () => dispatchOrders(service, action, payload, dispatch),
+    users: () => dispatchUsers(service, action, payload, dispatch),
     votes: () => payload,
   };
   return clientServices[service]();
