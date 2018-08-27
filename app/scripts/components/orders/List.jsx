@@ -85,9 +85,11 @@ const styles = theme => ({
     },
   },
   orderFinished: {
-    border: 'solid brown 1px',
     borderBottomLeftRadius: '7px',
-    backgroundColor: 'red',
+    backgroundColor: '#db5858',
+    '&:hover': {
+      backgroundColor: '#f27573',
+    },
   },
   cardIcon: {
     color: 'red',
@@ -356,7 +358,7 @@ class OrderList extends React.Component {
           confirmText=""
           options={options}
           handleSave={this.handleSave}
-          orderId={order.id}
+          orderId={order.id || order._id}
           selection={selection}
           confirmIcon={<SaveIcon />}
         />
@@ -436,12 +438,17 @@ class OrderList extends React.Component {
     return (
       <div
         className={
-          classNames(classes.root, order.isActive ? '' : classes.orderFinished)
+          classNames(classes.root)
         }
         key={index}
       >
         <ExpansionPanel
-          className={classes.itemCard}
+          className={
+            classNames(
+              classes.itemCard,
+              order.isActive ? '' : classes.orderFinished
+            )
+          }
           expanded={expanded === `panel${index}`}
           onChange={this.handlePanelToggling(`panel${index}`)}
           style={{

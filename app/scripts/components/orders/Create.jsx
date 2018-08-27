@@ -18,6 +18,8 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Divider from '@material-ui/core/Divider';
+/** Material UI Icons */
+import SaveIcon from '@material-ui/icons/Save';
 
 
 const cardTheme = createMuiTheme({
@@ -45,6 +47,7 @@ const styles = {
   },
   button: {
     fontWeight: 'bold',
+    color: 'rgb(0, 120, 215)',
   },
   container: {
     display: 'inline-grid',
@@ -150,7 +153,7 @@ class OrderCreate extends React.Component {
                 onClick={this.handleCreate}
               >
                 <Typography variant="button" style={styles.button}>
-                  Confirmar
+                  <SaveIcon /> Confirmar
                 </Typography>
               </Button>
             </CardActions>
