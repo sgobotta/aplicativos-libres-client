@@ -44,6 +44,14 @@ export function* createOrder({ payload }) {
       payload,
     };
     const data = yield call(request, service);
+    console.log(data);
+    const removeService = {
+      service: 'orders',
+      action: 'onCreated',
+      payload: data,
+      dispatch,
+    };
+    yield call(request, removeService);
     yield put({
       type: ActionTypes.SERVICES_ORDERS_CREATE_FULFILLED,
       payload: data,
@@ -111,7 +119,7 @@ export function* deleteOrder({ payload }) {
 }
 
 export function* patchOrder({ payload }) {
-  const alertNotification = messages.services[payload.data.service];
+  const alertNotification = messages.services.orders[payload.data.service];
   const { dispatch } = payload.data;
   try {
     const service = {
