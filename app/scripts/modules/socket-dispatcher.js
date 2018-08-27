@@ -47,6 +47,7 @@ function dispatchOrders(service, action, payload) {
     update: () => dispatchTokenByQuery(payload),
     patch: () => dispatchTokenByIdWithData(payload),
     remove: () => dispatchTokenById(payload),
+    onCreated: () => payload,
     onRemoved: () => payload,
     onPatched: () => payload,
   };

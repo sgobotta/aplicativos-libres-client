@@ -56,16 +56,6 @@ class MyOrders extends React.Component {
             </Typography>
             { this.renderOrders(orders) }
           </CardContent>
-          <CardActions>
-            <Button
-              size="small"
-              onClick={this.handleClickLogin}
-            >
-              <Typography variant="button" style={styles.button}>
-                Confirmar
-              </Typography>
-            </Button>
-          </CardActions>
         </Card>
       </Grid>
     );

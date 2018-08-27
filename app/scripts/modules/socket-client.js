@@ -59,6 +59,11 @@ export function* request({ service, action, payload, dispatch }) {
     return response;
   }
 
+  if (action === 'onCreated') {
+    dispatch(services[service][action](newPayload));
+    return response;
+  }
+
   const { promise } = response.payload;
   const result = yield call(() => Promise.resolve(promise));
   return result;
