@@ -74,7 +74,7 @@ class CheckboxLabels extends React.Component {
 
   shouldDisable = (optionName) => {
     const { checkedOptions } = this.state;
-    if (checkedOptions.length === 2 && checkedOptions.indexOf(optionName) < 0) {
+    if (checkedOptions.length === 3 && checkedOptions.indexOf(optionName) < 0) {
       return true;
     }
     return false;
