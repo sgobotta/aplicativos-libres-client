@@ -284,6 +284,9 @@ class OrderList extends React.Component {
     if (selection.length === 2) {
       return `${selection[0]} y ${selection[1]}`;
     }
+    if (selection.length === 3) {
+      return `${selection[0]}, ${selection[1]} y ${selection[2]}`;
+    }
     return 'No eligió sabores... solo quiere figurar.';
   }
 
