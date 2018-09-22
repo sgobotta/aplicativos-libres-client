@@ -9,6 +9,8 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
 import Grid from '@material-ui/core/Grid';
+/** App Imports */
+import GeolocationContainer from 'containers/Geolocation';
 
 const styles = {
   card: {
@@ -33,6 +35,7 @@ export class Home extends React.PureComponent {
     const { classes } = this.props;
     return (
       <div key="Home" className="">
+        <GeolocationContainer />
         <Grid item xs={12}>
           <Card className={classes.card}>
             <CardHeader title="Sentimientos aleatorios..." />
