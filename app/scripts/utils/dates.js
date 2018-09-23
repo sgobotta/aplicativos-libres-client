@@ -83,4 +83,10 @@ utils.getElapsedTime = (creationDate) => {
   return parse(elapsedYears, 'año', elapsedMonths % 12, 'mes');
 };
 
+utils.getTodayDatetime = () => {
+  const today = moment().format('YYYY-MM-DD');
+  const datetime = moment().format('hh:mm:ss');
+  return `${today}T${datetime}`;
+}
+
 export const DateUtils = utils;

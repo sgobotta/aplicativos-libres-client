@@ -1,61 +1,67 @@
 .leaflet-container {
-  width: 100%;
-  height: 350px;
-  margin: 0 auto;
-  position: absolute;
-  text-align: 'center';
+  width: 95% !important;
+  height: 350px !important;
+  margin: 0 auto !important;
+  position: absolute !important;
+  text-align: 'center' !important;
 }
 
 @media screen and (max-width: 415px) {
   .leaflet-container {
-    width: 100%;
-    height: 300px;
-    margin: 0 auto;
-    position: absolute;
+    width: 90% !important;
+    height: 300px !important;
+    margin: 0 auto !important;
+    position: absolute !important;
   }
 }
 
 a.leaflet-bar-part {
-  display: none;
+  display: none !important;
 }
 
 div.leaflet-control-geosearch form {
-  width: 80%;
-  height: 30px;
-  font-size: 20px;
-  position: absolute;
-  z-index: 9999;
-  left: 40px;
+  height: 30px !important;
+  font-size: 20px !important;
+  position: absolute !important;
+  z-index: 9999 !important;
+  left: 40px !important;
 
   a.reset {
-    color: black;
-    font-weight: bold;
+    color: black !important;
+    font-weight: bold !important;
   }
 
   div.results {
-    color: black;
-    font-weight: bold;
-    cursor: pointer;
+    position: absolute;
+    color: black !important;
+    font-weight: bold !important;
+    cursor: pointer !important;
   }
 }
 
-
-
-//
-// input.glass {
-//   background-color: white;
-//   color: black;
-//   position: absolute;
-//   left: 45%;
-//   top: 10px;
-//   z-index: 9999;
-//   font-size: 20px;
-// }
+@media screen and (max-width: 415px) {
+  div.leaflet-control-geosearch form {
+    font-size: 14px !important;
+    max-width: 100% !important;
+  }
+}
 
 div.results-active {
-  position: absolute;
-  z-index: 9999;
-  margin-left: 60px;
-  background-color: white;
-  color: black;
+  position: absolute !important;
+  z-index: 9999 !important;
+  margin-left: 60px !important;
+  background-color: white !important;
+  color: black !important;
+}
+
+// #85 - Workaround only working in Chrome
+img.leaflet-marker-icon {
+  content: url($media-path + 'maps/marker-icon.png') !important;
+  source: url($media-path + 'maps/marker-icon.png') !important;
+  src: url($media-path + 'maps/marker-icon.png') !important;
+}
+
+// #85 - Workaround working for Firefox
+img.leaflet-marker-icon::after {
+  content: url($media-path + 'maps/marker-icon.png') !important;
 }

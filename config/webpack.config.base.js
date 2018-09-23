@@ -6,6 +6,7 @@ const CircularDependencyPlugin = require('circular-dependency-plugin');
 const autoprefixer = require('autoprefixer');
 const dateFns = require('date-fns');
 const paths = require('./paths');
+const path = require('path');
 
 const NPMPackage = require(paths.packageJson);
 
@@ -49,6 +50,7 @@ module.exports = {
       assets: paths.assets,
       modernizr$: paths.modernizrrc,
       test: paths.test,
+      leaflet_css: __dirname + "/node_modules/leaflet/dist/leaflet.css",
     },
     modules: [paths.appScripts, paths.nodeModules],
     extensions: ['.js', '.jsx', '.json'],
@@ -107,7 +109,13 @@ module.exports = {
         include: /fonts/,
       },
       {
+        test: /(marker-icon.png|marker-shadow.png|marker-icon-2x.png|layers-2x.png|layers.png)$/,
+        loader: 'file-loader',
+        include: /node_modules/,
+      },
+      {
         test: /\.(jpe?g|png|gif|svg|ico)$/i,
+        exclude: /node_modules/,
         use: [
           `file?hash=sha512&digest=hex${isProd ? '&name=media/[name].[ext]' : ''}`,
           {
@@ -141,6 +149,13 @@ module.exports = {
       {
         test: /\.md$/,
         use: ['html', 'markdown'],
+      },
+      {
+        test: /\leaflet.css$/,
+        use: [
+          {loader: "style-loader"},
+          {loader: "css-loader"}
+        ]
       },
     ],
   },
