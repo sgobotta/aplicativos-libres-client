@@ -1,6 +1,9 @@
 /** React Imports */
 import React from 'react';
 import PropTypes from 'prop-types';
+/** Leaflet */
+import 'leaflet/dist/leaflet';
+import 'leaflet/dist/leaflet.css';
 /** React Leaflet */
 import { Map, TileLayer, Marker, Popup } from 'react-leaflet';
 /** App Imports */
