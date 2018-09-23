@@ -22,6 +22,7 @@ import CustomMap from 'routes/CustomMap';
 import Settings from 'routes/Settings';
 import Orders from 'routes/Orders';
 import Statistics from 'routes/Statistics';
+import Events from 'routes/Events';
 
 import Header from 'components/Header';
 import Footer from 'components/Footer';
@@ -106,6 +107,7 @@ export class App extends React.Component {
               />
               <Route path="/map" component={CustomMap} />
               <Route path="/statistics" component={Statistics} />
+              <Route path="/events" component={Events} dispatch={dispatch} />
               <Route component={NotFound} />
             </Switch>
           </main>
