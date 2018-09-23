@@ -1,0 +1,61 @@
+.leaflet-container {
+  width: 100%;
+  height: 350px;
+  margin: 0 auto;
+  position: absolute;
+  text-align: 'center';
+}
+
+@media screen and (max-width: 415px) {
+  .leaflet-container {
+    width: 100%;
+    height: 300px;
+    margin: 0 auto;
+    position: absolute;
+  }
+}
+
+a.leaflet-bar-part {
+  display: none;
+}
+
+div.leaflet-control-geosearch form {
+  width: 80%;
+  height: 30px;
+  font-size: 20px;
+  position: absolute;
+  z-index: 9999;
+  left: 40px;
+
+  a.reset {
+    color: black;
+    font-weight: bold;
+  }
+
+  div.results {
+    color: black;
+    font-weight: bold;
+    cursor: pointer;
+  }
+}
+
+
+
+//
+// input.glass {
+//   background-color: white;
+//   color: black;
+//   position: absolute;
+//   left: 45%;
+//   top: 10px;
+//   z-index: 9999;
+//   font-size: 20px;
+// }
+
+div.results-active {
+  position: absolute;
+  z-index: 9999;
+  margin-left: 60px;
+  background-color: white;
+  color: black;
+}
