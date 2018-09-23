@@ -18,6 +18,7 @@ import SettingsIcon from '@material-ui/icons/SettingsSharp';
 import Restaurant from '@material-ui/icons/Restaurant';
 import PowerSettingsNew from '@material-ui/icons/PowerSettingsNew';
 import Assessment from '@material-ui/icons/Assessment';
+import EventIcon from '@material-ui/icons/Event';
 
 
 const drawerTheme = createMuiTheme({
@@ -84,6 +85,19 @@ class SwipeableTemporaryDrawer extends React.Component {
           </IconButton>
         </ListItemIcon>
         <ListItemText primary="Estadísticas" />
+      </ListItem>
+    );
+  }
+
+  renderEvents() {
+    return (
+      <ListItem button onClick={this.goToRoute('/events')}>
+        <ListItemIcon>
+          <IconButton>
+            <EventIcon />
+          </IconButton>
+        </ListItemIcon>
+        <ListItemText primary="Eventos" />
       </ListItem>
     );
   }
@@ -159,6 +173,7 @@ class SwipeableTemporaryDrawer extends React.Component {
           <Divider />
           <List disablePadding={true}>
             { this.renderStatistics() }
+            { this.renderEvents() }
             <Divider />
             { this.renderOrders() }
             { this.renderSettings() }
