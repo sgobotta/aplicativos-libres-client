@@ -29,6 +29,11 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
   return result;
 }
 
+function getCurrentPosition(resolve, reject, options) {
+  navigator.geolocation.getCurrentPosition(resolve, reject, options);
+}
+
 utils.getDistance = (lat1, lon1, lat2, lon2) => calculateDistance(lat1, lon1, lat2, lon2);
+utils.getCurrentPosition = getCurrentPosition;
 
 export const GeoUtils = utils;
