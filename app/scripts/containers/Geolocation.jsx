@@ -24,10 +24,12 @@ export default class Geolocation extends React.Component {
       latitude: null,
       longitude: null,
     };
+    this.searchRef = React.createRef();
   }
 
+
   static propTypes = {
-    onViewportChanged: PropTypes.func,
+    onSearchSubmit: PropTypes.func,
   }
 
   /**
@@ -69,8 +71,17 @@ export default class Geolocation extends React.Component {
     )
   );
 
-  onViewportChanged = (viewport) => {
-    this.props.onViewportChanged(viewport);
+  onSearchSubmit = () => {
+    const { resultList } = this.searchRef.current.leafletElement;
+    if (resultList.results && resultList.results.length > 0) {
+      const result = resultList.results[0];
+      const data = {
+        latitude: result.y,
+        longitude: result.x,
+        address: result.label,
+      };
+      this.props.onSearchSubmit(data);
+    }
   }
 
   /**
@@ -99,7 +110,7 @@ export default class Geolocation extends React.Component {
         boxZoom={false}
         scrollWheelZoom={false}
         keyboard={false}
-        onViewportChanged={this.onViewportChanged}
+        onViewportChanged={this.onSearchSubmit}
       >
         <TileLayer
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -110,7 +121,7 @@ export default class Geolocation extends React.Component {
             ¡Estás acá!
           </Popup>
         </Marker>
-        <SearchControl position="topleft" />
+        <SearchControl position="topleft" ref={this.searchRef} />
       </Map>
     );
   }
