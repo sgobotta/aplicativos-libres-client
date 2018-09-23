@@ -1,5 +1,5 @@
 .leaflet-container {
-  width: 100%;
+  width: 95%;
   height: 350px;
   margin: 0 auto;
   position: absolute;
@@ -8,7 +8,7 @@
 
 @media screen and (max-width: 415px) {
   .leaflet-container {
-    width: 100%;
+    width: 90%;
     height: 300px;
     margin: 0 auto;
     position: absolute;
@@ -20,7 +20,6 @@ a.leaflet-bar-part {
 }
 
 div.leaflet-control-geosearch form {
-  width: 80%;
   height: 30px;
   font-size: 20px;
   position: absolute;
