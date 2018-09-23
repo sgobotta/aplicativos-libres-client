@@ -1,7 +1,20 @@
 /** React Imports */
 import React from 'react';
+import PropTypes from 'prop-types';
+/** React Leaflet */
+import { Map, TileLayer, Marker, Popup } from 'react-leaflet';
 /** App Imports */
+import SearchControl from 'components/maps/SearchControl';
 import { GeoUtils } from 'utils';
+import Loader from 'components/Loader';
+
+const styles = {
+  map: {
+    textAlign: 'center',
+    color: 'white',
+  },
+};
+
 
 export default class Geolocation extends React.Component {
   constructor(props) {
@@ -10,8 +23,11 @@ export default class Geolocation extends React.Component {
     this.state = {
       latitude: null,
       longitude: null,
-      distance: null,
     };
+  }
+
+  static propTypes = {
+    onViewportChanged: PropTypes.func,
   }
 
   /**
@@ -31,13 +47,10 @@ export default class Geolocation extends React.Component {
   loadPosition = async () => {
     try {
       const position = await this.getCurrentPosition();
-      const distance = await this.getDistance(position.coords);
-      console.log(`Distance: ${distance}`);
       const { latitude, longitude } = position.coords;
       this.setState({
         latitude,
         longitude,
-        distance,
       });
     }
     catch (error) {
@@ -45,11 +58,10 @@ export default class Geolocation extends React.Component {
     }
   };
 
-  getCurrentPosition = (options = {}) => {
-    return new Promise((resolve, reject) => {
-      navigator.geolocation.getCurrentPosition(resolve, reject, options);
-    });
-  };
+  getCurrentPosition = async (options = {}) => new Promise((resolve, reject) => {
+    GeoUtils.getCurrentPosition(resolve, reject, options);
+  });
+
 
   getDistance = async (coords) => new Promise(
     (resolve) => resolve(
@@ -57,16 +69,66 @@ export default class Geolocation extends React.Component {
     )
   );
 
+  onViewportChanged = (viewport) => {
+    this.props.onViewportChanged(viewport);
+  }
+
   /**
    * Render Methods
    **/
 
-  render() {
+  renderLoader() {
     return (
-      <div style={{ color: 'white' }}>
-        <p>Latitude {this.state.latitude}</p>
-        <p>Longitude {this.state.longitude}</p>
-        <p>Distance {this.state.distance}</p>
+      <Loader />
+    );
+  }
+
+  renderMap() {
+    const { latitude, longitude } = this.state;
+    const position = {
+      lat: latitude,
+      lng: longitude,
+    };
+    return (
+      <Map
+        center={position}
+        zoom={15}
+        zoomControl={false}
+        doubleClickZoom={false}
+        dragging={false}
+        boxZoom={false}
+        scrollWheelZoom={false}
+        keyboard={false}
+        onViewportChanged={this.onViewportChanged}
+      >
+        <TileLayer
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
+        />
+        <Marker position={position}>
+          <Popup>
+            ¡Estás acá!
+          </Popup>
+        </Marker>
+        <SearchControl position="topleft" />
+      </Map>
+    );
+  }
+
+  render() {
+    if (this.state.latitude && this.state.longitude) {
+      return (
+        <div>
+          <div style={styles.map}>
+            { this.renderMap() }
+          </div>
+        </div>
+      );
+    }
+    return (
+      <div style={styles.map}>
+        { this.renderLoader() }
+        <h5>Es necesario activar la geolocalización para cargar un evento</h5>
       </div>
     );
   }
