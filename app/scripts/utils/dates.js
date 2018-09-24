@@ -3,6 +3,26 @@ import moment from 'moment';
 
 const utils = {};
 
+/** Helpers */
+
+const months = [
+  'Enero',
+  'Febrero',
+  'Marzo',
+  'Abril',
+  'Mayo',
+  'Junio',
+  'Julio',
+  'Agosto',
+  'Septiembre',
+  'Octubre',
+  'Noviembre',
+  'Diciembre',
+];
+
+function getMonth(monthIndex) {
+  return months[monthIndex];
+}
 
 function isToday(date) {
   const now = moment();
@@ -11,6 +31,14 @@ function isToday(date) {
     now.month() === date.month() &&
     now.year() === date.year()
   );
+}
+
+function parseMinutes(minutes) {
+  const mins = `${minutes}`;
+  if (mins.length === 1) {
+    return `0${mins}`;
+  }
+  return mins;
 }
 
 /**
@@ -87,6 +115,18 @@ utils.getTodayDatetime = () => {
   const today = moment().format('YYYY-MM-DD');
   const datetime = moment().format('hh:mm:ss');
   return `${today}T${datetime}`;
+}
+
+utils.getParsedDate = (date) => {
+  const object = moment(date);
+  const day = object.date();
+  let month = object.month();
+  month = getMonth(month);
+  const year = object.year();
+  const hour = object.hour();
+  let minutes = object.minutes();
+  minutes = parseMinutes(minutes);
+  return `${day} de ${month} de ${year}, ${hour}:${minutes}hs`;
 }
 
 export const DateUtils = utils;
