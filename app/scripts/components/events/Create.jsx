@@ -243,7 +243,7 @@ class CreateEvent extends React.Component {
                   />
                 </FormControl>
               </Grid>
-              <Grid item xs={12} style={{ height: '520px' }}>
+              <Grid item xs={12} style={{ height: '600px' }}>
                 { this.renderCoordinatesFeedback() }
                 <GeolocationContainer
                   onSearchSubmit={this.onSearchSubmit}
