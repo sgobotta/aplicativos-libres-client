@@ -148,7 +148,7 @@
     "yargs": "^11.1.0"
   },
   "scripts": {
-    "start": "node tools/start.js",
+    "start": "HTTPS=true node tools/start.js",
     "build": "NODE_ENV=production webpack --config config/webpack.config.prod.js --hide-modules --display-optimization-bailout",
     "build:serve": "npm run build && npm run serve",
     "analyze": "NODE_ENV=production webpack --config config/webpack.config.prod.js --profile --json > webpack.stats.json",
