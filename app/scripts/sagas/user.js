@@ -108,6 +108,57 @@ export function* patchUser({ payload }) {
 
 
 /**
+ * @function fb login
+ */
+export function* loginFb({ payload }) {
+  console.log('saga payload', payload)
+  try {
+    // yield put(showLoading());
+    const service = {
+      service: 'fb-user',
+      action: 'create',
+      payload,
+    };
+
+    const data = yield call(request, service);
+    yield put({
+      type: ActionTypes.USER_FB_LOGIN_SUCCESS,
+      payload: data,
+    });
+  }
+  catch (err) {
+    /* istanbul ignore next */
+    yield put({
+      type: ActionTypes.USER_FB_LOGIN_FAILURE,
+      payload: err,
+    });
+  }
+  finally {
+    yield put(hideLoading());
+  }
+}
+
+export function* logoutFb({ payload }) {
+  try {
+    payload.query.strategy = 'facebook';
+    const service = {
+      service: 'fb-user',
+      action: 'remove',
+      payload: payload.id,
+    }
+  }
+  catch (err) {
+    yield put({
+      type: ActionTypes.USER_FB_LOGOUT_FAILURE,
+      payload: err,
+    });
+  }
+  finally {
+    yield put(hideLoading());
+  }
+}
+
+/**
  * User Sagas
  */
 export default function* root() {
@@ -115,5 +166,7 @@ export default function* root() {
     takeLatest(ActionTypes.USER_LOGIN_REQUEST, login),
     takeLatest(ActionTypes.USER_LOGOUT_REQUEST, logout),
     takeLatest(ActionTypes.SERVICES_USERS_PATCH, patchUser),
+    takeLatest(ActionTypes.USER_FB_LOGIN_REQUEST, loginFb),
+    takeLatest(ActionTypes.USER_FB_LOGOUT_REQUEST, logoutFb),
   ]);
 }

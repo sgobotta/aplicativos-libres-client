@@ -40,3 +40,22 @@ export function patchUser(data: Object): Object {
     payload: { data },
   };
 }
+
+/**
+ * Fb Authentication
+ *
+ * @returns {Object}
+ */
+ export function loginFb(data: Object): Object {
+   return {
+     type: ActionTypes.USER_FB_LOGIN_REQUEST,
+     payload: { data },
+   };
+ }
+
+ export function logoutFb(): Object {
+   return {
+     type: ActionTypes.USER_FB_LOGOUT_REQUEST,
+     payload: {},
+   };
+ }

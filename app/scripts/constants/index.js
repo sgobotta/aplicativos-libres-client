@@ -23,6 +23,12 @@ export const ActionTypes = keyMirror({
   USERS_LOGOUT_REQUEST: undefined,
   USERS_LOGOUT_SUCCESS: undefined,
   USERS_LOGOUT_FAILURE: undefined,
+  USER_FB_LOGIN_REQUEST: undefined,
+  USER_FB_LOGIN_SUCCESS: undefined,
+  USER_FB_LOGIN_FAILURE: undefined,
+  USER_FB_LOGOUT_REQUEST: undefined,
+  USER_FB_LOGOUT_SUCCESS: undefined,
+  USER_FB_LOGOUT_FAILURE: undefined,
 
   SERVICES_USERS_PATCH: undefined,
   SERVICES_USERS_PATCH_FULFILLED: undefined,
