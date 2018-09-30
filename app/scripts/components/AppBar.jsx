@@ -9,6 +9,7 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import { Link } from 'react-router-dom';
 import { logOut, toggleDrawer } from 'actions';
+import SocialAuth from 'components/authentication/SocialAuth';
 
 
 const styles = {
@@ -36,6 +37,29 @@ class ButtonAppBar extends React.Component {
     this.props.dispatch(toggleDrawer());
   }
 
+  handleAuthenticate = (e) => {
+    e.preventDefault();
+    const user = {
+      id: '5b9dce6000e01d049c20fe5e',
+      email: 'santiago@camba.coop',
+    };
+  }
+
+  renderAnotherFacebookButton() {
+    return (
+      <SocialAuth />
+    );
+  }
+
+  renderFacebookButton() {
+    const { classes } = this.props;
+    return (
+      <Typography align="left" variant="title" color="inherit" className={classes.menuItem}>
+        <a href="#" onClick={this.handleAuthenticate} style={{ color: 'white' }} className="button">Login With Facebook</a>
+      </Typography>
+    );
+  }
+
   render() {
     const { classes, user } = this.props;
     return (
@@ -50,6 +74,7 @@ class ButtonAppBar extends React.Component {
                 <Button>Portada</Button>
               </Link>
             </Typography>
+            { this.renderAnotherFacebookButton() }
             { !user.isAuthenticated &&
               <Typography align="right" variant="title" color="inherit" className={classes.menuItem}>
                 <Link to="/login">
