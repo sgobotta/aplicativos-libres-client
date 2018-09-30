@@ -2,8 +2,10 @@
 const SocketDispatcher = {};
 
 function dispatchAuthentication(service, action, payload) {
-  const newPayload = payload;
-  newPayload.strategy = 'local';
+  let newPayload = payload;
+  if (!newPayload.strategy) {
+    newPayload.strategy = 'local';
+  }
   return newPayload;
 }
 
@@ -62,12 +64,25 @@ function dispatchUsers(service, action, payload) {
   return actions[action]();
 }
 
+function dispatchFbUser(service, action, payload) {
+  const actions = {
+    create: () => createFbUser(payload),
+  };
+  return actions[action]();
+}
+
+function createFbUser(payload) {
+  console.log('payload', payload)
+  return payload;
+}
+
 SocketDispatcher.dispatchByService = (service, action, payload, dispatch) => {
   const clientServices = {
     authentication: () => dispatchAuthentication(service, action, payload, dispatch),
     orders: () => dispatchOrders(service, action, payload, dispatch),
     users: () => dispatchUsers(service, action, payload, dispatch),
     votes: () => payload,
+    'fb-user': () => dispatchFbUser(service, action, payload),
   };
   return clientServices[service]();
 };
