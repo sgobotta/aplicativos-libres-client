@@ -8,8 +8,9 @@ import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import deepPurple from '@material-ui/core/colors/deepPurple';
-import AccountCircle from '@material-ui/icons/AccountCircle';
 import SwipeableViews from 'react-swipeable-views';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import CachedIcon from '@material-ui/icons/Cached';
 /** Custom Imports */
 import UserSettings from 'components/settings/UserSettings';
 import SocialSettings from 'components/settings/SocialSettings';
@@ -71,7 +72,6 @@ class Settings extends React.Component {
 
   render() {
     const { index } = this.state;
-    const { user } = this.props
     return (
       <MuiThemeProvider key="Settings" theme={appBarTheme}>
         <AppBar
@@ -85,8 +85,8 @@ class Settings extends React.Component {
             indicatorColor="secondary"
             textColor="secondary"
           >
-            <Tab label="Usuario" icon={<AccountCircle />} />
-            <Tab label="Social" icon={<AccountCircle />} />
+            <Tab label="Usuario" icon={<AccountCircleIcon />} />
+            <Tab label="Social" icon={<CachedIcon />} />
           </Tabs>
         </AppBar>
         <SwipeableViews

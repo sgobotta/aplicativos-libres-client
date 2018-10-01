@@ -19,7 +19,7 @@ class SocialAuthenticator extends React.Component {
     };
   }
 
-  handleClick = (event) => {
+  handleClick = () => {
     this.setState({ isSynchronizing: true });
   }
 
@@ -43,7 +43,7 @@ class SocialAuthenticator extends React.Component {
   }
 
   renderRequest() {
-    const { user, customButton } = this.props;
+    const { user } = this.props;
     const { isSynchronizing } = this.state;
     if (!user.hasFbAuth) {
       return (
@@ -65,7 +65,7 @@ class SocialAuthenticator extends React.Component {
                   style={{ fontWeight: 'bold', color: 'rgb(0, 120, 215)' }}
                   onClick={renderProps.onClick}
                 >
-                  {customButton} <span>Sincronizar</span>
+                  <span>Sincronizar</span>
                 </Button>
               }
             </React.Fragment>

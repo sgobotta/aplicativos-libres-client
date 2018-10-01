@@ -13,7 +13,6 @@ import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 /** Material Ui Icons */
-import CachedIcon from '@material-ui/icons/Cached';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import CheckCircleOutlinedIcon from '@material-ui/icons/CheckCircleOutlined';
 /** Custom Imports */
@@ -69,7 +68,7 @@ class SocialSettings extends React.Component {
                     className={classes.button} size="small"
                     onClick={this.handleStopSocialSync}
                   >
-                    <CachedIcon style={{ textAlign: 'center' }} /> <span>Terminar Sincronización</span>
+                    <span>Terminar Sincronización</span>
                   </Button>
                 </Typography>
               </Grid>
@@ -92,11 +91,7 @@ class SocialSettings extends React.Component {
           </CardContent>
           <CardActions align="center">
             <Typography variant="button" align="center" className={classes.button}>
-              <SocialAuth
-                customButton={
-                  <CachedIcon style={{ textAlign: 'center' }} />
-                }
-              />
+              <SocialAuth />
             </Typography>
           </CardActions>
         </Card>
