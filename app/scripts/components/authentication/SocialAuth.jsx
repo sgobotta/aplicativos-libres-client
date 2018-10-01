@@ -8,12 +8,19 @@ import { connect } from 'react-redux';
 import Button from '@material-ui/core/Button';
 /** Custom Imports */
 import { loginFb } from 'actions';
+import Loader from 'components/Loader';
 
 
 class SocialAuthenticator extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      isSynchronizing: false,
+    };
+  }
+
+  handleClick = (event) => {
+    this.setState({ isSynchronizing: true });
   }
 
   onResponseSuccess = (response) => {
@@ -23,30 +30,47 @@ class SocialAuthenticator extends React.Component {
       const { user } = this.props;
       const request = { user, fbData: response };
       authorizeFb(request);
+      this.setState({ isSynchronizing: false });
       return;
     }
+    this.setState({ isSynchronizing: false });
     window.FB.logout();
   }
 
   onResponseFailure = (status) => {
-    if (status === undefined) console.log('feiscat');
+    if (status === undefined) console.log('feiscat response failed');
+    this.setState({ isSynchronizing: false });
   }
 
   renderRequest() {
     const { user, customButton } = this.props;
+    const { isSynchronizing } = this.state;
     if (!user.hasFbAuth) {
       return (
         <FacebookLogin
           appId="321334748398061"
           autoLoad={false}
           render={renderProps => (
-            <Button
-              style={{ fontWeight: 'bold', color: 'rgb(0, 120, 215)' }}
-              onClick={renderProps.onClick}
-            >
-              {customButton} <span>Sincronizar</span>
-            </Button>
+            <React.Fragment>
+              { isSynchronizing &&
+                <Button
+                  style={{ fontWeight: 'bold', color: 'rgb(0, 120, 215)' }}
+                  disabled
+                >
+                  <span>Sincronizando...</span><Loader />
+                </Button>
+              }
+              { !isSynchronizing &&
+                <Button
+                  style={{ fontWeight: 'bold', color: 'rgb(0, 120, 215)' }}
+                  onClick={renderProps.onClick}
+                >
+                  {customButton} <span>Sincronizar</span>
+                </Button>
+              }
+            </React.Fragment>
           )}
+          onClick={this.handleClick}
           fields="name,email,picture"
           callback={this.onResponseSuccess}
           onFailure={this.onResponseFailure}
