@@ -111,7 +111,6 @@ export function* patchUser({ payload }) {
  * @function fb login
  */
 export function* loginFb({ payload }) {
-  console.log('saga payload', payload)
   try {
     // yield put(showLoading());
     const service = {
@@ -140,12 +139,15 @@ export function* loginFb({ payload }) {
 
 export function* logoutFb({ payload }) {
   try {
-    payload.query.strategy = 'facebook';
     const service = {
       service: 'fb-user',
       action: 'remove',
-      payload: payload.id,
+      payload: payload.query,
     }
+    const data = yield call(request, service);
+    yield put({
+      type: ActionTypes.USER_FB_LOGOUT_SUCCESS,
+    });
   }
   catch (err) {
     yield put({

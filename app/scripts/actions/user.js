@@ -53,9 +53,9 @@ export function patchUser(data: Object): Object {
    };
  }
 
- export function logoutFb(): Object {
+ export function logoutFb(query: Object): Object {
    return {
      type: ActionTypes.USER_FB_LOGOUT_REQUEST,
-     payload: {},
+     payload: { query },
    };
  }

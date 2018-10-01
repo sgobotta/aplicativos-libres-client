@@ -75,5 +75,12 @@ export default {
         fbData: { $set: {} },
       });
     },
+    [ActionTypes.USER_FB_LOGOUT_FAILURE](state) {
+      return immutable(state, {
+        hasFbAuth: { $set: false },
+        status: { $set: 'idle' },
+        fbData: { $set: {} },
+      });
+    },
   }),
 };
