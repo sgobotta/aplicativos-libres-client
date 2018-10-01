@@ -67,12 +67,12 @@ function dispatchUsers(service, action, payload) {
 function dispatchFbUser(service, action, payload) {
   const actions = {
     create: () => createFbUser(payload),
+    remove: () => payload.id,
   };
   return actions[action]();
 }
 
 function createFbUser(payload) {
-  console.log('payload', payload)
   return payload;
 }
 
