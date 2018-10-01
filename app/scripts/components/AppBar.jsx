@@ -74,7 +74,6 @@ class ButtonAppBar extends React.Component {
                 <Button>Portada</Button>
               </Link>
             </Typography>
-            { this.renderAnotherFacebookButton() }
             { !user.isAuthenticated &&
               <Typography align="right" variant="title" color="inherit" className={classes.menuItem}>
                 <Link to="/login">
