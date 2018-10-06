@@ -82,6 +82,11 @@ export const ActionTypes = keyMirror({
   SERVICES_ORDERS_PATCH_FULFILLED: undefined,
   SERVICES_ORDERS_PATCH_PENDING: undefined,
   SERVICES_ORDERS_PATCH_REJECTED: undefined,
+
+  SERVICES_FB_EVENTS_FIND: undefined,
+  SERVICES_FB_EVENTS_FIND_FULFILLED: undefined,
+  SERVICES_FB_EVENTS_FIND_PENDING: undefined,
+  SERVICES_FB_EVENTS_FIND_REJECTED: undefined,
 });
 
 /**

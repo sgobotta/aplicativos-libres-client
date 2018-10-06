@@ -12,7 +12,6 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import CardContent from '@material-ui/core/CardContent';
 import DeleteIcon from '@material-ui/icons/Delete';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Divider from '@material-ui/core/Divider';
 import SaveIcon from '@material-ui/icons/Save';
 /** Application Imports */
@@ -470,7 +469,7 @@ class OrderList extends React.Component {
     );
   }
 
-  renderExpansionDetails(order) {
+  renderExpansionPanelDetails(order) {
     return (
       <Grid container direction="row">
         <Grid item xs={12}>
@@ -480,7 +479,7 @@ class OrderList extends React.Component {
     );
   }
 
-  renderExpansionActions(order) {
+  renderExpansionPanelActions(order) {
     return (
       <React.Fragment>
         { this.renderOptions(order) }
@@ -501,11 +500,10 @@ class OrderList extends React.Component {
       >
         <ExpansionPanel
           actionsClassName={classes.expansionPanelActions}
-          actionsContent={this.renderExpansionActions(order)}
+          actionsContent={this.renderExpansionPanelActions(order)}
           detailsClassName={classes.expansionPanelDetails}
-          detailsContent={this.renderExpansionDetails(order)}
+          detailsContent={this.renderExpansionPanelDetails(order)}
           expanded={expanded === `panel${index}`}
-          expandIcon={<ExpandMoreIcon />}
           onChange={this.handlePanelToggling(`panel${index}`)}
           panelClassName={
             classNames(
