@@ -12,13 +12,11 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import CardContent from '@material-ui/core/CardContent';
 import DeleteIcon from '@material-ui/icons/Delete';
-import ExpansionPanel from '@material-ui/core/ExpansionPanel';
-import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
-import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
-import ExpansionPanelActions from '@material-ui/core/ExpansionPanelActions';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Divider from '@material-ui/core/Divider';
 import SaveIcon from '@material-ui/icons/Save';
+/** Application Imports */
+import ExpansionPanel from 'components/custom/ExpansionPanel';
 
 /** Miscellaneous Imports */
 import { DateUtils } from 'utils';
@@ -59,9 +57,6 @@ const styles = theme => ({
     color: theme.palette.text.secondary,
     alignText: 'right',
   },
-  details: {
-    alignItems: 'center',
-  },
   column: {
     flexBasis: '100.00%',
   },
@@ -72,10 +67,7 @@ const styles = theme => ({
       textDecoration: 'underline',
     },
   },
-  panelActions: {
-    padding: '5px 5px 5px 10px',
-  },
-  itemCard: {
+  expansionPanel: {
     padding: '5px 5px 5px 5px',
     borderRadius: '0px',
     '&:hover': {
@@ -83,6 +75,19 @@ const styles = theme => ({
       marginBottom: '12px',
       borderBottomLeftRadius: '7px',
     },
+    borderTopLeftRadius: '0px !important',
+    borderTopRightRadius: '0px !important',
+    borderBottomRightRadius: '0px !important',
+  },
+  expansionPanelSummary: {
+    padding: '0 4px 0 4px',
+  },
+  expansionPanelDetails: {
+    alignItems: 'center',
+    padding: '0 4px 0 4px',
+  },
+  expansionPanelActions: {
+    padding: '5px 5px 5px 10px',
   },
   orderFinished: {
     borderBottomLeftRadius: '7px',
@@ -370,6 +375,8 @@ class OrderList extends React.Component {
     return null;
   }
 
+  /** Actions Render */
+
   renderLeaveButton(order) {
     const { user } = this.props;
 
@@ -435,70 +442,80 @@ class OrderList extends React.Component {
     return null;
   }
 
+  /** Expansion Panel Render */
+
+  renderExpansionPanelSummary(order) {
+    const { classes } = this.props;
+    return (
+      <Grid container direction="row">
+        <Grid item xs={6}>
+          <Typography className={classes.heading}>
+            {this.renderUsername(order.author)}
+          </Typography>
+          <Typography>
+            {order.title}
+          </Typography>
+        </Grid>
+        <Grid item xs={6}>
+          <div className={classes.column} style={{ padding: '0 4px 0 4px' }}>
+            <Typography align="right" className={classes.secondaryHeading}>
+              {this.renderCreationDate(order)}
+            </Typography>
+          </div>
+        </Grid>
+        <Grid item xs={12}>
+          { this.renderOrderInfo(order) }
+        </Grid>
+      </Grid>
+    );
+  }
+
+  renderExpansionDetails(order) {
+    return (
+      <Grid container direction="row">
+        <Grid item xs={12}>
+          { this.renderParticipants(order) }
+        </Grid>
+      </Grid>
+    );
+  }
+
+  renderExpansionActions(order) {
+    return (
+      <React.Fragment>
+        { this.renderOptions(order) }
+        { this.renderLeaveButton(order) }
+        { this.renderFinishAction(order) }
+        { this.renderDeleteAction(order) }
+      </React.Fragment>
+    );
+  }
+
   renderOrder(order, index) {
     const { classes } = this.props;
     const { expanded } = this.state;
     return (
       <div
-        className={
-          classNames(classes.root)
-        }
+        className={classNames(classes.root)}
         key={index}
       >
         <ExpansionPanel
-          className={
+          actionsClassName={classes.expansionPanelActions}
+          actionsContent={this.renderExpansionActions(order)}
+          detailsClassName={classes.expansionPanelDetails}
+          detailsContent={this.renderExpansionDetails(order)}
+          expanded={expanded === `panel${index}`}
+          expandIcon={<ExpandMoreIcon />}
+          onChange={this.handlePanelToggling(`panel${index}`)}
+          panelClassName={
             classNames(
-              classes.itemCard,
+              classes.expansionPanel,
               order.isActive ? '' : classes.orderFinished
             )
           }
-          expanded={expanded === `panel${index}`}
-          onChange={this.handlePanelToggling(`panel${index}`)}
-          style={{
-            borderTopLeftRadius: '0px',
-            borderTopRightRadius: '0px',
-            borderBottomRightRadius: '0px',
-          }}
-        >
-          <ExpansionPanelSummary
-            style={{ padding: '0 4px 0 4px' }}
-            expandIcon={<ExpandMoreIcon />}
-          >
-            <Grid container direction="row">
-              <Grid item xs={6}>
-                <Typography className={classes.heading}>
-                  {this.renderUsername(order.author)}
-                </Typography>
-                <Typography>
-                  {order.title}
-                </Typography>
-              </Grid>
-              <Grid item xs={6}>
-                <div className={classes.column} style={{ padding: '0 4px 0 4px' }}>
-                  <Typography align="right" className={classes.secondaryHeading}>
-                    {this.renderCreationDate(order)}
-                  </Typography>
-                </div>
-              </Grid>
-              <Grid item xs={12}>
-                { this.renderOrderInfo(order) }
-              </Grid>
-            </Grid>
-          </ExpansionPanelSummary>
-          <ExpansionPanelDetails className={classes.details} style={{ padding: '0 4px 0 4px' }}>
-            <Grid container direction="row">
-              <Grid item xs={12}>
-                { this.renderParticipants(order) }
-              </Grid>
-            </Grid>
-          </ExpansionPanelDetails>
-          <ExpansionPanelActions className={classes.panelActions}>
-            { this.renderOptions(order) }
-            { this.renderLeaveButton(order) }
-            { this.renderFinishAction(order) }
-            { this.renderDeleteAction(order) }
-          </ExpansionPanelActions>
-        </ExpansionPanel>
+          summaryClassName={classNames(classes.expansionPanelSummary)}
+          summaryContent={this.renderExpansionPanelSummary(order)}
+        />
       </div>
     );
   }
