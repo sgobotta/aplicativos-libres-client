@@ -88,7 +88,6 @@ class SocialAuthenticator extends React.Component {
 
 SocialAuthenticator.propTypes = {
   authorizeFb: PropTypes.func.isRequired,
-  customButton: PropTypes.node,
   user: PropTypes.object.isRequired,
 };
 
