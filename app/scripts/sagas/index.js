@@ -6,6 +6,7 @@ import messages from './messages';
 import votes from './abortion-project';
 import ui from './ui';
 import orders from './orders';
+import fbEvents from './fb-events';
 
 /**
  * rootSaga
@@ -18,5 +19,6 @@ export default function* root() {
     fork(votes),
     fork(ui),
     fork(orders),
+    fork(fbEvents),
   ]);
 }
