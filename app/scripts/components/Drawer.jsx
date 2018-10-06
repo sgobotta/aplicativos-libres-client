@@ -120,20 +120,16 @@ class SwipeableTemporaryDrawer extends React.Component {
   }
 
   renderSettings() {
-    const { user } = this.props;
-    if (user.isAuthenticated) {
-      return (
-        <ListItem button onClick={this.goToRoute('/settings')}>
-          <ListItemIcon>
-            <IconButton>
-              <SettingsIcon />
-            </IconButton>
-          </ListItemIcon>
-          <ListItemText primary="Configuraciones" />
-        </ListItem>
-      );
-    }
-    return null;
+    return (
+      <ListItem button onClick={this.goToRoute('/settings')}>
+        <ListItemIcon>
+          <IconButton>
+            <SettingsIcon />
+          </IconButton>
+        </ListItemIcon>
+        <ListItemText primary="Configuraciones" />
+      </ListItem>
+    );
   }
 
   renderLogout() {

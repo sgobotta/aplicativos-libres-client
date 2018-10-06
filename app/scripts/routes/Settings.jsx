@@ -1,7 +1,7 @@
 /** React Imports */
 import React from 'react';
 /** Custom Imports */
-import SettingsContainer from 'containers/settings';
+import SettingsContainer from 'containers/Settings';
 
 
 class Settings extends React.Component {

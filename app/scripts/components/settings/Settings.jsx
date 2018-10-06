@@ -8,11 +8,12 @@ import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import deepPurple from '@material-ui/core/colors/deepPurple';
-import AccountCircle from '@material-ui/icons/AccountCircle';
 import SwipeableViews from 'react-swipeable-views';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import CachedIcon from '@material-ui/icons/Cached';
 /** Custom Imports */
-import UserSettings from './UserSettings';
-
+import UserSettings from 'components/settings/UserSettings';
+import SocialSettings from 'components/settings/SocialSettings';
 
 const appBarTheme = createMuiTheme({
   overrides: {
@@ -37,7 +38,7 @@ const appBarTheme = createMuiTheme({
 });
 
 
-class SettingsContainer extends React.Component {
+class Settings extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -63,6 +64,12 @@ class SettingsContainer extends React.Component {
     );
   }
 
+  renderSocialSettings() {
+    return (
+      <SocialSettings {...this.props} />
+    );
+  }
+
   render() {
     const { index } = this.state;
     return (
@@ -78,7 +85,8 @@ class SettingsContainer extends React.Component {
             indicatorColor="secondary"
             textColor="secondary"
           >
-            <Tab label="Usuario" icon={<AccountCircle />} />
+            <Tab label="Usuario" icon={<AccountCircleIcon />} />
+            <Tab label="Social" icon={<CachedIcon />} />
           </Tabs>
         </AppBar>
         <SwipeableViews
@@ -86,6 +94,7 @@ class SettingsContainer extends React.Component {
           onChangeIndex={this.handleChangeIndex}
         >
           { this.renderUserSettings() }
+          { this.renderSocialSettings() }
         </SwipeableViews>
       </MuiThemeProvider>
     );
@@ -97,4 +106,4 @@ function mapStateToProps(state) {
   return { user: state.user, users: state.users };
 }
 
-export default connect(mapStateToProps)(SettingsContainer);
+export default connect(mapStateToProps)(Settings);

@@ -96,15 +96,11 @@ export class App extends React.Component {
                 dispatch={dispatch}
               />
               <RoutePrivate
-                isAuthenticated={user.isAuthenticated} path="/settings"
-                component={Settings} store={app}
-                dispatch={dispatch}
-              />
-              <RoutePrivate
                 isAuthenticated={user.isAuthenticated} path="/orders"
                 component={Orders}
                 dispatch={dispatch}
               />
+              <Route path="/settings" component={Settings} />
               <Route path="/map" component={CustomMap} />
               <Route path="/statistics" component={Statistics} />
               <Route path="/events" component={Events} dispatch={dispatch} />

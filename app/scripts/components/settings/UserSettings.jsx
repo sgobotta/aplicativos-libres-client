@@ -75,6 +75,70 @@ class UserSettings extends React.Component {
     });
   }
 
+  renderForm() {
+    const { classes } = this.props;
+    return (
+      <Card className={classes.card}>
+        <CardContent>
+          <FormControl className={classes.formControl} margin="normal">
+            <TextField
+              name="username"
+              label="Modificar Usuario"
+              className={classes.textField}
+              type="text"
+              margin="normal"
+              value={this.state.username}
+              onChange={this.handleFieldChange}
+            />
+            <TextField
+              name="password"
+              label="Modificar Contraseña"
+              className={classes.textField}
+              type="password"
+              margin="normal"
+              value={this.state.password}
+              onChange={this.handleFieldChange}
+            />
+          </FormControl>
+        </CardContent>
+        <CardActions>
+          <Button
+            className={classes.cardAction} size="small"
+            onClick={this.handleSave}
+          >
+            <Typography variant="button" className={classes.button}>
+              <SaveIcon /> Confirmar
+            </Typography>
+          </Button>
+        </CardActions>
+      </Card>
+    );
+  }
+
+  renderVisitorForm() {
+    const { classes } = this.props;
+    return (
+      <Card className={classes.card}>
+        <CardContent>
+          <Typography variant="headline" component="h3">
+            No tenés cuenta :(
+          </Typography>
+          <Typography component="p">
+            No hay nada que ver acá...
+          </Typography>
+        </CardContent>
+      </Card>
+    );
+  }
+
+  renderContent() {
+    const { user } = this.props;
+    if (user.isAuthenticated) {
+      return this.renderForm();
+    }
+    return this.renderVisitorForm();
+  }
+
   render() {
     const { classes } = this.props;
     return (
@@ -82,40 +146,7 @@ class UserSettings extends React.Component {
         <Paper className={classes.root}>
           <Grid container>
             <Grid item xs={12} sm container>
-              <Card className={classes.card}>
-                <CardContent>
-                  <FormControl className={classes.formControl} margin="normal">
-                    <TextField
-                      name="username"
-                      label="Modificar Usuario"
-                      className={classes.textField}
-                      type="text"
-                      margin="normal"
-                      value={this.state.username}
-                      onChange={this.handleFieldChange}
-                    />
-                    <TextField
-                      name="password"
-                      label="Modificar Contraseña"
-                      className={classes.textField}
-                      type="password"
-                      margin="normal"
-                      value={this.state.password}
-                      onChange={this.handleFieldChange}
-                    />
-                  </FormControl>
-                </CardContent>
-                <CardActions>
-                  <Button
-                    className={classes.cardAction} size="small"
-                    onClick={this.handleSave}
-                  >
-                    <Typography variant="button" className={classes.button}>
-                      <SaveIcon /> Confirmar
-                    </Typography>
-                  </Button>
-                </CardActions>
-              </Card>
+              { this.renderContent() }
             </Grid>
           </Grid>
         </Paper>

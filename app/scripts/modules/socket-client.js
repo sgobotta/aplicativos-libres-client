@@ -28,7 +28,7 @@ feathersClient
 
 const services = reduxifyServices(
   feathersClient,
-  ['authentication', 'users', 'messages', 'votes', 'orders'],
+  ['authentication', 'users', 'messages', 'votes', 'orders', 'fb-user'],
 );
 
 export { services };
