@@ -71,7 +71,8 @@ class SocialAuthenticator extends React.Component {
             </React.Fragment>
           )}
           onClick={this.handleClick}
-          fields="name,email,picture"
+          fields="name,email,picture,events"
+          scope="email,public_profile,user_actions.events"
           callback={this.onResponseSuccess}
           onFailure={this.onResponseFailure}
           cssClass="facebook-button"
