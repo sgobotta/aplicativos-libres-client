@@ -1,4 +1,5 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom'
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -62,6 +63,21 @@ class ButtonAppBar extends React.Component {
 
   render() {
     const { classes, user } = this.props;
+    const Portada = withRouter(({ history }) => (
+      <Typography
+        align="left"
+        variant="title"
+        color="inherit"
+        className={classes.menuItem}
+        style={{ cursor: "pointer" }}
+        onClick={() => { history.push('/'); }}
+      >
+        Portada
+      </Typography>
+    ));
+    const Login = withRouter(({ history }) => (
+      <Button color="inherit" onClick={() => { history.push('/login'); }}>Ingresar</Button>
+    ));
     return (
       <div className={classes.root}>
         <AppBar position="static" style={{ backgroundColor: 'rgb(30, 120, 235)' }}>
@@ -69,17 +85,9 @@ class ButtonAppBar extends React.Component {
             <IconButton className={classes.menuButton} color="inherit" aria-label="Menu" onClick={this.handleDrawerClick}>
               <MenuIcon />
             </IconButton>
-            <Typography align="left" variant="title" color="inherit" className={classes.menuItem}>
-              <Link to="/">
-                <Button>Portada</Button>
-              </Link>
-            </Typography>
+            <Portada />
             { !user.isAuthenticated &&
-              <Typography align="right" variant="title" color="inherit" className={classes.menuItem}>
-                <Link to="/login">
-                  <Button>Ingresar</Button>
-                </Link>
-              </Typography>
+              <Login />
             }
           </Toolbar>
         </AppBar>
